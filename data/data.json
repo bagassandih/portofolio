@@ -1,0 +1,226 @@
+[
+    {
+        "HOME": {
+            "DESCRIPTION": "I'm a backend developer specializing in scalable web applications. Highly adaptable and open to learning new technologies to continuous learning, I excel in both independent and team settings, striving for excellence in every project",
+            "IMAGE": "./assets/asset-1.png"
+        },
+        "EXPERIENCES": [
+            {
+              "COMPANY": "Badan Sistem Informasi UII (Contract)",
+              "PERIOD": "Oktober 2024 -  Present",
+              "IMAGE": "./assets/asset-27.webp",
+              "SKILL": [
+                  "PHP",
+                  "Laravel Lumen",
+                  "OOP",
+                  "MySQL",
+                  "Golang",
+                  "Domain-Driven Design",
+                  "Kafka",
+                  "Gitlab",
+                  "Git"
+              ]
+            },
+            {
+                "COMPANY": "Kuitansiku.id (Freelance)",
+                "PERIOD": "January 2024 - February 2023",
+                "IMAGE": "./assets/asset-17.jpg",
+                "SKILL": [
+                    "Node.js",
+                    "Express.js",
+                    "GraphQL",
+                    "MongoDB",
+                    "JWT",
+                    "Git",
+                    "GitHub"
+                ]
+            },
+            {
+                "COMPANY": "ZettaByte Pte. Ltd (Contract)",
+                "PERIOD": "December 2022 - December 2023",
+                "IMAGE": "./assets/asset-18.jpg",
+                "SKILL": [
+                    "Node.js",
+                    "Express.js",
+                    "GraphQL",
+                    "MongoDB",
+                    "JWT",
+                    "Git",
+                    "GitHub",
+                    "HTML",
+                    "CSS",
+                    "JavaScript"
+                ]
+            }
+        ],
+        "EDUCATIONS": [
+            {
+                "TITLE": "Software Engineer Fundamental",
+                "COMPANY": "RevoU",
+                "PERIOD": "February 2024 - February 2024",
+                "TYPE": "Online Course"
+            },
+            {
+                "TITLE": "Zettacamp Batch#3 - Backend Developer",
+                "COMPANY": "Zettabyte Pte. Ltd",
+                "PERIOD": "September 2022 - December 2022",
+                "TYPE": "Itensive Bootcamp"
+            },
+            {
+                "TITLE": "Vocational High School - Computer and Network Engineering",
+                "COMPANY": "SMKN 1 Bawang",
+                "PERIOD": "May 2014 - May 2017",
+                "TYPE": "Formal Education"
+            }
+        ],
+        "HARDSKILLS": [
+            {
+                "IMAGE": "./assets/asset-5.png",
+                "TITLE": "Node.js"
+            },
+            {
+                "IMAGE": "./assets/asset-26.png",
+                "TITLE": "Express.js"
+            },
+            {
+                "IMAGE": "./assets/asset-6.png",
+                "TITLE": "MongoDB"
+            },
+            {
+                "IMAGE": "./assets/asset-7.png",
+                "TITLE": "GraphQL"
+            },
+            {
+                "IMAGE": "./assets/asset-20.png",
+                "TITLE": "JWT"
+            },
+            {
+                "IMAGE": "./assets/asset-13.png",
+                "TITLE": "Jest"
+            },
+            {
+                "IMAGE": "./assets/asset-14.png",
+                "TITLE": "Git"
+            },
+            {
+                "IMAGE": "./assets/asset-15.png",
+                "TITLE": "Github"
+            }
+        ],
+        "OTHERSKILLS": [
+            {
+                "IMAGE": "./assets/asset-8.png",
+                "TITLE": "HTML"
+            },
+            {
+                "IMAGE": "./assets/asset-9.png",
+                "TITLE": "CSS"
+            },
+            {
+                "IMAGE": "./assets/asset-10.png",
+                "TITLE": "Javascript"
+            },
+            {
+                "IMAGE": "./assets/asset-11.png",
+                "TITLE": "Swagger UI"
+            },
+            {
+                "IMAGE": "./assets/asset-12.png",
+                "TITLE": "React.js"
+            }    
+        ],
+        "SOFTSKILLS": [
+            { "TITLE": "Detail Oriented" },
+            { "TITLE": "Problem-Solving" },
+            { "TITLE": "Teamwork and Collaboration" },
+            { "TITLE": "Curiosity" },
+            { "TITLE": "Continuous Learning" },
+            { "TITLE": "Empathy" },
+            { "TITLE": "Self-Motivation" }
+        ],
+        "PROJECTS": [
+            {
+              "LINK": "github.com/bagassandih/bank-sampah-management-system",
+              "IMAGE": "./assets/asset-19.png",
+              "TITLE": "Bank Sampah Management System",
+              "DESCRIPTION": "MVC-based project facilitates waste bank management, including transaction recording and member management, to help administrators, especially my mother, run operations efficiently and organized.",
+              "SKILLS": [
+                "Node.js", "Express.js", "MongoDB", "JWT", "Chart.js", "Ejs", "HTML", "CSS", "JavaScript"
+              ]
+            },
+            {
+              "LINK": "github.com/bagassandih/mini-project-zettacamp-restaurant",
+              "IMAGE": "./assets/asset-21.png",
+              "TITLE": "Praedulcis - Restaurant API",
+              "DESCRIPTION": "This project was created during an intensive bootcamp from Zettabyte Pte. Ltd. over 3 months as the final project and proof of learning from those 3 months. Created API with techstack based on the company.",
+              "SKILLS": [
+                "Node.js", "Express.js", "MongoDB", "JWT", "GraphQL"
+              ]
+            },
+            {
+              "LINK": "github.com/bagassandih/another-chat-room",
+              "IMAGE": "./assets/asset-22.png",
+              "TITLE": "Another Chatroom",
+              "DESCRIPTION": "This is a chat room prototype using HTML, CSS, and JavaScript, with a server powered by Node.js, Socket.io, and Express.js for real-time communication. I delved into understanding how sockets could facilitate real-time communication.",
+              "SKILLS": [
+                "Node.js", "Express.js", "Socket.io", "HTML", "CSS", "JavaScript"
+              ]
+            },
+            {
+              "LINK": "github.com/bagassandih/celcius-to-fahrenheit",
+              "IMAGE": "./assets/asset-23.png",
+              "TITLE": "Celcius to Fahrenheit",
+              "DESCRIPTION": "An assignment for the Fundamental Software Engineer course from RevoU, with requirement to Displays the formula and its explanation and Converts Celsius to Fahrenheit, or vice versa.",
+              "SKILLS": [
+                "HTML", "CSS", "JavaScript", "JWT", "GraphQL"
+              ]
+            },
+            {
+              "LINK": "github.com/bagassandih/flickr-gallery",
+              "IMAGE": "./assets/asset-24.png",
+              "TITLE": "Flickr Feed Viewer and Search (Flickr Gallery)",
+              "DESCRIPTION": "Take Home Challenge project for the Software Engineer position from Vesperia as the first stage of the recruitment process before proceeding to the next stage.",
+              "SKILLS": [
+                "Node.js", "React.js", "Express.js", "HTML", "CSS", "JavaScript"
+              ]
+            },
+            {
+              "LINK": "github.com/bagassandih/BE-TechnicalTest-BagasArisandi",
+              "IMAGE": "./assets/asset-25.png",
+              "TITLE": "Library Management System - API",
+              "DESCRIPTION": "Technical Test for PT. EIGEN TRI MATHEMA as an project for the Backend Developer position. This is the first stage of the recruitment process before proceeding to the next stage.",
+              "SKILLS": [
+                "Express.js", "MongoDB", "Swagger", "Jest", "Domain-Driven Design"
+              ]
+            }
+        ],
+        "CONTACTS": [
+            {
+              "LINK": "www.linkedin.com/in/bagassandih",
+              "IMAGE": "./assets/asset-16.png",
+              "TITLE": "LinkedIn"
+            },
+            {
+              "LINK": "www.youtube.com/@bagassandih",
+              "IMAGE": "./assets/asset-2.png",
+              "TITLE": "Youtube Channel"
+            },
+            {
+              "LINK": "www.instagram.com/bagassandih",
+              "IMAGE": "./assets/asset-3.png",
+              "TITLE": "Instagram"
+            },
+            {
+              "LINK": "bagassandi13@gmail.com",
+              "IMAGE": "./assets/asset-4.png",
+              "TITLE": "Gmail"
+            },
+            {
+              "LINK": "github.com/bagassandih",
+              "IMAGE": "./assets/asset-15.png",
+              "TITLE": "Github"
+            }
+        ],
+        "CONTACT_DESCRIPTION": "Please feel free to reach out with any questions or inquiries. Whether providing feedback, discussing a potential collaboration, or simply connecting, all communications are welcome. Contact can be made via email, social media, or through the contact form on this website. Looking forward to connecting."
+    }
+]
