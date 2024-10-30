@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#" onclick="scrollElement('home')">Home</a></li>
+        <li><a href="#" onclick="scrollElement('experience')">Experience</a></li>
+        <li><a href="#" onclick="scrollElement('education')">Education</a></li>
+        <li><a href="#" onclick="scrollElement('skills')">Skills</a></li>
+        <li><a href="#" onclick="scrollElement('project')">Project</a></li>
+        <li><a href="#" onclick="scrollElement('contact')">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home">
+    <div>
+      <span class="home-name">Bagas Arisandi Hidayat</span>
+      <span class="home-job">Backend</span>
+      <span class="home-job">Developer</span>
+      <span class="home-description" id="home_description">
+        <!-- I’m a backend developer specializing in scalable web applications.
+        Highly adaptable and open to learning new technologies to continuous learning,
+        I excel in both independent and team settings, striving for excellence in every project. -->
+      </span>
+      <div class="home-btn">
+        <button id="download-btn">Download Resume</button>
+        <button onclick="scrollElement('contact')">Contact Me</button>
+      </div>
+    </div>
+
+    <div>
+      <img src="" class="home-image" id="home_image">
+    </div>
+  </section>
+
+  <section id="experience">
+
+    <div class="title">
+      <h1>Work Experience</h1>
+    </div>
+
+    <div class="card-container" id="experience_list">
+
+      <!-- <div class="card-item">
+        <div class="card-title">
+          <img src="./assets/asset-17.jpg">
+          <span class="card-title-company">Kuitansiku.id (Freelance)</span>
+          <span class="card-title-company">January 2024 - February 2023</span>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">Node.js</button>
+          <button class="skills">Express.js</button>
+          <button class="skills">GraphQL</button>
+          <button class="skills">JWT</button>
+          <button class="skills">MongoDB</button>
+          <button class="skills">Git</button>
+          <button class="skills">Github</button>
+        </div>
+      </div> -->
+
+      <!-- <div class="card-item">
+        <div class="card-title">
+          <img src="./assets/asset-18.jpg">
+          <span class="card-title-company">Zettabyte Pte. Ltd (Contract)</span>
+          <span class="card-title-company">December 2022 - December 2023</span>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">Node.js</button>
+          <button class="skills">Express.js</button>
+          <button class="skills">GraphQL</button>
+          <button class="skills">JWT</button>
+          <button class="skills">MongoDB</button>
+          <button class="skills">Git</button>
+          <button class="skills">Github</button>
+          <button class="skills">HTML</button>
+          <button class="skills">CSS</button>
+        </div>
+      </div> -->
+
+    </div>
+  </section>
+
+  <section id="education">
+
+    <div class="title">
+      <h1>Education</h1>
+    </div>
+
+      <div class="education-container" id="education_list">
+
+        <!-- <div class="education-item">
+          <button class="education-place">Vocational High School - Computer and Network Engineering</button>
+          <h2>SMKN 1 Bawang </h2>
+          <span class="education-title">
+            May 2014 - May 2017 <br>
+            <b>Formal Education</b>
+          </span>
+        </div> -->
+
+      </div>
+  </section>
+
+  <section id="skills">
+
+    <div class="skills-item-container">
+      <div class="title">
+        <h1>Hardskill</h1>
+      </div>
+      <div class="skills-content" id="hardskill_list">
+        <!-- <div>
+          <img src="./assets/asset-5.png">
+          <p>Node.js</p>
+        </div> -->
+      </div>
+
+      <div class="title">
+        <h1>Other</h1>
+      </div>
+      <div class="skills-content" id="other_list">
+<!-- 
+        <div>
+          <img src="./assets/asset-8.png">
+          <p>HTML</p>
+        </div>
+
+        <div>
+          <img src="./assets/asset-9.png">
+          <p>CSS</p>
+        </div>
+
+        <div>
+          <img src="./assets/asset-10.png">
+          <p>Javascript</p>
+        </div>
+
+        <div>
+          <img src="./assets/asset-11.png">
+          <p>Swagger UI</p>
+        </div>
+
+        <div>
+          <img src="./assets/asset-12.png">
+          <p>React.js</p>
+        </div> -->
+
+      </div>
+    </div>
+
+    <div class="skills-item-container">
+      <div class="title">
+        <h1>Softskill</h1>
+      </div>
+      <div class="skills-content-soft" id="softskill_list">
+        <!-- <div>
+          <button>Detail Oriented</button>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <section id="project">
+
+    <div class="title">
+      <h1>Project</h1>
+    </div>
+    <div class="card-container" id="project_list">
+
+      <!-- <div class="card-item" onclick="openLink('github.com/bagassandih/bank-sampah-management-system')">
+        <div class="card-title">
+          <img src="./assets/asset-19.png">
+          <span class="card-title-company">Bank Sampah Management System</span>
+          <p>
+            MVC-based project facilitates waste bank management,
+            including transaction recording and member management, to help administrators, especially my mother,
+            run operations efficiently and organized.
+          </p>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">Node.js</button>
+          <button class="skills">Express.js</button>
+          <button class="skills">MongoDB</button>
+          <button class="skills">JWT</button>
+          <button class="skills">Chart.js</button>
+          <button class="skills">Ejs</button>
+          <button class="skills">HTML</button>
+          <button class="skills">CSS</button>
+          <button class="skills">Javascript</button>
+        </div>
+      </div>
+
+      <div class="card-item" onclick="openLink('github.com/bagassandih/mini-project-zettacamp-restaurant')">
+        <div class="card-title">
+          <img src="./assets/asset-21.png">
+          <span class="card-title-company">Praedulcis - Restaurant API</span>
+          <p>
+            This project was created during an intensive bootcamp from Zettabyte Pte. Ltd. over 3 months
+            as the <strong>final project</strong> and proof of learning from those 3 months. Created API with techstack
+            based on
+            the company.
+          </p>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">Node.js</button>
+          <button class="skills">Express.js</button>
+          <button class="skills">MongoDB</button>
+          <button class="skills">JWT</button>
+          <button class="skills">GraphQL</button>
+        </div>
+      </div>
+
+      <div class="card-item" onclick="openLink('github.com/bagassandih/another-chat-room')">
+        <div class="card-title">
+          <img src="./assets/asset-22.png">
+          <span class="card-title-company">Another Chatroom</span>
+          <p>
+            This is a chat room prototype using HTML, CSS, and JavaScript, with a server powered by Node.js, Socket.io,
+            and Express.js for real-time communication.
+            I delved into understanding how sockets could facilitate real-time communication.
+          </p>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">Node.js</button>
+          <button class="skills">Express.js</button>
+          <button class="skills">Socket.io</button>
+          <button class="skills">HTML</button>
+          <button class="skills">CSS</button>
+          <button class="skills">Javascript</button>
+        </div>
+      </div>
+
+      <div class="card-item" onclick="openLink('github.com/bagassandih/celcius-to-fahrenheit')">
+        <div class="card-title">
+          <img src="./assets/asset-23.png">
+          <span class="card-title-company">Celcius to Fahrenheit</span>
+          <p>
+            An assignment for the Fundamental Software Engineer course from RevoU,
+            with requirement to Displays the formula and its explanation and Converts Celsius to Fahrenheit, or vice
+            versa.
+          </p>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">HTML</button>
+          <button class="skills">CSS</button>
+          <button class="skills">JavaScript</button>
+          <button class="skills">JWT</button>
+          <button class="skills">GraphQL</button>
+        </div>
+      </div>
+
+      <div class="card-item" onclick="openLink('github.com/bagassandih/flickr-gallery')">
+        <div class="card-title">
+          <img src="./assets/asset-24.png">
+          <span class="card-title-company">Flickr Feed Viewer and Search (Flickr Gallery)</span>
+          <p>
+            Take Home Challenge project for the Software Engineer position
+            from Vesperia as the first stage of the recruitment process before proceeding to the next stage.
+          </p>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">Node.js</button>
+          <button class="skills">React.js</button>
+          <button class="skills">Express.js</button>
+          <button class="skills">HTML</button>
+          <button class="skills">CSS</button>
+          <button class="skills">JavaScript</button>
+        </div>
+      </div>
+
+      <div class="card-item" onclick="openLink('github.com/bagassandih/BE-TechnicalTest-BagasArisandi')">
+        <div class="card-title">
+          <img src="./assets/asset-25.png">
+          <span class="card-title-company">Library Management System - API</span>
+          <p>
+            Technical Test for PT. EIGEN TRI MATHEMA as an project for the Backend Developer position.
+            This is the first stage of the recruitment process before proceeding to the next stage.
+          </p>
+        </div>
+
+        <div class="card-description">
+          <button class="skills">Express.js</button>
+          <button class="skills">MongoDB</button>
+          <button class="skills">Swagger</button>
+          <button class="skills">Jest</button>
+          <button class="skills">Domain-Driven Design</button>
+        </div>
+      </div> -->
+
+  </section>
+
+  <section id="contact">
+    <div class="title">
+      <h1>Contact Me</h1>
+    </div>
+
+    <div class="contact-container">
+      <div class="contact-list" id="contact_list">
+
+        <!-- <div onclick="openLink('www.linkedin.com/in/bagassandih')">
+          <img src="./assets/asset-16.png">
+          <p>LinkedIn</p>
+        </div>
+
+        <div onclick="openLink('www.youtube.com/@bagassandih')">
+          <img src="./assets/asset-2.png">
+          <p>Youtube Channel</p>
+        </div>
+
+        <div onclick="openLink('www.instagram.com/bagassandih')">
+          <img src="./assets/asset-3.png">
+          <p>Instagram</p>
+        </div>
+
+        <div data-swal-toast-template="#send-email" onclick="triggerSwal('bagassandi13@gmail.com')">
+          <img src="./assets/asset-4.png">
+          <p>Gmail</p>
+        </div>
+
+        <div onclick="openLink('github.com/bagassandih')">
+          <img src="./assets/asset-15.png">
+          <p>Github</p>
+        </div> -->
+
+      </div>
+      <p id="contact_description">
+        <!-- Please feel free to reach out with any questions or inquiries.
+        Whether providing feedback, discussing a potential collaboration, or simply connecting, all communications are
+        welcome.
+        Contact can be made via email, social media, or through the contact form on this website. Looking forward to
+        connecting. -->
+      </p>
+    </div>
+  </section>
+  
+  <button id="back-to-top" onclick="scrollToTop()">Back to Top</button>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
