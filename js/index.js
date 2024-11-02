@@ -8,7 +8,8 @@
         //     'Content-Type': 'application/json'
         //   }});
         
-      const response = await fetch('https://raw.githubusercontent.com/bagassandih/portofolio/refs/heads/main/data/data.json');
+      const response = await fetch('https://raw.githubusercontent.com/bagassandih/portofolio/refs/heads/main/data/data.json'); // pages
+      // const response = await fetch('data/data.json'); // locals
       const responseJson = await response.json();
       const jsonData = responseJson[0];
 
@@ -187,7 +188,7 @@ function scrollToTop() {
 
 // download pdf
 document.getElementById('download-btn').addEventListener('click', function () {
-  fetch('/assets/Bagas Arisandi - Backend Developer.pdf')
+  fetch('/assets/docs/Bagas Arisandi - Backend Developer.pdf')
     .then(response => response.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(blob);

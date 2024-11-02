@@ -2,13 +2,13 @@
     {
         "HOME": {
             "DESCRIPTION": "I'm a backend developer specializing in scalable web applications. Highly adaptable and open to learning new technologies to continuous learning, I excel in both independent and team settings, striving for excellence in every project",
-            "IMAGE": "./assets/asset-1.png"
+            "IMAGE": "./assets/images/asset-1.png"
         },
         "EXPERIENCES": [
             {
               "COMPANY": "Badan Sistem Informasi UII (Contract)",
               "PERIOD": "Oktober 2024 - Present",
-              "IMAGE": "./assets/asset-27.webp",
+              "IMAGE": "./assets/images/asset-27.webp",
               "SKILL": [
                   "PHP",
                   "Laravel Lumen",
@@ -24,7 +24,7 @@
             {
                 "COMPANY": "Kuitansiku.id (Freelance)",
                 "PERIOD": "January 2024 - February 2024",
-                "IMAGE": "./assets/asset-17.jpg",
+                "IMAGE": "./assets/images/asset-17.jpg",
                 "SKILL": [
                     "Node.js",
                     "Express.js",
@@ -38,7 +38,7 @@
             {
                 "COMPANY": "ZettaByte Pte. Ltd (Contract)",
                 "PERIOD": "December 2022 - December 2023",
-                "IMAGE": "./assets/asset-18.jpg",
+                "IMAGE": "./assets/images/asset-18.jpg",
                 "SKILL": [
                     "Node.js",
                     "Express.js",
@@ -75,59 +75,79 @@
         ],
         "HARDSKILLS": [
             {
-                "IMAGE": "./assets/asset-5.png",
+                "IMAGE": "./assets/images/asset-5.png",
                 "TITLE": "Node.js"
             },
             {
-                "IMAGE": "./assets/asset-26.png",
+                "IMAGE": "./assets/images/asset-26.png",
                 "TITLE": "Express.js"
             },
             {
-                "IMAGE": "./assets/asset-6.png",
+                "IMAGE": "./assets/images/asset-6.png",
                 "TITLE": "MongoDB"
             },
             {
-                "IMAGE": "./assets/asset-7.png",
+                "IMAGE": "./assets/images/asset-7.png",
                 "TITLE": "GraphQL"
             },
             {
-                "IMAGE": "./assets/asset-20.png",
+                "IMAGE": "./assets/images/asset-20.png",
                 "TITLE": "JWT"
             },
             {
-                "IMAGE": "./assets/asset-13.png",
+                "IMAGE": "./assets/images/asset-13.png",
                 "TITLE": "Jest"
             },
             {
-                "IMAGE": "./assets/asset-14.png",
+                "IMAGE": "./assets/images/asset-14.png",
                 "TITLE": "Git"
             },
             {
-                "IMAGE": "./assets/asset-15.png",
+                "IMAGE": "./assets/images/asset-15.png",
                 "TITLE": "Github"
+            },
+            {
+                "IMAGE": "./assets/images/asset-28.png",
+                "TITLE": "Lumen"
+            },
+            {
+                "IMAGE": "./assets/images/asset-29.png",
+                "TITLE": "MySQL"
+            },
+            {
+                "IMAGE": "./assets/images/asset-31.png",
+                "TITLE": "Kafka"
             }
         ],
         "OTHERSKILLS": [
             {
-                "IMAGE": "./assets/asset-8.png",
+                "IMAGE": "./assets/images/asset-8.png",
                 "TITLE": "HTML"
             },
             {
-                "IMAGE": "./assets/asset-9.png",
+                "IMAGE": "./assets/images/asset-9.png",
                 "TITLE": "CSS"
             },
             {
-                "IMAGE": "./assets/asset-10.png",
+                "IMAGE": "./assets/images/asset-10.png",
                 "TITLE": "Javascript"
             },
             {
-                "IMAGE": "./assets/asset-11.png",
+                "IMAGE": "./assets/images/asset-11.png",
                 "TITLE": "Swagger UI"
             },
             {
-                "IMAGE": "./assets/asset-12.png",
+                "IMAGE": "./assets/images/asset-12.png",
                 "TITLE": "React.js"
-            }    
+            },
+            {
+                "IMAGE": "./assets/images/asset-30.png",
+                "TITLE": "Microservices"
+            },
+            {
+                "IMAGE": "./assets/images/asset-32.png",
+                "TITLE": "Agile"
+            }
         ],
         "SOFTSKILLS": [
             { "TITLE": "Detail Oriented" },
@@ -141,7 +161,7 @@
         "PROJECTS": [
             {
               "LINK": "github.com/bagassandih/bank-sampah-management-system",
-              "IMAGE": "./assets/asset-19.png",
+              "IMAGE": "./assets/images/asset-19.png",
               "TITLE": "Bank Sampah Management System",
               "DESCRIPTION": "MVC-based project facilitates waste bank management, including transaction recording and member management, to help administrators, especially my mother, run operations efficiently and organized.",
               "SKILLS": [
@@ -150,7 +170,7 @@
             },
             {
               "LINK": "github.com/bagassandih/mini-project-zettacamp-restaurant",
-              "IMAGE": "./assets/asset-21.png",
+              "IMAGE": "./assets/images/asset-21.png",
               "TITLE": "Praedulcis - Restaurant API",
               "DESCRIPTION": "This project was created during an intensive bootcamp from Zettabyte Pte. Ltd. over 3 months as the final project and proof of learning from those 3 months. Created API with techstack based on the company.",
               "SKILLS": [
@@ -159,7 +179,7 @@
             },
             {
               "LINK": "github.com/bagassandih/another-chat-room",
-              "IMAGE": "./assets/asset-22.png",
+              "IMAGE": "./assets/images/asset-22.png",
               "TITLE": "Another Chatroom",
               "DESCRIPTION": "This is a chat room prototype using HTML, CSS, and JavaScript, with a server powered by Node.js, Socket.io, and Express.js for real-time communication. I delved into understanding how sockets could facilitate real-time communication.",
               "SKILLS": [
@@ -168,7 +188,7 @@
             },
             {
               "LINK": "github.com/bagassandih/celcius-to-fahrenheit",
-              "IMAGE": "./assets/asset-23.png",
+              "IMAGE": "./assets/images/asset-23.png",
               "TITLE": "Celcius to Fahrenheit",
               "DESCRIPTION": "An assignment for the Fundamental Software Engineer course from RevoU, with requirement to Displays the formula and its explanation and Converts Celsius to Fahrenheit, or vice versa.",
               "SKILLS": [
@@ -177,7 +197,7 @@
             },
             {
               "LINK": "github.com/bagassandih/flickr-gallery",
-              "IMAGE": "./assets/asset-24.png",
+              "IMAGE": "./assets/images/asset-24.png",
               "TITLE": "Flickr Feed Viewer and Search (Flickr Gallery)",
               "DESCRIPTION": "Take Home Challenge project for the Software Engineer position from Vesperia as the first stage of the recruitment process before proceeding to the next stage.",
               "SKILLS": [
@@ -186,7 +206,7 @@
             },
             {
               "LINK": "github.com/bagassandih/BE-TechnicalTest-BagasArisandi",
-              "IMAGE": "./assets/asset-25.png",
+              "IMAGE": "./assets/images/asset-25.png",
               "TITLE": "Library Management System - API",
               "DESCRIPTION": "Technical Test for PT. EIGEN TRI MATHEMA as an project for the Backend Developer position. This is the first stage of the recruitment process before proceeding to the next stage.",
               "SKILLS": [
@@ -197,27 +217,27 @@
         "CONTACTS": [
             {
               "LINK": "www.linkedin.com/in/bagassandih",
-              "IMAGE": "./assets/asset-16.png",
+              "IMAGE": "./assets/images/asset-16.png",
               "TITLE": "LinkedIn"
             },
             {
               "LINK": "www.youtube.com/@bagassandih",
-              "IMAGE": "./assets/asset-2.png",
+              "IMAGE": "./assets/images/asset-2.png",
               "TITLE": "Youtube Channel"
             },
             {
               "LINK": "www.instagram.com/bagassandih",
-              "IMAGE": "./assets/asset-3.png",
+              "IMAGE": "./assets/images/asset-3.png",
               "TITLE": "Instagram"
             },
             {
               "LINK": "bagassandi13@gmail.com",
-              "IMAGE": "./assets/asset-4.png",
+              "IMAGE": "./assets/images/asset-4.png",
               "TITLE": "Gmail"
             },
             {
               "LINK": "github.com/bagassandih",
-              "IMAGE": "./assets/asset-15.png",
+              "IMAGE": "./assets/images/asset-15.png",
               "TITLE": "Github"
             }
         ],
