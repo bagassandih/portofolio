@@ -122,7 +122,7 @@
             <p>${contact.TITLE}</p>
           </div>
           `;
-        } else {
+        } else if (contact.TITLE !== 'Gmail' && contact.TITLE !== 'Youtube Channel') { // youtube channel temporary unactived
           contactElement.innerHTML += `
           <div onclick="openLink('${contact.LINK}')">
             <img src="${contact.IMAGE}">
