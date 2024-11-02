@@ -486,7 +486,7 @@ section div h1 {
 }
 
 /* Mobile devices (handphones) */
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 720px) {
   body {
     box-sizing: border-box;
     padding: 0px;
@@ -552,6 +552,7 @@ section div h1 {
   #experience .card-container {
     flex-direction: column;
     justify-content: center;
+    align-self: center;
   }
 
   #project .card-container {

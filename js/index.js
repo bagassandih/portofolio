@@ -1,13 +1,6 @@
  // Fungsi untuk mengambil dan menampilkan data dari file JSON
  async function loadData() {
-  try {
-    // const response = await fetch('https://api.jsonbin.io/v3/b/6720cac2acd3cb34a89ef0d5', {
-      //   method: 'GET',
-      //   headers: {
-        //     'X-Master-Key': '$2a$10$y0yij.uk2mrCYKZoyflJaOuW00tELwdh3wvXRPAVue3/Nec3p.AFm',
-        //     'Content-Type': 'application/json'
-        //   }});
-        
+  try {       
       const response = await fetch('https://raw.githubusercontent.com/bagassandih/portofolio/refs/heads/main/data/data.json'); // pages
       // const response = await fetch('data/data.json'); // locals
       const responseJson = await response.json();
