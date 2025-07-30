@@ -14,7 +14,13 @@
 <body>
   <header>
     <nav>
-      <ul>
+      <span class="nav-title">Portfolio</span>
+      <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <ul class="nav-links">
         <li><a href="#" onclick="scrollElement('home')">Home</a></li>
         <li><a href="#" onclick="scrollElement('experience')">Experience</a></li>
         <li><a href="#" onclick="scrollElement('education')">Education</a></li>
@@ -304,7 +310,7 @@
           <button class="skills">Domain-Driven Design</button>
         </div>
       </div> -->
-
+    </div>
   </section>
 
   <section id="contact">
@@ -351,7 +357,6 @@
     </div>
   </section>
   
-  <button id="back-to-top" onclick="scrollToTop()">Back to Top</button>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="./js/loadData.js"></script>
   <script src="./js/utilities.js"></script>

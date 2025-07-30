@@ -2,7 +2,7 @@
 async function loadData() {
   try {
     const response = await fetch("https://raw.githubusercontent.com/bagassandih/portofolio/refs/heads/main/data/data.json"); // pages
-    // const response = await fetch("data/data.json"); // locals
+    // const response = await fetch("./data/data.json"); // locals
     const responseJson = await response.json();
     const jsonData = responseJson[0];
 

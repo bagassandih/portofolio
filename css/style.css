@@ -7,11 +7,22 @@ body {
 header {
   padding: 25px 25px;
   background-color: #27374D;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 nav {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+}
+
+.nav-title {
+  color: white;
+  font-size: 1.5em;
+  /* font-weight: bold; */
 }
 
 img {
@@ -43,6 +54,18 @@ nav ul li a:hover {
   padding: 5px;
   border-radius: 15px;
   color: #27374D;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
 }
 
 #home {
@@ -366,15 +389,12 @@ section div h1 {
 }
 
 #project .card-container {
-  /* width: 100%; */
+  width: 80%;
   display: block;
   column-count: 3;
-  /* flex-direction: row; */
-  /* justify-content: space-evenly; */
+  column-gap: 20px; /* Sesuaikan jarak antar kolom */
   height: 100%;
-  /* flex-wrap: wrap; */
-  /* overflow-x: scroll;
-  overflow-y: hidden; */
+  margin: 0 auto; 
 }
 
 #project .card-item {
@@ -502,17 +522,38 @@ section div h1 {
   nav {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   nav ul {
-    list-style: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background-color: #27374D;
     padding: 0;
-    margin: 0;
-    /* display: flex; */
-    gap: 10px;
+    border-radius: 5px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out,padding 0.5s ease-in-out;
+    display: flex;
+    text-align: center;
+  }
+
+  nav ul.show-menu {
+    max-height: 500px;
+    padding: 10px;
   }
   
+  .hamburger {
+    display: block;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .hamburger.active {
+    transform: rotate(90deg);
+  }
+
   #home {
     padding: 50px 20px;
     display: flex;
@@ -573,13 +614,19 @@ section div h1 {
   #project {
     display: flex;
     flex-direction: column;
-    padding: 0px 20px;
+    padding: 50px 20px;
   }
   
   #project .card-container {
     display: flex;
     flex-direction: column;
     align-self: center;
+    width: 100%;
+  }
+
+  #project .card-item {
+    min-width: 0;
+    max-width: 100%;
   }
 
   #contact {
@@ -630,15 +677,36 @@ section div h1 {
   nav {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   nav ul {
-    list-style: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    background-color: #27374D;
     padding: 0;
-    margin: 0;
-    /* display: flex; */
-    gap: 10px;
+    border-radius: 5px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+    display: flex;
+    text-align: center;
+  }
+
+  nav ul.show-menu {
+    max-height: 500px;
+    padding: 10px;
+  }
+  
+  .hamburger {
+    display: block;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .hamburger.active {
+    transform: rotate(90deg);
   }
   
   #home {
@@ -701,13 +769,19 @@ section div h1 {
   #project {
     display: flex;
     flex-direction: column;
-    padding: 0px 20px;
+    padding: 50px 20px;
   }
   
   #project .card-container {
     display: flex;
     flex-direction: column;
     align-self: center;
+    width: 100%;
+  }
+
+  #project .card-item {
+    min-width: 0;
+    max-width: 100%;
   }
 
   #contact {
@@ -760,7 +834,7 @@ section div h1 {
   nav {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: space-between;
   }
 
   nav ul {

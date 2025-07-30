@@ -1,21 +1,10 @@
 // Memanggil fungsi loadData setelah halaman dimuat
 loadData();
 
-// Show the button when the user scrolls past the "home" section
-window.onscroll = function () {
-  let homeSection = document.getElementById("home");
-  let backToTopButton = document.getElementById("back-to-top");
-
-  if (window.pageYOffset > homeSection.offsetHeight) {
-    backToTopButton.style.display = "block";
-  } else {
-    backToTopButton.style.display = "none";
-  }
-};
-
 // download pdf
 document.getElementById("download-btn").addEventListener("click", function () {
-  fetch("/assets/docs/Bagas Arisandi - Backend Developer.pdf")
+  // fetch("/assets/docs/Bagas Arisandi - Backend Developer.pdf")
+  fetch(jsonData.HOME.RESUME)
     .then((response) => response.blob())
     .then((blob) => {
       const url = window.URL.createObjectURL(blob);
@@ -28,4 +17,9 @@ document.getElementById("download-btn").addEventListener("click", function () {
       window.URL.revokeObjectURL(url);
     })
     .catch((error) => console.error("Error downloading the file:", error));
+});
+
+document.querySelector('.hamburger').addEventListener('click', () => {
+  document.querySelector('.nav-links').classList.toggle('show-menu');
+  document.querySelector('.hamburger').classList.toggle('active');
 });

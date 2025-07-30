@@ -2,7 +2,8 @@
     {
         "HOME": {
             "DESCRIPTION": "I'm a backend developer specializing in scalable web applications. Highly adaptable and open to learning new technologies to continuous learning, I excel in both independent and team settings, striving for excellence in every project",
-            "IMAGE": "./assets/images/asset-1.png"
+            "IMAGE": "./assets/images/asset-1.png",
+            "RESUME": "./assets/docs/Bagas Arisandi - Backend Developer.pdf"
         },
         "EXPERIENCES": [
             {
