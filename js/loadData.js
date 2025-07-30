@@ -43,6 +43,22 @@ function homeSection(data) {
 
     const homeImage = document.getElementById("home_image");
     homeImage.src = data.HOME.IMAGE;
+
+    document.getElementById("download-btn").addEventListener("click", function () {
+      fetch(data.HOME.RESUME)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = data.HOME.RESUME.split('/').pop();
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => console.error("Error downloading the file:", error));
+    });
   } catch (error) {
     console.error("Gagal mengambil data HOME:", error);
   }
