@@ -161,6 +161,15 @@
         ],
         "PROJECTS": [
             {
+              "LINK": "https://sanrize-shop-fe.vercel.app/",
+              "IMAGE": "./assets/images/asset-33.png",
+              "TITLE": "Sanrize Shop - Topup Game Online",
+              "DESCRIPTION": "The online game top-ups assisted by the AI-based IDE Firebase Studio, with payments made through the Doku Payment Gateway and resellers accessing Apigamehub.",
+              "SKILLS": [
+                "Next.js", "TypeScript", "AI", "Doku Payment", "Apigamehub", "HTML", "CSS", "Node.js", "Supabase"
+              ]
+            },
+            {
               "LINK": "github.com/bagassandih/bank-sampah-management-system",
               "IMAGE": "./assets/images/asset-19.png",
               "TITLE": "Bank Sampah Management System",
@@ -203,15 +212,6 @@
               "DESCRIPTION": "Take Home Challenge project for the Software Engineer position from Vesperia as the first stage of the recruitment process before proceeding to the next stage.",
               "SKILLS": [
                 "Node.js", "React.js", "Express.js", "HTML", "CSS", "JavaScript"
-              ]
-            },
-            {
-              "LINK": "github.com/bagassandih/BE-TechnicalTest-BagasArisandi",
-              "IMAGE": "./assets/images/asset-25.png",
-              "TITLE": "Library Management System - API",
-              "DESCRIPTION": "Technical Test for PT. EIGEN TRI MATHEMA as an project for the Backend Developer position. This is the first stage of the recruitment process before proceeding to the next stage.",
-              "SKILLS": [
-                "Express.js", "MongoDB", "Swagger", "Jest", "Domain-Driven Design"
               ]
             }
         ],
