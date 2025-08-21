@@ -541,6 +541,7 @@ section div h1 {
   }
 
   nav ul.show-menu {
+    background-color: #1A2130;
     max-height: 500px;
     padding: 10px;
   }
