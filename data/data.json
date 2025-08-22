@@ -161,7 +161,7 @@
         ],
         "PROJECTS": [
             {
-              "LINK": "https://sanrize-shop-fe.vercel.app/",
+              "LINK": "sanrize-shop-fe.vercel.app",
               "IMAGE": "./assets/images/asset-33.png",
               "TITLE": "Sanrize Shop - Topup Game Online",
               "DESCRIPTION": "The online game top-ups assisted by the AI-based IDE Firebase Studio, with payments made through the Doku Payment Gateway and resellers accessing Apigamehub.",
