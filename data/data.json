@@ -160,6 +160,15 @@
             { "TITLE": "Self-Motivation" }
         ],
         "PROJECTS": [
+          {
+              "LINK": "https://github.com/bagassandih/datacraft",
+              "IMAGE": "./assets/images/asset-34.png",
+              "TITLE": "DataCraft - Visual SQL Query Builder",
+              "DESCRIPTION": "This project came about from the daily frustrations developers face when dealing with the complexity of writing manual queries. DataCraft is designed to help developers view, compose, and generate complex queries visually.",
+              "SKILLS": [
+                "Node.js", "Vue.js", "Knex.js", "Swagger", "Axios", "Claude Code", "JavaScript"
+              ]
+            },
             {
               "LINK": "sanrize-shop-fe.vercel.app",
               "IMAGE": "./assets/images/asset-33.png",
@@ -203,15 +212,6 @@
               "DESCRIPTION": "An assignment for the Fundamental Software Engineer course from RevoU, with requirement to Displays the formula and its explanation and Converts Celsius to Fahrenheit, or vice versa.",
               "SKILLS": [
                 "HTML", "CSS", "JavaScript", "JWT", "GraphQL"
-              ]
-            },
-            {
-              "LINK": "github.com/bagassandih/flickr-gallery",
-              "IMAGE": "./assets/images/asset-24.png",
-              "TITLE": "Flickr Feed Viewer and Search (Flickr Gallery)",
-              "DESCRIPTION": "Take Home Challenge project for the Software Engineer position from Vesperia as the first stage of the recruitment process before proceeding to the next stage.",
-              "SKILLS": [
-                "Node.js", "React.js", "Express.js", "HTML", "CSS", "JavaScript"
               ]
             }
         ],
