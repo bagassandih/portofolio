@@ -161,7 +161,7 @@
         ],
         "PROJECTS": [
           {
-              "LINK": "https://github.com/bagassandih/datacraft",
+              "LINK": "github.com/bagassandih/datacraft",
               "IMAGE": "./assets/images/asset-34.png",
               "TITLE": "DataCraft - Visual SQL Query Builder",
               "DESCRIPTION": "This project came about from the daily frustrations developers face when dealing with the complexity of writing manual queries. DataCraft is designed to help developers view, compose, and generate complex queries visually.",
