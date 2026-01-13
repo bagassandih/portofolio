@@ -65,6 +65,7 @@ html, body {
   padding: 0;
   width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -72,10 +73,13 @@ body {
   scroll-behavior: smooth;
   overflow-x: hidden;
   background: var(--color-primary-dark);
+  max-width: 100vw;
 }
 
 img {
   -webkit-user-drag: none;
+  max-width: 100%;
+  height: auto;
 }
 
 
@@ -187,6 +191,13 @@ nav ul li a:hover::before {
 /* ============================================
    SECTION TITLES & COMMON ELEMENTS
    ============================================ */
+section {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
 section .title {
   display: flex;
   flex-direction: column;
@@ -677,18 +688,37 @@ section div h1:hover::before {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
   border-radius: var(--radius-lg);
   min-width: 100px;
   transition: all var(--transition-smooth);
-  border: 1px solid rgba(157, 178, 191, 0.1);
+  border: 1px solid rgba(157, 178, 191, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-content div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(157, 178, 191, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+  pointer-events: none;
+}
+
+.skills-content div:hover::before {
+  opacity: 1;
 }
 
 .skills-content div:hover {
   transform: translateY(-8px);
-  background: rgba(157, 178, 191, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  border-color: rgba(157, 178, 191, 0.3);
+  background: linear-gradient(135deg, rgba(157, 178, 191, 0.2) 0%, rgba(157, 178, 191, 0.12) 100%);
+  box-shadow: 0 12px 35px rgba(157, 178, 191, 0.15), 0 0 0 1px rgba(157, 178, 191, 0.2) inset;
+  border-color: rgba(157, 178, 191, 0.35);
 }
 
 .skills-content div img {
@@ -696,18 +726,29 @@ section div h1:hover::before {
   max-height: 60px;
   align-self: center;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-fast), filter var(--transition-fast);
   background: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 .skills-content div:hover img {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  filter: drop-shadow(0 8px 16px rgba(157, 178, 191, 0.4));
 }
 
 .skills-content div p {
   margin: 0;
   font-size: 0.9em;
   font-weight: 500;
+  position: relative;
+  z-index: 1;
+  transition: color var(--transition-fast), text-shadow var(--transition-fast);
+}
+
+.skills-content div:hover p {
+  color: var(--color-light);
+  text-shadow: 0 2px 8px rgba(157, 178, 191, 0.3);
 }
 
 .skills-content-soft {
@@ -1099,6 +1140,8 @@ section div h1:hover::before {
     padding: var(--spacing-sm) var(--spacing-lg);
     width: auto;
     max-width: 90%;
+    box-sizing: border-box;
+    word-wrap: break-word;
   }
 
   #experience,
@@ -1109,19 +1152,26 @@ section div h1:hover::before {
   #experience .card-container {
     flex-direction: column;
     gap: var(--spacing-md);
+    width: 100%;
   }
 
   .card-item {
     max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   #education .education-container {
     gap: var(--spacing-md);
+    width: 100%;
+    max-width: 100%;
   }
 
   .education-item {
     max-width: 100%;
+    width: 100%;
     padding: 25px;
+    box-sizing: border-box;
   }
 
   #skills {
