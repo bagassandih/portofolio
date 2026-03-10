@@ -1,7 +1,7 @@
 [
     {
         "HOME": {
-            "DESCRIPTION": "I'm a backend developer specializing in scalable web applications. Highly adaptable and open to learning new technologies to continuous learning, I excel in both independent and team settings, striving for excellence in every project",
+            "DESCRIPTION": "I build scalable, high-performance systems with a focus on extreme optimization. My highlight: refactoring database queries to slash execution time from 5 minutes to 5 seconds (a 98% performance boost). Currently engineering robust backend solutions at Badan Sistem Informasi UII. I thrive on solving complex architectural puzzles and ensuring data integrity across distributed systems.",
             "IMAGE": "./assets/images/asset-1.png",
             "RESUME": "./assets/docs/Bagas Arisandi - Backend Developer.pdf"
         },
@@ -21,6 +21,35 @@
                   "Gitlab",
                   "Git"
               ]
+            },
+            {
+                "COMPANY": "Tembus.in (Freelance)",
+                "PERIOD": "December 2025 - March 2026",
+                "IMAGE": "./assets/images/asset-36.png",
+                "SKILL": [
+                    "Golang",
+                    "Gin",
+                    "MVC",
+                    "MySQL",
+                    "GitHub",
+                    "Git"
+                ]
+            },
+            {
+                "COMPANY": "ALIF Montessori School (Freelance)",
+                "PERIOD": "March 2024 - May 2024",
+                "IMAGE": "./assets/images/asset-35.png",
+                "SKILL": [
+                    "PHP",
+                    "Laravel",
+                    "MVC",
+                    "HTML",
+                    "CSS",
+                    "JavaScript",
+                    "MySQL",
+                    "GitHub",
+                    "Git"
+                ]
             },
             {
                 "COMPANY": "Kuitansiku.id (Freelance)",
