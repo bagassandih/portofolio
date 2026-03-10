@@ -543,6 +543,23 @@ section div h1:hover::before {
   min-height: 100vh;
 }
 
+#experience .card-container {
+  width: 90%;
+  display: block;
+  column-count: 3;
+  column-gap: var(--spacing-lg);
+  height: 100%;
+  margin: 0 auto;
+  padding: var(--spacing-md) 0;
+}
+
+#experience .card-item {
+  margin-bottom: var(--spacing-lg);
+  break-inside: avoid;
+  min-width: 280px;
+  max-width: 100%;
+}
+
 
 /* ============================================
    EDUCATION SECTION
@@ -1150,9 +1167,14 @@ section div h1:hover::before {
   }
 
   #experience .card-container {
-    flex-direction: column;
-    gap: var(--spacing-md);
+    column-count: 1;
     width: 100%;
+  }
+
+  #experience .card-item {
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 25px;
   }
 
   .card-item {
@@ -1330,12 +1352,13 @@ section div h1:hover::before {
   }
 
   #experience .card-container {
-    flex-wrap: wrap;
-    gap: 25px;
+    column-count: 2;
+    width: 95%;
+    column-gap: 25px;
   }
 
-  .card-item {
-    max-width: 45%;
+  #experience .card-item {
+    margin-bottom: 25px;
   }
 
   #skills {
@@ -1429,11 +1452,13 @@ section div h1:hover::before {
   }
 
   #experience .card-container {
-    gap: 25px;
+    column-count: 2;
+    width: 92%;
+    column-gap: 28px;
   }
 
-  .card-item {
-    max-width: 45%;
+  #experience .card-item {
+    margin-bottom: 25px;
   }
 
   #skills {
@@ -1500,6 +1525,11 @@ section div h1:hover::before {
   #project,
   #contact {
     padding: 75px var(--spacing-3xl);
+  }
+
+  #experience .card-container {
+    column-count: 3;
+    width: 88%;
   }
 
   #project .card-container {

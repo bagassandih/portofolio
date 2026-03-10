@@ -180,13 +180,15 @@
             }
         ],
         "SOFTSKILLS": [
-            { "TITLE": "Detail Oriented" },
+            { "TITLE": "Analytical Thinking" },
             { "TITLE": "Problem-Solving" },
+            { "TITLE": "Detail Oriented" },
             { "TITLE": "Teamwork and Collaboration" },
             { "TITLE": "Curiosity" },
             { "TITLE": "Continuous Learning" },
             { "TITLE": "Empathy" },
-            { "TITLE": "Self-Motivation" }
+            { "TITLE": "Self-Motivation" },
+            { "TITLE": "Ownership" }
         ],
         "PROJECTS": [
           {
