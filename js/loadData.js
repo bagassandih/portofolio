@@ -97,8 +97,13 @@ function educationSection(data) {
 
     const eduElement = document.getElementById("education_list");
     data.EDUCATIONS.forEach((education) => {
+      const educationImage = education.IMAGE
+        ? `<img class="education-image${education.IMAGE_WIDE ? " education-image--wide" : ""}" src="${education.IMAGE}" alt="${education.COMPANY}">`
+        : "";
+
       eduElement.innerHTML += `
            <div class="education-item">
+            ${educationImage}
             <button class="education-place">${education.TITLE}</button>
             <h2>${education.COMPANY}</h2>
             <span class="education-title">
@@ -209,8 +214,7 @@ function contactSection(data) {
               <p>${contact.TITLE}</p>
             </div>
             `;
-      } else if (contact.TITLE !== "Youtube Channel") {
-        // youtube channel temporary unactived
+      } else {
         contactElement.innerHTML += `
             <div onclick="openLink('${contact.LINK}')">
               <img src="${contact.IMAGE}">

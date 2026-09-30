@@ -50,6 +50,7 @@
 
   /* Font */
   --font-family: 'Lexend Exa', sans-serif;
+  --font-script: 'Pacifico', cursive;
 }
 
 
@@ -108,9 +109,11 @@ nav {
 
 .nav-title {
   color: var(--color-white);
-  font-size: 1.5em;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.2;
   transition: transform var(--transition-fast);
 }
 
@@ -649,6 +652,29 @@ section div h1:hover::before {
   font-size: 1.5em;
 }
 
+.education-item .education-image {
+  max-width: min(200px, 100%);
+  max-height: 200px;
+  align-self: center;
+  margin-bottom: var(--spacing-sm);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+  position: relative;
+  z-index: 1;
+}
+
+.education-item:hover .education-image {
+  transform: scale(1.08);
+  filter: drop-shadow(0 8px 16px rgba(157, 178, 191, 0.4));
+}
+
+/* Logo dengan rasio lebar (wordmark) butuh lebar lebih besar
+   agar tingginya tidak terlihat kecil */
+.education-item .education-image--wide {
+  max-width: min(420px, 100%);
+  max-height: none;
+}
+
 
 /* ============================================
    SKILLS SECTION
@@ -972,7 +998,7 @@ section div h1:hover::before {
   justify-content: center;
   align-items: center;
   padding: var(--spacing-md);
-  background: rgba(157, 178, 191, 0.08);
+  background: rgba(157, 178, 191, 0.10);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(157, 178, 191, 0.15);
   transition: all var(--transition-smooth);
@@ -1062,10 +1088,6 @@ section div h1:hover::before {
 
   nav {
     padding: 0 10px;
-  }
-
-  .nav-title {
-    font-size: 1.3em;
   }
 
   nav ul {
