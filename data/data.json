@@ -201,6 +201,15 @@
         ],
         "PROJECTS": [
           {
+              "LINK": "github.com/bagassandih/coin-scope",
+              "IMAGE": "./assets/images/projects/asset-35.png",
+              "TITLE": "Coin Scope - Top 5 coins with the highest Weighted Score",
+              "DESCRIPTION": "CoinScope is a data-driven crypto analysis platform that helps you spot coins with high potential based on market momentum, volume, weekly trends, and scoring analysis. It’s designed to filter out the market noise and keep you from making impulsive FOMO buys.",
+              "SKILLS": [
+                "Node.js", "HTML", "CSS", "PostgreSQL", "CMC", "Integrated API", "JavaScript", "Vibe Code", "Claude Code"
+              ]
+            },
+          {
               "LINK": "github.com/bagassandih/datacraft",
               "IMAGE": "./assets/images/projects/asset-34.png",
               "TITLE": "DataCraft - Visual SQL Query Builder",
@@ -243,15 +252,6 @@
               "DESCRIPTION": "This is a chat room prototype using HTML, CSS, and JavaScript, with a server powered by Node.js, Socket.io, and Express.js for real-time communication. I delved into understanding how sockets could facilitate real-time communication.",
               "SKILLS": [
                 "Node.js", "Express.js", "Socket.io", "HTML", "CSS", "JavaScript"
-              ]
-            },
-            {
-              "LINK": "github.com/bagassandih/celcius-to-fahrenheit",
-              "IMAGE": "./assets/images/projects/asset-23.png",
-              "TITLE": "Celcius to Fahrenheit",
-              "DESCRIPTION": "An assignment for the Fundamental Software Engineer course from RevoU, with requirement to Displays the formula and its explanation and Converts Celsius to Fahrenheit, or vice versa.",
-              "SKILLS": [
-                "HTML", "CSS", "JavaScript", "JWT", "GraphQL"
               ]
             }
         ],
