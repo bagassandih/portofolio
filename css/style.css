@@ -27,8 +27,8 @@
   --spacing-lg: 30px;
   --spacing-xl: 40px;
   --spacing-2xl: 60px;
-  --spacing-3xl: 80px;
-  --spacing-4xl: 100px;
+  --spacing-3xl: 50px;
+  --spacing-4xl: 60px;
 
   /* Border Radius */
   --radius-sm: 8px;
@@ -214,9 +214,9 @@ section .title {
 
 section div h1 {
   align-self: center;
-  font-size: 3em;
+  font-size: 2.2em;
   font-weight: 700;
-  padding: var(--spacing-md) 50px;
+  padding: var(--spacing-xs) 50px;
   color: var(--color-white);
   background: var(--gradient-dark);
   border-radius: var(--radius-xl);
@@ -286,7 +286,7 @@ section div h1:hover::before {
    ============================================ */
 #home {
   background: var(--gradient-dark);
-  padding: var(--spacing-4xl);
+  padding: var(--spacing-2xl);
   color: var(--color-white);
   text-transform: uppercase;
   display: flex;
@@ -337,7 +337,7 @@ section div h1:hover::before {
 }
 
 #home div .home-job {
-  font-size: 3.5em;
+  font-size: 2.8em;
   font-weight: 700;
   background: var(--gradient-accent);
   -webkit-background-clip: text;
@@ -449,7 +449,7 @@ section div h1:hover::before {
   background: var(--color-white);
   padding: var(--spacing-lg);
   border-radius: var(--radius-xl);
-  max-width: 340px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
   height: auto;
@@ -1550,12 +1550,12 @@ section div h1:hover::before {
   }
 
   #experience .card-container {
-    column-count: 3;
+    column-count: 2;
     width: 88%;
   }
 
   #project .card-container {
-    column-count: 3;
+    column-count: 2;
     width: 88%;
-  }
+  }}
 }
