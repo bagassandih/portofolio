@@ -7,79 +7,89 @@
         },
         "EXPERIENCES": [
             {
-              "COMPANY": "Badan Sistem Informasi UII (Contract)",
-              "PERIOD": "Oktober 2024 - Present",
-              "IMAGE": "./assets/images/experiences/asset-27.webp",
-              "SKILL": [
-                  "PHP",
-                  "Laravel Lumen",
-                  "OOP",
-                  "MySQL",
-                  "Golang",
-                  "Domain-Driven Design",
-                  "Kafka",
-                  "Gitlab",
-                  "Git"
-              ]
-            },
-            {
-                "COMPANY": "Tembus.in (Freelance)",
-                "PERIOD": "December 2025 - March 2026",
-                "IMAGE": "./assets/images/experiences/asset-36.png",
-                "SKILL": [
-                    "Golang",
-                    "Gin",
-                    "MVC",
-                    "MySQL",
-                    "GitHub",
-                    "Git"
+                "TITLE": "Contract / Professional",
+                "ITEMS": [
+                    {
+                        "COMPANY": "Badan Sistem Informasi UII",
+                        "PERIOD": "Oktober 2024 - Present",
+                        "IMAGE": "./assets/images/experiences/asset-27.webp",
+                        "SKILL": [
+                            "PHP",
+                            "Laravel Lumen",
+                            "OOP",
+                            "MySQL",
+                            "Golang",
+                            "Domain-Driven Design",
+                            "Kafka",
+                            "Gitlab",
+                            "Git"
+                        ]
+                    },
+                    {
+                        "COMPANY": "ZettaByte Pte. Ltd",
+                        "PERIOD": "December 2022 - December 2023",
+                        "IMAGE": "./assets/images/experiences/asset-18.jpg",
+                        "SKILL": [
+                            "Node.js",
+                            "Express.js",
+                            "GraphQL",
+                            "MongoDB",
+                            "JWT",
+                            "Git",
+                            "GitHub",
+                            "HTML",
+                            "CSS",
+                            "JavaScript"
+                        ]
+                    }
                 ]
             },
             {
-                "COMPANY": "ALIF Montessori School (Freelance)",
-                "PERIOD": "March 2024 - May 2024",
-                "IMAGE": "./assets/images/experiences/asset-35.png",
-                "SKILL": [
-                    "PHP",
-                    "Laravel",
-                    "MVC",
-                    "HTML",
-                    "CSS",
-                    "JavaScript",
-                    "MySQL",
-                    "GitHub",
-                    "Git"
-                ]
-            },
-            {
-                "COMPANY": "Kuitansiku.id (Freelance)",
-                "PERIOD": "January 2024 - February 2024",
-                "IMAGE": "./assets/images/experiences/asset-17.jpg",
-                "SKILL": [
-                    "Node.js",
-                    "Express.js",
-                    "GraphQL",
-                    "MongoDB",
-                    "JWT",
-                    "Git",
-                    "GitHub"
-                ]
-            },
-            {
-                "COMPANY": "ZettaByte Pte. Ltd (Contract)",
-                "PERIOD": "December 2022 - December 2023",
-                "IMAGE": "./assets/images/experiences/asset-18.jpg",
-                "SKILL": [
-                    "Node.js",
-                    "Express.js",
-                    "GraphQL",
-                    "MongoDB",
-                    "JWT",
-                    "Git",
-                    "GitHub",
-                    "HTML",
-                    "CSS",
-                    "JavaScript"
+                "TITLE": "Freelance",
+                "ITEMS": [
+                    {
+                        "COMPANY": "Tembus.in",
+                        "PERIOD": "December 2025 - March 2026",
+                        "IMAGE": "./assets/images/experiences/asset-36.png",
+                        "SKILL": [
+                            "Golang",
+                            "Gin",
+                            "MVC",
+                            "MySQL",
+                            "GitHub",
+                            "Git"
+                        ]
+                    },
+                    {
+                        "COMPANY": "ALIF Montessori School",
+                        "PERIOD": "March 2024 - May 2024",
+                        "IMAGE": "./assets/images/experiences/asset-35.png",
+                        "SKILL": [
+                            "PHP",
+                            "Laravel",
+                            "MVC",
+                            "HTML",
+                            "CSS",
+                            "JavaScript",
+                            "MySQL",
+                            "GitHub",
+                            "Git"
+                        ]
+                    },
+                    {
+                        "COMPANY": "Kuitansiku.id",
+                        "PERIOD": "January 2024 - February 2024",
+                        "IMAGE": "./assets/images/experiences/asset-17.jpg",
+                        "SKILL": [
+                            "Node.js",
+                            "Express.js",
+                            "GraphQL",
+                            "MongoDB",
+                            "JWT",
+                            "Git",
+                            "GitHub"
+                        ]
+                    }
                 ]
             }
         ],
@@ -139,7 +149,7 @@
             },
             {
                 "IMAGE": "./assets/images/contacts/asset-5.png",
-                "TITLE": "Github"
+                "TITLE": "GitHub"
             },
             {
                 "IMAGE": "./assets/images/hardskills/asset-8.png",
@@ -165,7 +175,7 @@
             },
             {
                 "IMAGE": "./assets/images/otherskills/asset-3.png",
-                "TITLE": "Javascript"
+                "TITLE": "JavaScript"
             },
             {
                 "IMAGE": "./assets/images/otherskills/asset-4.png",
@@ -189,97 +199,154 @@
             }
         ],
         "SOFTSKILLS": [
-            { "TITLE": "Analytical Thinking" },
-            { "TITLE": "Problem-Solving" },
-            { "TITLE": "Detail Oriented" },
-            { "TITLE": "Teamwork and Collaboration" },
-            { "TITLE": "Curiosity" },
-            { "TITLE": "Continuous Learning" },
-            { "TITLE": "Empathy" },
-            { "TITLE": "Self-Motivation" },
-            { "TITLE": "Ownership" }
+            {
+                "TITLE": "Analytical Thinking"
+            },
+            {
+                "TITLE": "Problem-Solving"
+            },
+            {
+                "TITLE": "Detail Oriented"
+            },
+            {
+                "TITLE": "Teamwork and Collaboration"
+            },
+            {
+                "TITLE": "Curiosity"
+            },
+            {
+                "TITLE": "Continuous Learning"
+            },
+            {
+                "TITLE": "Empathy"
+            },
+            {
+                "TITLE": "Self-Motivation"
+            },
+            {
+                "TITLE": "Ownership"
+            }
         ],
         "PROJECTS": [
-          {
-              "LINK": "github.com/bagassandih/coin-scope",
-              "IMAGE": "./assets/images/projects/asset-35.png",
-              "TITLE": "Coin Scope - Top 5 coins with the highest Weighted Score",
-              "DESCRIPTION": "CoinScope is a data-driven crypto analysis platform that helps you spot coins with high potential based on market momentum, volume, weekly trends, and scoring analysis. It’s designed to filter out the market noise and keep you from making impulsive FOMO buys.",
-              "SKILLS": [
-                "Node.js", "HTML", "CSS", "PostgreSQL", "CMC", "Integrated API", "JavaScript", "Vibe Code", "Claude Code"
-              ]
-            },
-          {
-              "LINK": "github.com/bagassandih/datacraft",
-              "IMAGE": "./assets/images/projects/asset-34.png",
-              "TITLE": "DataCraft - Visual SQL Query Builder",
-              "DESCRIPTION": "This project came about from the daily frustrations developers face when dealing with the complexity of writing manual queries. DataCraft is designed to help developers view, compose, and generate complex queries visually.",
-              "SKILLS": [
-                "Node.js", "Vue.js", "Knex.js", "Swagger", "Axios", "Claude Code", "JavaScript"
-              ]
+            {
+                "LINK": "github.com/bagassandih/coin-scope",
+                "IMAGE": "./assets/images/projects/asset-35.png",
+                "TITLE": "Coin Scope - Top 5 coins with the highest Weighted Score",
+                "DESCRIPTION": "CoinScope is a data-driven crypto analysis platform that helps you spot coins with high potential based on market momentum, volume, weekly trends, and scoring analysis. It’s designed to filter out the market noise and keep you from making impulsive FOMO buys.",
+                "SKILLS": [
+                    "Node.js",
+                    "HTML",
+                    "CSS",
+                    "PostgreSQL",
+                    "CMC",
+                    "Integrated API",
+                    "JavaScript",
+                    "Vibe Code",
+                    "Claude Code"
+                ]
             },
             {
-              "LINK": "sanrize-shop-fe.vercel.app",
-              "IMAGE": "./assets/images/projects/asset-33.png",
-              "TITLE": "Sanrize Shop - Topup Game Online",
-              "DESCRIPTION": "The online game top-ups assisted by the AI-based IDE Firebase Studio, with payments made through the Doku Payment Gateway and resellers accessing Apigamehub.",
-              "SKILLS": [
-                "Next.js", "TypeScript", "AI", "Doku Payment", "Apigamehub", "HTML", "CSS", "Node.js", "Supabase"
-              ]
+                "LINK": "github.com/bagassandih/datacraft",
+                "IMAGE": "./assets/images/projects/asset-34.png",
+                "TITLE": "DataCraft - Visual SQL Query Builder",
+                "DESCRIPTION": "This project came about from the daily frustrations developers face when dealing with the complexity of writing manual queries. DataCraft is designed to help developers view, compose, and generate complex queries visually.",
+                "SKILLS": [
+                    "Node.js",
+                    "Vue.js",
+                    "Knex.js",
+                    "Swagger",
+                    "Axios",
+                    "Claude Code",
+                    "JavaScript"
+                ]
             },
             {
-              "LINK": "github.com/bagassandih/bank-sampah-management-system",
-              "IMAGE": "./assets/images/projects/asset-19.png",
-              "TITLE": "Bank Sampah Management System",
-              "DESCRIPTION": "MVC-based project facilitates waste bank management, including transaction recording and member management, to help administrators, especially my mother, run operations efficiently and organized.",
-              "SKILLS": [
-                "Node.js", "Express.js", "MongoDB", "JWT", "Chart.js", "Ejs", "HTML", "CSS", "JavaScript"
-              ]
+                "LINK": "sanrize-shop-fe.vercel.app",
+                "IMAGE": "./assets/images/projects/asset-33.png",
+                "TITLE": "Sanrize Shop - Topup Game Online",
+                "DESCRIPTION": "The online game top-ups assisted by the AI-based IDE Firebase Studio, with payments made through the Doku Payment Gateway and resellers accessing Apigamehub.",
+                "SKILLS": [
+                    "Next.js",
+                    "TypeScript",
+                    "AI",
+                    "Doku Payment",
+                    "Apigamehub",
+                    "HTML",
+                    "CSS",
+                    "Node.js",
+                    "Supabase"
+                ]
             },
             {
-              "LINK": "github.com/bagassandih/mini-project-zettacamp-restaurant",
-              "IMAGE": "./assets/images/projects/asset-21.png",
-              "TITLE": "Praedulcis - Restaurant API",
-              "DESCRIPTION": "This project was created during an intensive bootcamp from Zettabyte Pte. Ltd. over 3 months as the final project and proof of learning from those 3 months. Created API with techstack based on the company.",
-              "SKILLS": [
-                "Node.js", "Express.js", "MongoDB", "JWT", "GraphQL"
-              ]
+                "LINK": "github.com/bagassandih/bank-sampah-management-system",
+                "IMAGE": "./assets/images/projects/asset-19.png",
+                "TITLE": "Bank Sampah Management System",
+                "DESCRIPTION": "MVC-based project facilitates waste bank management, including transaction recording and member management, to help administrators, especially my mother, run operations efficiently and organized.",
+                "SKILLS": [
+                    "Node.js",
+                    "Express.js",
+                    "MongoDB",
+                    "JWT",
+                    "Chart.js",
+                    "EJS",
+                    "HTML",
+                    "CSS",
+                    "JavaScript"
+                ]
             },
             {
-              "LINK": "github.com/bagassandih/another-chat-room",
-              "IMAGE": "./assets/images/projects/asset-22.png",
-              "TITLE": "Another Chatroom",
-              "DESCRIPTION": "This is a chat room prototype using HTML, CSS, and JavaScript, with a server powered by Node.js, Socket.io, and Express.js for real-time communication. I delved into understanding how sockets could facilitate real-time communication.",
-              "SKILLS": [
-                "Node.js", "Express.js", "Socket.io", "HTML", "CSS", "JavaScript"
-              ]
+                "LINK": "github.com/bagassandih/mini-project-zettacamp-restaurant",
+                "IMAGE": "./assets/images/projects/asset-21.png",
+                "TITLE": "Praedulcis - Restaurant API",
+                "DESCRIPTION": "This project was created during an intensive bootcamp from Zettabyte Pte. Ltd. over 3 months as the final project and proof of learning from those 3 months. Created API with techstack based on the company.",
+                "SKILLS": [
+                    "Node.js",
+                    "Express.js",
+                    "MongoDB",
+                    "JWT",
+                    "GraphQL"
+                ]
+            },
+            {
+                "LINK": "github.com/bagassandih/another-chat-room",
+                "IMAGE": "./assets/images/projects/asset-22.png",
+                "TITLE": "Another Chatroom",
+                "DESCRIPTION": "This is a chat room prototype using HTML, CSS, and JavaScript, with a server powered by Node.js, Socket.io, and Express.js for real-time communication. I delved into understanding how sockets could facilitate real-time communication.",
+                "SKILLS": [
+                    "Node.js",
+                    "Express.js",
+                    "Socket.io",
+                    "HTML",
+                    "CSS",
+                    "JavaScript"
+                ]
             }
         ],
         "CONTACTS": [
             {
-              "LINK": "www.linkedin.com/in/bagassandih",
-              "IMAGE": "./assets/images/contacts/asset-1.png",
-              "TITLE": "LinkedIn"
+                "LINK": "www.linkedin.com/in/bagassandih",
+                "IMAGE": "./assets/images/contacts/asset-1.png",
+                "TITLE": "LinkedIn"
             },
             {
-              "LINK": "www.youtube.com/@bagassandih",
-              "IMAGE": "./assets/images/contacts/asset-2.png",
-              "TITLE": "Youtube Channel"
+                "LINK": "www.youtube.com/@bagassandih",
+                "IMAGE": "./assets/images/contacts/asset-2.png",
+                "TITLE": "YouTube"
             },
             {
-              "LINK": "www.instagram.com/bagassandih",
-              "IMAGE": "./assets/images/contacts/asset-3.png",
-              "TITLE": "Instagram"
+                "LINK": "www.instagram.com/bagassandih",
+                "IMAGE": "./assets/images/contacts/asset-3.png",
+                "TITLE": "Instagram"
             },
             {
-              "LINK": "bagassandi13@gmail.com",
-              "IMAGE": "./assets/images/contacts/asset-4.png",
-              "TITLE": "Gmail"
+                "LINK": "bagassandi13@gmail.com",
+                "IMAGE": "./assets/images/contacts/asset-4.png",
+                "TITLE": "Gmail"
             },
             {
-              "LINK": "github.com/bagassandih",
-              "IMAGE": "./assets/images/contacts/asset-5.png",
-              "TITLE": "Github"
+                "LINK": "github.com/bagassandih",
+                "IMAGE": "./assets/images/contacts/asset-5.png",
+                "TITLE": "GitHub"
             }
         ],
         "CONTACT_DESCRIPTION": "Please feel free to reach out with any questions or inquiries. Whether providing feedback, discussing a potential collaboration, or simply connecting, all communications are welcome. Contact can be made via email, social media, or through the contact form on this website. Looking forward to connecting."

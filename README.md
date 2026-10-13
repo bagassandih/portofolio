@@ -23,7 +23,9 @@ Seluruh konten dirender di sisi klien dari satu sumber data JSON (`data/data.jso
 - 📱 **Responsive** — layout menyesuaikan dari mobile hingga desktop, dengan menu hamburger.
 - 📄 **Download resume** — tombol untuk mengunduh resume (PDF) langsung dari situs.
 - ✉️ **Kontak email** — toast SweetAlert2 menampilkan alamat email saat kartu Gmail diklik.
-- 🎨 **Animasi & transisi** — hover effects, gradient brand, dan smooth-scroll navigation.
+- 🎨 **"Henry"** — 100% monokrom hangat: kanvas Paper `#fafafa` & panel Ink `#2a2722`, tanpa aksen kromatik, radius 12px saja, flat tanpa shadow, layout full-bleed editorial.
+- ✒️ **Tiga register tipografi** — Inter 400/700 (substitusi Neue Montreal) untuk UI/body, Fraunces (substitusi Louize Display/Louize) untuk headline serif editorial, dan Antonio (substitusi Manuka) untuk masthead ultra-condensed "Selected Works".
+- 🎨 **Transisi halus** — hover effects yang tenang dan smooth-scroll navigation.
 - 🖼️ **Favicon lengkap** — SVG, PNG, ICO, dan `apple-touch-icon` dengan identitas brand.
 - ♿ **Aksesibel & SEO-friendly** — meta description, `theme-color`, dan semantic HTML.
 
@@ -32,16 +34,16 @@ Seluruh konten dirender di sisi klien dari satu sumber data JSON (`data/data.jso
 | Layer        | Teknologi |
 | ------------ | --------- |
 | Markup       | HTML5 |
-| Styling      | CSS3 (CSS custom properties, flexbox, `column-count` masonry) |
+| Styling      | CSS3 (CSS custom properties, flexbox, CSS Grid) |
 | Logic        | Vanilla JavaScript (ES6+) |
 | Data         | JSON (`data/data.json`) |
-| Fonts        | [Lexend Exa](https://fonts.google.com/specimen/Lexend+Exa) & [Pacifico](https://fonts.google.com/specimen/Pacifico) (Google Fonts) |
+| Fonts        | [Inter](https://fonts.google.com/specimen/Inter) (Neue Montreal · UI) · [Fraunces](https://fonts.google.com/specimen/Fraunces) (Louize Display/Louize · serif) · [Antonio](https://fonts.google.com/specimen/Antonio) (Manuka · masthead) — Google Fonts |
 | Libraries    | [SweetAlert2](https://sweetalert2.github.io/) |
 | Hosting      | GitHub Pages (custom domain via `CNAME`) |
 
 ## Sections
 
-1. **Home** — nama, role, deskripsi singkat, foto, tombol _Download Resume_ & _Contact Me_.
+1. **Home** — badge role, nama (display), deskripsi singkat, tombol _Download Resume_ & _Contact Me_.
 2. **Work Experience** — riwayat pekerjaan beserta tech stack tiap posisi.
 3. **Education** — pendidikan formal, bootcamp, dan kursus online.
 4. **Skills** — dibagi menjadi _Hardskill_, _Other Skills_, dan _Softskill_.
@@ -95,9 +97,10 @@ Alternatif lain: gunakan extension **Live Server** di VS Code.
 
 1. **Konten** — edit `data/data.json`. Tambah/hapus pengalaman, project, skill, kontak, atau ubah bio di bagian `HOME.DESCRIPTION`.
 2. **Gambar & resume** — letakkan file di `assets/images/` atau `assets/docs/`, lalu perbarui path di `data.json`.
-3. **Tampilan** — ubah palet warna, font, atau spacing di `:root` pada `css/style.css`. Brand color saat ini:
-   - Primary dark: `#1A2130` · Primary: `#27374D`
-   - Secondary: `#526D82` · Accent: `#9DB2BF` · Light: `#DDE6ED`
+3. **Tampilan** — ubah palet warna, font, atau spacing di `:root` pada `css/style.css`. Palet saat ini (gaya "Henry"):
+   - Paper (kanvas/kartu): `#fafafa` · Ink (panel gelap/footer): `#2a2722` · Sepia (teks sekunder): `#3e3b36` · Ash (teks muted): `#666666`
+   - Hairline (border kartu): `#eeeeee` · Midstone (border muted): `#9f9f9f`
+   - Monokrom penuh — tanpa aksen warna. Radius 12px saja, tanpa shadow. Untuk mengubah warna dasar, cukup ubah variabel di `:root`.
 4. **Favicon** — ganti `favicon.svg` (vector) lalu regenerate PNG/ICO dari file tersebut bila perlu.
 
 ## Deployment
