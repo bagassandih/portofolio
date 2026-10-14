@@ -260,12 +260,105 @@
     window.refreshReveal = scan;
   }
 
+  /* ----------------------------------------------------------
+     Pass plat hero di perangkat sentuh
+     Di desktop gimik ini hidup dari :hover (lihat css/style.css).
+     Layar sentuh tidak punya hover, jadi di sini ia diberi dua jalan
+     masuk yang setara: satu pass otomatis saat plat masuk layar — yang
+     mengajarkannya tanpa perlu label apa pun — lalu ketukan untuk
+     menukarnya bolak-balik. Keadaannya sama persis dengan hover: kelas
+     .hero-plate.is-pulled yang sama, geseran 3px yang sama.
+     ---------------------------------------------------------- */
+  function initPlatePass() {
+    // Di desktop hover sudah memegang gimik ini sepenuhnya. Memasang jalur
+    // ketuk di sana hanya akan menambah tab-stop dan satu keadaan kedua yang
+    // bisa bertabrakan dengan hover.
+    if (FINE_POINTER) return;
+
+    const plate = document.getElementById('hero_plate');
+    if (!plate) return;
+
+    const HOLD_MS = 1400; // lama pass otomatis bertahan sebelum dilepas
+    const SAFETY_MS = 2600; // batas tunggu reveal sebelum pass jalan sendiri
+
+    let autoPassDone = false;
+    let holdTimer = 0;
+    let safetyTimer = 0;
+
+    const pulled = () => plate.classList.contains('is-pulled');
+    const sync = () => plate.setAttribute('aria-pressed', pulled() ? 'true' : 'false');
+
+    const pull = () => {
+      plate.classList.add('is-pulled');
+      sync();
+    };
+
+    const release = () => {
+      plate.classList.remove('is-pulled');
+      sync();
+    };
+
+    // Plat dipromosikan jadi tombol sungguhan supaya bisa dijangkau keyboard
+    // dan keadaannya diumumkan. Labelnya datang dari data.json — loadData.js
+    // menitipkannya di data-label, dan berkas ini tidak menulis teks apa pun.
+    plate.setAttribute('role', 'button');
+    plate.setAttribute('tabindex', '0');
+    if (plate.dataset.label) plate.setAttribute('aria-label', plate.dataset.label);
+    sync();
+
+    const toggle = () => {
+      // Ketukan membatalkan pass otomatis, bukan bertengkar dengannya.
+      autoPassDone = true;
+      window.clearTimeout(holdTimer);
+      window.clearTimeout(safetyTimer);
+      pulled() ? release() : pull();
+    };
+
+    plate.addEventListener('click', toggle);
+    plate.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault(); // Space akan menggulir halaman kalau dibiarkan
+      toggle();
+    });
+
+    // Tanpa gerak tidak ada pass otomatis — tetapi ketukan tetap menukar,
+    // sama seperti hover di desktop yang juga tetap menukar saat gerak
+    // dimatikan; di sana hanya transisinya yang hilang.
+    if (!MOTION_OK) return;
+
+    const startPass = () => {
+      window.clearTimeout(safetyTimer);
+      if (autoPassDone) return;
+      autoPassDone = true;
+      pull();
+      holdTimer = window.setTimeout(release, HOLD_MS);
+    };
+
+    // Pass-nya menunggu reveal plat selesai dulu; kalau tidak, ia bertumpuk
+    // dengan plat yang masih memudar masuk dan keduanya saling mengaburkan.
+    const revealPending =
+      document.documentElement.classList.contains('js-reveal') &&
+      !plate.classList.contains('is-visible');
+
+    if (revealPending) {
+      plate.addEventListener('animationend', startPass, { once: true });
+      // Jaring pengaman: kalau animationend tidak pernah datang, pass-nya
+      // tetap berjalan daripada hilang tanpa jejak.
+      safetyTimer = window.setTimeout(startPass, SAFETY_MS);
+    } else {
+      startPass();
+    }
+  }
+
   function init() {
     const steps = [
       ['kursor', initCursor],
       ['scroll rule', initScrollProgress],
       ['marquee', initReactiveMarquee],
       ['reveal', initReveal],
+      // Setelah reveal: initPlatePass menunggu animationend reveal pada plat,
+      // jadi observer-nya harus sudah terpasang lebih dulu.
+      ['pass plat', initPlatePass],
     ];
 
     steps.forEach(([label, run]) => {

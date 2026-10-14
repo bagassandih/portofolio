@@ -27,8 +27,9 @@ Ada satu pengecualian kecil: **foto hero** memakai dua berkas — foto asli dan 
 - ✉️ **Kontak email** — toast SweetAlert2 menampilkan alamat email saat kartu Gmail diklik.
 - 🎨 **"Henry"** — 100% monokrom hangat: kanvas Paper `#fafafa` & panel Ink `#2a2722`, tanpa aksen kromatik, radius 12px saja, flat tanpa shadow, layout full-bleed editorial. Satu-satunya elemen berwarna di halaman adalah **foto hero saat diam** — itu keputusan sadar; begitu di-hover, platnya kembali sepenuhnya dua tinta.
 - ✒️ **Tiga register tipografi** — Inter 400/700 (substitusi Neue Montreal) untuk UI/body, Fraunces (substitusi Louize Display/Louize) untuk headline serif editorial, dan Antonio (substitusi Manuka) untuk masthead ultra-condensed "Selected Works".
-- 🖨️ **Gimik plat cetak** — saat plat hero di-hover, foto memudar dan berganti jadi halftone dua tinta (Ink di atas Paper) sambil meleset 3px, sehingga kertas menyembul di tepinya seperti cetakan yang salah register. Titik halftone-nya membesar-mengecil mengikuti terang-gelap foto, bukan pola seragam. Hanya aktif di perangkat berpenunjuk presisi; di layar sentuh tetap foto saja.
-- 🌗 **Dua tema — Paper & Ink** — sakelar `PAPER / INK` di navigasi membalik seluruh halaman: kertas jadi tinta, tinta jadi kertas. Ini bukan sekadar "mode gelap" — panel Ink yang tadinya gelap berubah jadi terang, dan sebaliknya, persis seperti mencetak negatifnya. Halaman selalu mulai dari Paper; pilihanmu diingat di peramban dan dipasang sebelum halaman tergambar, jadi tidak ada kedipan terang saat dibuka ulang.
+- 🖨️ **Gimik plat cetak** — foto hero memudar dan berganti jadi halftone dua tinta (Ink di atas Paper) sambil meleset 3px, sehingga kertas menyembul di tepinya seperti cetakan yang salah register. Titik halftone-nya membesar-mengecil mengikuti terang-gelap foto, bukan pola seragam. Keadaannya satu, jalan masuknya dua: **hover** di perangkat berpenunjuk presisi, dan di layar sentuh — yang tidak punya hover — **satu pass otomatis** begitu plat masuk layar (itu yang mengajarkannya, tanpa perlu label apa pun) lalu **ketukan** untuk menukarnya bolak-balik. Di sana platnya dipromosikan jadi tombol sungguhan: bisa dijangkau keyboard, keadaannya diumumkan lewat `aria-pressed`, dan Enter/Space ikut menukar. Teksnya dari `LABELS.PLATE_TOGGLE`. Gerak plat sengaja tidak digerbangi penunjuk, hanya `prefers-reduced-motion` — tanpa transisi, pass-nya datang sebagai kedipan dan tidak lagi terbaca sebagai cetakan.
+- 🌗 **Dua tema — Paper & Ink** — sakelar `MODE [ PAPER › INK ]` di navigasi membalik seluruh halaman: kertas jadi tinta, tinta jadi kertas. Ini bukan sekadar "mode gelap" — panel Ink yang tadinya gelap berubah jadi terang, dan sebaliknya, persis seperti mencetak negatifnya. Kata yang mewakili tema aktif naik ukurannya, yang lain tinggal abu-abu (Pebble) — penekanannya dari skala, bukan dari warna, sesuai pola "Nav Link" di `reference/`. Saat berganti, kata yang baru aktif meleset 3px lalu duduk di register-nya, bahasa cetak yang sama dengan plat hero. Halaman selalu mulai dari Paper; pilihanmu diingat di peramban dan dipasang sebelum halaman tergambar, jadi tidak ada kedipan terang saat dibuka ulang.
+- 📬 **Contact sebagai tujuan** — band penutup ini sengaja dibuat setinggi satu layar penuh: judul section yang sama dengan section lain, kelima kanal kontak, prosa editorial 32px, dan baris ketersediaan (`PROFILE.AVAILABILITY`) sebagai penutup. Ini tempat tombol _Hire Me_ mendarat, jadi ia harus terbaca sebagai tujuan, bukan sisa halaman.
 - 🎨 **Transisi halus** — hover effects yang tenang dan smooth-scroll navigation. Semua gerak tunduk pada `prefers-reduced-motion`.
 - 🖼️ **Favicon lengkap** — SVG, PNG, ICO, dan `apple-touch-icon` dengan identitas brand.
 - ♿ **Aksesibel & SEO-friendly** — meta description, `theme-color`, dan semantic HTML.
@@ -53,7 +54,7 @@ Ada satu pengecualian kecil: **foto hero** memakai dua berkas — foto asli dan 
 3. **Education** — pendidikan formal, bootcamp, dan kursus online.
 4. **Skills** — dibagi menjadi _Hardskill_, _Other Skills_, dan _Softskill_.
 5. **Project** — kartu proyek (klik untuk membuka repository/demo).
-6. **Contact** — LinkedIn, YouTube, Instagram, Gmail, dan GitHub.
+6. **Contact** — judul section, LinkedIn, YouTube, Instagram, Gmail, dan GitHub, prosa editorial, dan baris ketersediaan.
 
 ## Project Structure
 
@@ -111,7 +112,7 @@ Alternatif lain: gunakan extension **Live Server** di VS Code.
 
 ## Customization
 
-1. **Konten** — edit `data/data.json`. Tambah/hapus pengalaman, project, skill, kontak, atau ubah bio di bagian `HOME.DESCRIPTION`.
+1. **Konten** — edit `data/data.json`. Tambah/hapus pengalaman, project, skill, kontak, atau ubah bio di bagian `HOME.DESCRIPTION`. Teks antarmuka yang berdiri sendiri ada di `LABELS` (tombol, label pembaca layar, kata di sakelar tema, label tombol plat hero) dan `SECTIONS` (judul section) — tidak ada satu pun yang ditulis di `index.html`.
 2. **Gambar & resume** — letakkan file di `assets/images/` atau `assets/docs/`, lalu perbarui path di `data.json`. Khusus **foto hero**, ada langkah tambahan — lihat [Mengganti foto hero](#mengganti-foto-hero) di bawah.
 3. **Tampilan** — ubah palet warna, font, atau spacing di `:root` pada `css/style.css`. Palet saat ini (gaya "Henry"):
    - Paper (kanvas/kartu): `#fafafa` · Ink (panel gelap/footer): `#2a2722` · Sepia (teks sekunder): `#3e3b36` · Ash (teks muted): `#666666`
@@ -154,7 +155,9 @@ Ingin mengubah karakter titiknya? `--tone auto|gentle|raw` mengatur seberapa ter
 
 ### Menambah atau mengubah tema
 
-Kedua kata di sakelar tema (`Paper`, `Ink`) diambil dari `LABELS.THEME_PAPER` dan `LABELS.THEME_INK` di `data/data.json`, jadi teksnya bisa diganti tanpa menyentuh kode. Menambah tema **ketiga** bukan sekadar menambah satu blok CSS — posisi aktif, penyimpanan pilihan, dan penukaran aset halftone semuanya mengasumsikan tepat dua tema. Kalau itu yang kamu butuhkan, `js/theme.js` adalah tempat memulainya.
+Kedua kata di sakelar tema (`Paper`, `Ink`) — plus kata pengantarnya (`Mode`) — diambil dari `LABELS.THEME_MODE`, `LABELS.THEME_PAPER`, dan `LABELS.THEME_INK` di `data/data.json`, jadi teksnya bisa diganti tanpa menyentuh kode. Satu hal yang perlu dijaga: lebar tiap kata di sakelar dipatok di `css/style.css` (`.nav-theme__opt[data-theme-opt=...] { min-width }`) tepat sebesar versi terbesarnya. Itu yang membuat kurung, chevron, dan kata "Mode" tidak bergeser saat ukuran kata berganti. Kalau kamu mengganti labelnya jadi lebih panjang dari `Paper`, perbarui juga `min-width`-nya — kalau tidak, barisnya akan bergeser sedikit tiap kali tema ditukar.
+
+Menambah tema **ketiga** bukan sekadar menambah satu blok CSS — posisi aktif, penyimpanan pilihan, dan penukaran aset halftone semuanya mengasumsikan tepat dua tema. Kalau itu yang kamu butuhkan, `js/theme.js` adalah tempat memulainya.
 
 ## Deployment
 

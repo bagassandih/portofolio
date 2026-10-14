@@ -112,6 +112,10 @@ function profileSection(data) {
     setText("nav_title", profile.NAME);
     setText("hero_eyebrow", profile.ROLE);
 
+    // Baris ketersediaan yang menutup band Contact. Sumbernya sama dengan
+    // banner di atas — satu fakta, satu field.
+    setText("contact_availability", profile.AVAILABILITY);
+
     // Nama hero dipecah dua bagian: lead (roman) dan accent (italic) yang
     // saling bertukar gaya saat di-hover. Pecahannya ditentukan di data.json
     // supaya bukan hasil tebakan "kata terakhir".
@@ -170,6 +174,7 @@ function sectionsSection(data) {
     setText("section_title_education", sections.EDUCATION);
     setText("section_title_skills", sections.SKILLS);
     setText("section_title_project", sections.PROJECT);
+    setText("section_title_contact", sections.CONTACT);
   } catch (error) {
     console.error("Gagal mengambil data SECTIONS:", error);
   }
@@ -189,13 +194,33 @@ function labelsSection(data) {
     setText("contact_note", labels.CONTACT_NOTE);
     setText("footer_back_to_top", labels.FOOTER_BACK_TO_TOP);
 
-    // Sakelar tema — dua kata yang terlihat, satu label untuk pembaca layar
-    // (keadaan aktifnya diumumkan lewat aria-pressed di js/theme.js).
+    // Sakelar tema — kata "Mode", dua nama tema yang terlihat, dan satu label
+    // untuk pembaca layar (keadaan aktifnya diumumkan lewat aria-pressed di
+    // js/theme.js).
+    setText("nav_theme_label", labels.THEME_MODE);
     setText("nav_theme_paper", labels.THEME_PAPER);
     setText("nav_theme_ink", labels.THEME_INK);
     const themeButton = document.getElementById("nav_theme");
     if (themeButton && labels.THEME_SWITCH) {
       themeButton.setAttribute("aria-label", labels.THEME_SWITCH);
+    }
+
+    // Label untuk plat hero saat ia menjadi tombol. Dititipkan sebagai
+    // data-label, bukan langsung aria-label: di desktop platnya bukan tombol,
+    // dan aria-label pada <div> biasa tidak sah. Yang mempromosikannya jadi
+    // aria-label adalah js/interactions.js, dan hanya di perangkat sentuh —
+    // pola yang sama dengan data-src-* milik halftone di theme.js.
+    //
+    // Dua arah perlu ditangani: interactions.js jalan di DOMContentLoaded,
+    // sedangkan fetch data ini selesai sesudahnya — jadi biasanya data-label
+    // tiba terlambat dan justru di sini labelnya harus dipasang. Kalau
+    // urutannya kebetulan terbalik, data-label yang mengambil alih.
+    const heroPlate = document.getElementById("hero_plate");
+    if (heroPlate && labels.PLATE_TOGGLE) {
+      heroPlate.dataset.label = labels.PLATE_TOGGLE;
+      if (heroPlate.getAttribute("role") === "button") {
+        heroPlate.setAttribute("aria-label", labels.PLATE_TOGGLE);
+      }
     }
     setText("footer_copyright", `© ${new Date().getFullYear()} ${data?.PROFILE?.NAME || ""}`);
   } catch (error) {

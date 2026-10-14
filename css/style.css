@@ -236,14 +236,19 @@ nav {
 }
 
 /* Sakelar tema — tipografis, tanpa ikon (Henry tidak punya ikonografi).
-   Dua kata, yang aktif bergaris bawah; yang tidak aktif diredupkan.
-   Pola hover-nya sengaja dibalik: yang tersorot justru kata TUJUAN, jadi
-   sebelum menekan pun sudah terbaca akan berpindah ke mana. */
+   Bentuknya satu tombol: kata "Mode" lalu dua nama tema di dalam kurung siku,
+   dipisah chevron. Semuanya digambar CSS supaya index.html tetap kerangka
+   ber-id tanpa teks statis.
+
+   Penekanannya dari SKALA, bukan dari warna atau isian — persis pola
+   "Nav Link (Uppercase)" di reference/reference.md: kata aktif tetap sewarna
+   tinta, hanya naik ukurannya. Yang tidak aktif tinggal di Pebble #b3b3b3,
+   token yang memang berperan "inactive nav text". */
 .nav-theme {
   flex-shrink: 0;
   display: inline-flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 7px;
   padding: 4px 0;
   background: transparent;
   border: none;
@@ -251,36 +256,106 @@ nav {
   font-weight: 700;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: var(--color-ash);
+  color: var(--color-pebble);
   transition: color 0.15s ease;
 }
 
-/* Garis miring pemisah digambar CSS, bukan ditulis di index.html.
-   Ditempel di akhir kata pertama — bukan di awal kata kedua — supaya
-   garis bawah penanda-aktif tidak pernah ikut mencoret pemisahnya. */
-.nav-theme__opt:not(:last-child)::after {
-  content: "/";
-  margin-left: 6px;
-  font-weight: 400;
+/* Kata "Mode" menandai jenis kendalinya, bukan pilihannya — ia tidak pernah
+   ikut menyala, jadi tinggal di Pebble. */
+.nav-theme__label {
   color: var(--color-pebble);
+  transition: color 0.15s ease;
 }
 
-/* Kata yang mewakili tema aktif: tinta penuh + garis bawah. Ditentukan CSS
+/* Kurung siku dan chevron pemisah: hiasan tipografis, bukan pilihan. */
+.nav-theme__opts {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.nav-theme__opts::before,
+.nav-theme__opts::after,
+.nav-theme__sep {
+  color: var(--color-pebble);
+  font-weight: 400;
+  transition: color 0.15s ease;
+}
+
+.nav-theme__opts::before {
+  content: "[";
+}
+
+.nav-theme__opts::after {
+  content: "]";
+}
+
+.nav-theme__sep::before {
+  content: "›";
+}
+
+.nav-theme__opt {
+  display: inline-block;
+  text-align: center;
+  font-size: var(--text-caption);
+  line-height: 1.2;
+  color: var(--color-pebble);
+  transition: font-size 0.2s ease, color 0.2s ease;
+}
+
+/* Lebar kotak dipatok PER KATA, bukan per ukuran huruf: tiap kata punya
+   kotaknya sendiri yang cukup untuk versi terbesarnya, jadi saat ukurannya
+   berganti yang berubah hanya glifnya — kurung, chevron, dan kata "Mode"
+   tidak ikut bergeser sedikit pun, dan tetangga di baris nav pun diam.
+   Angkanya = lebar kata pada 16px (Inter 700, uppercase) + kelonggaran:
+   "Paper" 51px, "Ink" 27.8px. Ukuran aktif selalu 16px di semua breakpoint,
+   jadi angkanya tetap sah sampai layar tersempit. */
+.nav-theme__opt[data-theme-opt="light"] {
+  min-width: 53px;
+}
+
+.nav-theme__opt[data-theme-opt="dark"] {
+  min-width: 30px;
+}
+
+/* Kata yang mewakili tema aktif: naik ukuran, tinta penuh. Ditentukan CSS
    langsung dari atribut data-theme di <html> — bukan disetel JS — supaya
    penandanya sudah benar pada cat pertama, tanpa berkedip. */
 :root:not([data-theme="dark"]) .nav-theme__opt[data-theme-opt="light"],
 :root[data-theme="dark"] .nav-theme__opt[data-theme-opt="dark"] {
+  font-size: var(--text-body);
   color: var(--color-headline-ink);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
 }
 
-/* Hover justru menyalakan kata TUJUAN, jadi arah perpindahannya sudah
-   terbaca sebelum tombolnya ditekan. */
+/* Saat tema berganti, kata yang baru aktif meleset 3px lalu duduk di
+   register-nya — bahasa cetak yang sama dengan plat hero yang meleset 3px.
+   Dipicu kelas html.is-theming yang sudah dipasang js/theme.js selama 400ms
+   tiap pergantian, jadi tidak ada JS baru yang perlu ditulis. */
+html.is-theming:not([data-theme="dark"]) .nav-theme__opt[data-theme-opt="light"],
+html.is-theming[data-theme="dark"] .nav-theme__opt[data-theme-opt="dark"] {
+  animation: theme-register 320ms ease-out;
+}
+
+@keyframes theme-register {
+  from {
+    transform: translateX(3px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Hover menaikkan semua yang belum aktif ke Ash — anak tangga tengah antara
+   Pebble (tidak aktif) dan Headline Ink (aktif), jadi arah perpindahannya
+   sudah terbaca sebelum tombolnya ditekan. Skala tetap milik keadaan aktif. */
+.nav-theme:hover .nav-theme__label,
+.nav-theme:hover .nav-theme__sep,
+.nav-theme:hover .nav-theme__opts::before,
+.nav-theme:hover .nav-theme__opts::after,
 :root:not([data-theme="dark"]) .nav-theme:hover .nav-theme__opt[data-theme-opt="dark"],
 :root[data-theme="dark"] .nav-theme:hover .nav-theme__opt[data-theme-opt="light"] {
-  color: var(--color-headline-ink);
+  color: var(--color-ash);
 }
 
 .nav-theme:focus-visible {
@@ -445,9 +520,59 @@ nav {
   opacity: 1;
 }
 
-/* Lapisan halftone menunggu tak terlihat sampai plate di-hover. */
+/* Lapisan halftone menunggu tak terlihat sampai plate dipanggil sekali lagi. */
 .hero-plate-halftone {
   opacity: 0;
+}
+
+/* ---------- Keadaan "pass kedua" ---------- */
+/* Satu keadaan, dua jalan masuk: :hover di desktop (lihat blok "Gimik hero"
+   di bawah), dan kelas ini di perangkat sentuh — dinyalakan
+   js/interactions.js saat plat masuk layar, lalu ditukar oleh ketukan.
+   Keduanya menghasilkan cetakan yang sama persis; yang berbeda hanya cara
+   memanggilnya.
+
+   Latarnya sengaja KERTAS MENTAH, bukan Ink: fotonya gelap, jadi tinta di
+   bawah tinta tidak akan terlihat. Dengan kertas, pergeseran 3px
+   menyembulkan tepi terang yang jelas terbaca sebagai cetakan meleset — di
+   kedua tema, karena --color-stock tidak ikut terbalik. (Di tema gelap,
+   lapisan halftone-nya justru titik Paper di atas plat Ink; tepi terang ini
+   yang memisahkan plat dari kanvas yang kini sama-sama gelap.) */
+.hero-plate.is-pulled .hero-plate-inner {
+  background: var(--color-stock);
+}
+
+/* Ganti plate: foto memudar, halftone masuk. Keduanya meleset 3px serentak,
+   jadi yang terbaca bukan dua gambar bertumpuk melainkan satu plate yang
+   tercetak ulang lalu salah register. */
+.hero-plate.is-pulled .hero-plate-photo,
+.hero-plate.is-pulled .hero-plate-halftone {
+  transform: translate(3px, 3px);
+}
+
+.hero-plate.is-pulled .hero-plate-photo {
+  opacity: 0;
+}
+
+.hero-plate.is-pulled .hero-plate-halftone {
+  opacity: 1;
+}
+
+/* Plat yang sudah dipromosikan jadi tombol oleh js/interactions.js — dan itu
+   hanya terjadi di perangkat tanpa penunjuk presisi, jadi selektor atribut
+   ini sudah jadi gerbangnya sendiri. Sorotan ketuk bawaan peramban berwarna
+   dan di luar sistem; gerak pass-nya sendiri sudah cukup jadi umpan balik.
+   callout dimatikan supaya tekan-tahan tidak memunculkan menu simpan gambar
+   di tengah gimiknya. */
+.hero-plate[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.hero-plate[role="button"]:focus-visible {
+  outline: 2px solid var(--color-headline-ink);
+  outline-offset: -2px;
 }
 
 /* Catatan: layar titik halftone sempat dicoba lewat radial-gradient berulang,
@@ -822,15 +947,26 @@ nav {
 
 /* ============================================================
    Contact — Inverted Editorial Letter on Ink
+   Band penutup: judul section, dua blok tengah, baris ketersediaan.
+   Ukurannya sengaja dibuat satu layar penuh — ini tempat tombol "Hire Me"
+   mendarat, jadi ia harus terbaca sebagai tujuan, bukan sisa halaman.
    ============================================================ */
 .contact {
   background: var(--surface-ink);
   color: var(--color-paper);
-  padding: clamp(var(--spacing-64), 8vw, var(--spacing-80)) var(--gutter);
+  padding: clamp(var(--spacing-80), 10vw, 144px) var(--gutter);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-64);
+}
+
+/* Judulnya memakai .section-title yang sama dengan lima section lain — bahasa
+   yang sama, hanya warnanya dibalik karena latarnya tinta. Lebarnya penuh
+   supaya rata kiri seperti judul section lain, bukan ikut ter-center. */
+.contact .section-title {
+  width: 100%;
+  color: var(--color-paper);
 }
 
 .contact-block {
@@ -855,11 +991,24 @@ nav {
   margin-top: var(--spacing-32);
 }
 
+/* Baris ketersediaan yang menutup surat — eyebrow cermin di dasar band,
+   seperti pola "Inverted Editorial Letter" di reference/reference.md.
+   Jaraknya diatur `gap` milik .contact, jadi margin warisan dari
+   .letter-eyebrow:last-child di sini dinolkan (selektornya dikembarkan
+   supaya sama kuat dan menang urutan). */
+.letter-eyebrow.letter-eyebrow--closing {
+  margin: 0;
+  text-align: center;
+}
+
+/* Prosa surat: ukuran dan metriknya mengikuti spec Inverted Editorial Letter
+   (Louize Display 32px, line-height 1.2, rata tengah) — hanya jenis hurufnya
+   yang tetap Fraunces, substitusi Louize Display di proyek ini. */
 .letter-body {
-  font-family: var(--font-louize);
+  font-family: var(--font-louize-display);
   font-weight: 400;
-  font-size: var(--text-subheading);
-  line-height: 1.35;
+  font-size: clamp(var(--text-subheading), 2.6vw, var(--text-heading));
+  line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--color-paper);
   text-align: center;
@@ -879,8 +1028,8 @@ nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: clamp(64px, 7vw, 80px);
+  height: clamp(64px, 7vw, 80px);
   border-radius: var(--radius-card);
   background: var(--color-paper);
   border: none;
@@ -899,7 +1048,7 @@ nav {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 11px;
+  padding: 16px;
   object-fit: contain;
   filter: grayscale(0.25) contrast(1.05);
 }
@@ -1016,13 +1165,46 @@ nav {
 }
 
 @media (max-width: 900px) {
+  /* Satu kolom, dan plat cetaknya naik ke atas deskripsi + tombol: di layar
+     sempit nama besar lalu potret terbaca sebagai judul + ilustrasi, baru
+     paragraf dan ajakan di bawahnya.
+
+     Supaya plat bisa diselipkan tanpa membongkar DOM (di desktop ia memang
+     harus jadi kolom kedua di samping teks), .hero-copy dilepas kotaknya di
+     sini dengan display:contents. Keempat isinya naik jadi butir grid .hero,
+     lalu diurutkan lewat `order`. Cara ini aman karena .hero-copy tidak punya
+     satu pun aturan gaya — tidak ada kotak yang hilang. */
   .hero {
     grid-template-columns: 1fr;
-    gap: var(--spacing-32);
+    /* Jarak antar butir diatur margin masing-masing anak seperti di desktop,
+       jadi row-gap dinolkan supaya tidak dobel. */
+    row-gap: 0;
+  }
+
+  .hero-copy {
+    display: contents;
+  }
+
+  .hero-eyebrow {
+    order: 1;
+  }
+
+  .hero-name {
+    order: 2;
   }
 
   .hero-plate {
+    order: 3;
     max-width: 320px;
+    margin-top: var(--spacing-32);
+  }
+
+  .hero-description {
+    order: 4;
+  }
+
+  .hero-actions {
+    order: 5;
   }
 }
 
@@ -1054,8 +1236,8 @@ nav {
     gap: 4px;
   }
 
-  .nav-theme__opt:not(:last-child)::after {
-    margin-left: 4px;
+  .nav-theme__opts {
+    gap: 4px;
   }
 
   header {
@@ -1478,20 +1660,15 @@ nav {
     letter-spacing: 0.012em;
   }
 
-  /* Press pass — plate meleset satu pass. Latarnya sengaja KERTAS MENTAH,
-     bukan Ink: fotonya gelap, jadi tinta di bawah tinta tidak akan
-     terlihat. Dengan kertas, pergeseran 3px menyembulkan tepi terang yang
-     jelas terbaca sebagai cetakan meleset — di kedua tema, karena
-     --color-stock tidak ikut terbalik. (Di tema gelap, lapisan halftone-nya
-     justru titik Paper di atas plat Ink; tepi terang ini yang memisahkan
-     plat dari kanvas yang kini sama-sama gelap.) */
+  /* Cermin dari .hero-plate.is-pulled di atas — deklarasinya memang diulang,
+     dan itu disengaja. Kalau .hero-plate:hover ditulis di luar gerbang ini,
+     peramban sentuh akan menempelkan hover itu setelah ketukan pertama dan
+     ia akan bertengkar dengan kelas yang dipasang js/interactions.js.
+     Gerbang penunjuk inilah yang memisahkan kedua jalan masuk itu. */
   .hero-plate:hover .hero-plate-inner {
     background: var(--color-stock);
   }
 
-  /* Ganti plate: foto memudar, halftone masuk. Keduanya meleset 3px
-     serentak, jadi yang terbaca bukan dua gambar bertumpuk melainkan satu
-     plate yang tercetak ulang lalu salah register. */
   .hero-plate:hover .hero-plate-photo,
   .hero-plate:hover .hero-plate-halftone {
     transform: translate(3px, 3px);
@@ -1506,12 +1683,10 @@ nav {
   }
 }
 
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .hero-name em,
-  .hero-name-lead {
-    transition: letter-spacing 0.4s ease;
-  }
-
+/* Gerak plat sengaja TIDAK digerbangi penunjuk — hanya preferensi gerak.
+   Perangkat sentuh memerlukan transisi yang sama persis, kalau tidak pass-nya
+   datang sebagai kedipan dan tidak terbaca sebagai cetakan. */
+@media (prefers-reduced-motion: no-preference) {
   .hero-plate-inner {
     transition: background-color 0.45s ease;
   }
@@ -1521,6 +1696,15 @@ nav {
      tertinggal dan terlihat sebagai gambar hantu. */
   .hero-plate-inner img {
     transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* Hanya aksen italic pada nama yang tetap khusus desktop: ia tidak punya
+   padanan sentuh, jadi tidak perlu gerak di sana. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-name em,
+  .hero-name-lead {
+    transition: letter-spacing 0.4s ease;
   }
 }
 
@@ -1582,10 +1766,12 @@ nav {
     scroll-behavior: auto;
   }
 
-  /* Ganti tema langsung, tanpa silang-lebur */
+  /* Ganti tema langsung, tanpa silang-lebur. Animasi "duduk di register"
+     di sakelar tema juga dimatikan — tanpa gerak, tema tetap berganti. */
   html.is-theming,
   html.is-theming * {
     transition: none !important;
+    animation: none !important;
   }
 
   .tech-ticker-track {

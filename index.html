@@ -48,12 +48,18 @@
       <!-- Daftar tautan dirender navSection() dari NAV.LINKS -->
       <ul class="nav-links" id="nav_links"></ul>
       <button class="nav-cta" id="nav_cta" onclick="scrollElement('contact')"></button>
-      <!-- Sakelar tema. Kedua katanya diisi labelsSection() dari LABELS;
-           mana yang bergaris bawah ditentukan CSS dari data-theme di <html>,
-           jadi tidak ada keadaan aktif yang perlu ditulis JS. -->
+      <!-- Sakelar tema. Kata "Mode" dan kedua nama temanya diisi
+           labelsSection() dari LABELS; kurung siku dan chevronnya digambar CSS,
+           jadi tidak ada teks statis di sini. Mana yang menonjol ditentukan CSS
+           dari data-theme di <html>, bukan disetel JS — penandanya sudah benar
+           pada cat pertama. -->
       <button type="button" class="nav-theme" id="nav_theme" aria-pressed="false">
-        <span class="nav-theme__opt" data-theme-opt="light" id="nav_theme_paper"></span>
-        <span class="nav-theme__opt" data-theme-opt="dark" id="nav_theme_ink"></span>
+        <span class="nav-theme__label" id="nav_theme_label"></span>
+        <span class="nav-theme__opts">
+          <span class="nav-theme__opt" data-theme-opt="light" id="nav_theme_paper"></span>
+          <span class="nav-theme__sep" aria-hidden="true"></span>
+          <span class="nav-theme__opt" data-theme-opt="dark" id="nav_theme_ink"></span>
+        </span>
       </button>
       <button type="button" class="hamburger" aria-label="Buka menu" aria-expanded="false"
         aria-controls="nav_links">
@@ -76,13 +82,16 @@
       </div>
     </div>
     <!-- src & alt diisi profileSection() dari PROFILE/HOME — tidak ada
-         nilai statis di sini.
+         nilai statis di sini. Begitu juga label tombolnya, yang dititipkan
+         labelsSection() ke data-label.
          .hero-plate memegang tanda potong + sudut tajam; .hero-plate-inner
          yang meng-clip gambar, supaya tanda potongnya boleh keluar bidang.
          Dua lapisan bertumpuk: foto asli sebagai keadaan diam, halftone
-         sebagai keadaan hover. Lapisan halftone murni hiasan (teksnya sudah
-         ada di foto), jadi aria-hidden. -->
-    <div class="hero-plate reveal" data-reveal-delay="360">
+         sebagai keadaan "pass kedua" — dipicu hover di desktop, dan di
+         perangkat sentuh dipicu js/interactions.js lewat ketukan.
+         Lapisan halftone murni hiasan (teksnya sudah ada di foto), jadi
+         aria-hidden. -->
+    <div class="hero-plate reveal" data-reveal-delay="360" id="hero_plate">
       <div class="hero-plate-inner">
         <img class="hero-plate-photo" alt="">
         <img class="hero-plate-halftone" alt="" aria-hidden="true">
@@ -144,7 +153,11 @@
       aria-label="Daftar proyek, geser ke kanan atau kiri"></div>
   </section>
 
+  <!-- Surat editorial terbalik: judul section, lalu dua blok tengah, ditutup
+       baris ketersediaan. Judulnya memakai .section-title yang sama dengan lima
+       section lain — warnanya saja yang dibalik CSS karena latarnya tinta. -->
   <section id="contact" class="contact">
+    <h2 class="section-title reveal" id="section_title_contact"></h2>
     <div class="contact-block reveal">
       <span class="letter-eyebrow" id="contact_get_in_touch"></span>
       <div class="contact-links" id="contact_list"></div>
@@ -153,6 +166,7 @@
       <span class="letter-eyebrow" id="contact_note"></span>
       <p class="letter-body" id="contact_description"></p>
     </div>
+    <span class="letter-eyebrow letter-eyebrow--closing reveal" id="contact_availability"></span>
   </section>
 
   <footer class="site-footer">

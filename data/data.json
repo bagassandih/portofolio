@@ -8,7 +8,7 @@
             "RESUME": "./assets/docs/Bagas Arisandi - Backend Developer.pdf"
         },
         "PROFILE": {
-            "NAME": "Bagas Arisandi Hidayat",
+            "NAME": "BagassandiH",
             "NAME_LEAD": "Bagas Arisandi",
             "NAME_ACCENT": "Hidayat",
             "ROLE": "Backend Developer / Engineer",
@@ -398,7 +398,8 @@
             "EXPERIENCE": "Work Experience",
             "EDUCATION": "Education",
             "SKILLS": "Skills",
-            "PROJECT": "Selected Works"
+            "PROJECT": "Selected Works",
+            "CONTACT": ""
         },
         "LABELS": {
             "SKILL_HARD": "Hardskill",
@@ -409,9 +410,11 @@
             "CONTACT_GET_IN_TOUCH": "Get In Touch",
             "CONTACT_NOTE": "A Brief Note",
             "FOOTER_BACK_TO_TOP": "Back to top",
+            "THEME_MODE": "Mode",
             "THEME_PAPER": "Paper",
             "THEME_INK": "Ink",
-            "THEME_SWITCH": "Switch between Paper and Ink theme"
+            "THEME_SWITCH": "Switch between Paper and Ink theme",
+            "PLATE_TOGGLE": "Halftone plate"
         }
     }
 ]
