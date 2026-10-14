@@ -1,9 +1,47 @@
 // Memanggil fungsi loadData setelah halaman dimuat, lalu pasang semua rail geser
-loadData().then(initRails);
+// dan daftarkan kartu yang baru dirender ke observer reveal.
+loadData().then(() => {
+  initRails();
+  window.refreshReveal?.();
+});
 
-document.querySelector('.hamburger').addEventListener('click', () => {
-  document.querySelector('.nav-links').classList.toggle('show-menu');
-  document.querySelector('.hamburger').classList.toggle('active');
+/* ============================================================
+   Menu mobile — panel Ink yang menyapu turun
+   Satu fungsi `setMenu` yang menyalakan seluruh state (kelas panel,
+   ikon tombol, dan aria-expanded) supaya tidak pernah ada kondisi
+   setengah terbuka. Panel bisa ditutup lewat tombol, Escape, klik di
+   luar, atau setelah memilih salah satu tujuan.
+   ============================================================ */
+const navToggle = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-links');
+
+function setMenu(open) {
+  navMenu.classList.toggle('show-menu', open);
+  navToggle.classList.toggle('active', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+}
+
+const menuOpen = () => navMenu.classList.contains('show-menu');
+
+navToggle.addEventListener('click', () => setMenu(!menuOpen()));
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape' || !menuOpen()) return;
+  setMenu(false);
+  navToggle.focus();
+});
+
+// Klik di luar header menutup panel
+document.addEventListener('click', (event) => {
+  if (!menuOpen()) return;
+  if (navToggle.contains(event.target) || navMenu.contains(event.target)) return;
+  setMenu(false);
+});
+
+// Setelah memilih tujuan, panelnya ditutup lagi
+navMenu.addEventListener('click', (event) => {
+  if (event.target.closest('a')) setMenu(false);
 });
 
 /* ============================================================

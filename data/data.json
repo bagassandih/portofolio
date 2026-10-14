@@ -2,8 +2,17 @@
     {
         "HOME": {
             "DESCRIPTION": "I build scalable, high-performance systems with a focus on extreme optimization. My highlight: refactoring database queries to slash execution time from 5 minutes to 5 seconds (a 98% performance boost). Currently engineering robust backend solutions at Badan Sistem Informasi UII. I thrive on solving complex architectural puzzles and ensuring data integrity across distributed systems.",
-            "IMAGE": "./assets/images/home/asset-1.png",
+            "IMAGE": "./assets/images/home/asset-1.jpeg",
+            "IMAGE_HALFTONE": "./assets/images/home/asset-1-halftone.png",
             "RESUME": "./assets/docs/Bagas Arisandi - Backend Developer.pdf"
+        },
+        "PROFILE": {
+            "NAME": "Bagas Arisandi Hidayat",
+            "NAME_LEAD": "Bagas Arisandi",
+            "NAME_ACCENT": "Hidayat",
+            "ROLE": "Backend Developer / Engineer",
+            "AVAILABILITY": "Open to Opportunities — Yogyakarta, ID",
+            "META_DESCRIPTION": "Personal portfolio of Bagas Arisandi Hidayat — Backend Developer specializing in scalable, high-performance systems with Node.js, Go, PHP (Laravel), and more."
         },
         "EXPERIENCES": [
             {
@@ -349,6 +358,51 @@
                 "TITLE": "GitHub"
             }
         ],
-        "CONTACT_DESCRIPTION": "Please feel free to reach out with any questions or inquiries. Whether providing feedback, discussing a potential collaboration, or simply connecting, all communications are welcome. Contact can be made via email, social media, or through the contact form on this website. Looking forward to connecting."
+        "CONTACT_DESCRIPTION": "Please feel free to reach out with any questions or inquiries. Whether providing feedback, discussing a potential collaboration, or simply connecting, all communications are welcome. Contact can be made via email, social media, or through the contact form on this website. Looking forward to connecting.",
+        "NAV": {
+            "CTA": "Hire Me",
+            "LINKS": [
+                {
+                    "LABEL": "Home",
+                    "TARGET": "home"
+                },
+                {
+                    "LABEL": "Experience",
+                    "TARGET": "experience"
+                },
+                {
+                    "LABEL": "Education",
+                    "TARGET": "education"
+                },
+                {
+                    "LABEL": "Skills",
+                    "TARGET": "skills"
+                },
+                {
+                    "LABEL": "Project",
+                    "TARGET": "project"
+                },
+                {
+                    "LABEL": "Contact",
+                    "TARGET": "contact"
+                }
+            ]
+        },
+        "SECTIONS": {
+            "EXPERIENCE": "Work Experience",
+            "EDUCATION": "Education",
+            "SKILLS": "Skills",
+            "PROJECT": "Selected Works"
+        },
+        "LABELS": {
+            "SKILL_HARD": "Hardskill",
+            "SKILL_OTHER": "Other",
+            "SKILL_SOFT": "Softskill",
+            "HERO_CTA_PRIMARY": "Download Resume",
+            "HERO_CTA_SECONDARY": "Contact Me",
+            "CONTACT_GET_IN_TOUCH": "Get In Touch",
+            "CONTACT_NOTE": "A Brief Note",
+            "FOOTER_BACK_TO_TOP": "Back to top"
+        }
     }
 ]

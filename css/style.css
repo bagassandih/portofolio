@@ -247,6 +247,12 @@ nav {
   color: var(--color-headline-ink);
 }
 
+/* Dua paruh nama yang bertukar gaya: lead roman, "Hidayat" italic.
+   Saat hover keduanya bertukar, jadi kontrasnya berpindah sisi. */
+.hero-name-lead {
+  font-style: normal;
+}
+
 .hero-name em {
   font-style: italic;
 }
@@ -270,19 +276,85 @@ nav {
   margin-top: var(--spacing-32);
 }
 
-/* Halftone plate — square corners (imagery rule), monochrome */
+/* Plate cetak — sudut tajam (aturan imagery: "sharp square corners, no
+   rounded masks"). Supaya sudut tajamnya terbaca sebagai plate yang
+   disengaja dan bukan kotak nyasar, plate dibingkai tanda potong.
+   Catatan: tanda potong tidak tertulis literal di reference.md — ini
+   turunan dari metafora cetak yang jadi inti referensi. */
 .hero-plate {
+  position: relative;
   aspect-ratio: 1 / 1;
+  --plate-mark-gap: 16px; /* jarak tanda potong dari tepi plate */
+  --plate-mark-arm: 12px; /* panjang lengan siku */
+}
+
+/* Tanda potong: 4 siku 1px, digambar dari 8 gradien (2 lengan x 4 sudut)
+   supaya tidak perlu elemen tambahan. Seluruhnya di luar bidang plate. */
+.hero-plate::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--plate-mark-gap) * -1);
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink)),
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink)),
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink)),
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink)),
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink)),
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink)),
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink)),
+    linear-gradient(var(--color-headline-ink), var(--color-headline-ink));
+  background-size:
+    var(--plate-mark-arm) 1px, 1px var(--plate-mark-arm),
+    var(--plate-mark-arm) 1px, 1px var(--plate-mark-arm),
+    var(--plate-mark-arm) 1px, 1px var(--plate-mark-arm),
+    var(--plate-mark-arm) 1px, 1px var(--plate-mark-arm);
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom;
+}
+
+/* Elemen yang benar-benar meng-clip gambar. Dipisah dari .hero-plate supaya
+   tanda potong di ::before-nya boleh keluar bidang (overflow: hidden akan
+   ikut memotongnya kalau disatukan). */
+.hero-plate-inner {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   background: var(--color-hairline);
 }
 
-.hero-plate img {
+/* Dua lapisan bertumpuk di dalam plate: foto asli (keadaan diam) dan
+   halftone (keadaan hover). Keduanya absolut dengan cover yang sama, jadi
+   pertukarannya tidak menggeser bidang sedikit pun. */
+.hero-plate-inner img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(0.25) contrast(1.12);
 }
+
+/* Keadaan diam: foto asli, tanpa filter apa pun. */
+.hero-plate-photo {
+  opacity: 1;
+}
+
+/* Lapisan halftone menunggu tak terlihat sampai plate di-hover. */
+.hero-plate-halftone {
+  opacity: 0;
+}
+
+/* Catatan: layar titik halftone sempat dicoba lewat radial-gradient berulang,
+   lalu dibuang. Pola itu seragam — tidak mengikuti terang-gelap foto —
+   sehingga terbaca sebagai kawat nyamuk, bukan hasil cetak. Halftone yang
+   benar-benar mengikuti tone kini dibakukan ke berkas gambarnya
+   (asset-1-halftone.png), bukan ditumpuk dari CSS. Titik di berkas itu
+   dihitung pada 1632px — habis dibagi 4 dan 2 — supaya penurunannya ke
+   ukuran plat di layar selalu bilangan bulat dan titiknya bebas moiré. */
 
 /* ============================================================
    Tech ticker — full-bleed Ink marquee of wordmarks
@@ -300,6 +372,13 @@ nav {
   align-items: center;
   width: max-content;
   animation: tech-scroll 46s linear infinite;
+  will-change: transform;
+}
+
+/* Saat JS mengambil alih (marquee reaktif), animasi CSS dimatikan
+   supaya tidak berebut dengan transform yang ditulis tiap frame. */
+.tech-ticker-track.is-driven {
+  animation: none;
 }
 
 .tech-item {
@@ -592,11 +671,9 @@ nav {
   padding: 11px;
 }
 
-/* Aset GitHub = cakram putih dengan siluet octocat dibolongkan (dirancang untuk latar
-   gelap). Di-invert agar terbaca sebagai mark gelap di atas chip Paper, sama seperti Contact. */
-.skills-content .logo-github {
-  filter: grayscale(0.25) invert(1);
-}
+/* Aset GitHub kini siluet gelap di atas latar transparan. Override `invert` dihapus:
+   `filter` juga membalik `background` milik elemen ini sendiri, sehingga latar Paper-nya
+   ikut menjadi hitam pekat dan chip-nya tampak blok hitam penuh. */
 
 .skills-content p {
   font-size: var(--text-caption);
@@ -706,11 +783,8 @@ nav {
   filter: grayscale(0.25) contrast(1.05);
 }
 
-/* Aset GitHub = cakram putih dengan siluet octocat dibolongkan (dirancang untuk latar
-   gelap). Di-invert agar terbaca sebagai mark gelap di atas chip Paper. */
-.contact-github {
-  filter: grayscale(0.25) invert(1);
-}
+/* Aset GitHub kini berupa siluet octocat gelap di atas latar transparan, jadi
+   cukup ikut perlakuan `.contact-logo` — tidak perlu invert lagi. */
 
 /* ============================================================
    Footer — coordinate footer on Ink
@@ -824,32 +898,97 @@ nav {
 @media (max-width: 640px) {
   .hamburger {
     display: flex;
+    background: transparent;
+    border: none;
   }
 
+  header {
+    position: relative;
+    z-index: 30;
+  }
+
+  /* Panel Ink full-bleed yang menyapu turun dari header — pass cetak kedua.
+     Kanvasnya dibalik ke Ink supaya jelas ini lapisan tersendiri, bukan teks
+     yang bertabrakan dengan hero di bawahnya. `visibility` dipakai sebagai
+     ganti `display` karena display tidak bisa dianimasikan, dan visibility
+     tetap mengeluarkan menu dari urutan tab saat tertutup. */
   .nav-links {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: var(--spacing-12);
-    background: var(--surface-paper);
+    background: var(--surface-ink);
     padding: var(--spacing-20) var(--gutter);
-    border-bottom: 1px solid var(--color-headline-ink);
-    display: none;
+    border-bottom: 1px solid var(--surface-ink);
+    visibility: hidden;
+    pointer-events: none;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0.38s;
   }
 
   .nav-links.show-menu {
-    display: flex;
+    visibility: visible;
+    pointer-events: auto;
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 0.38s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
   }
 
-  header {
-    position: relative;
+  /* Item menyusul berurutan setelah panelnya terbuka */
+  .nav-links li {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  .nav-links.show-menu li {
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav-links.show-menu li:nth-child(1) {
+    transition-delay: 0.10s;
+  }
+
+  .nav-links.show-menu li:nth-child(2) {
+    transition-delay: 0.145s;
+  }
+
+  .nav-links.show-menu li:nth-child(3) {
+    transition-delay: 0.19s;
+  }
+
+  .nav-links.show-menu li:nth-child(4) {
+    transition-delay: 0.235s;
+  }
+
+  .nav-links.show-menu li:nth-child(5) {
+    transition-delay: 0.28s;
+  }
+
+  .nav-links.show-menu li:nth-child(6) {
+    transition-delay: 0.325s;
+  }
+
+  /* Barisnya berbalik jadi Paper saat disentuh — di perangkat sentuh tidak ada
+     hover, jadi umpan baliknya lewat :active memakai inversi yang sama
+     seperti kartu. */
   .nav-links a {
+    display: block;
     font-size: 16px;
+    color: var(--color-paper);
+    padding: 8px 12px;
+    margin-inline: -12px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:active {
+    background: var(--color-paper);
+    color: var(--surface-ink);
   }
 }
 
@@ -988,5 +1127,291 @@ nav {
 
   .card-container--rail {
     grid-auto-columns: 84%;
+  }
+}
+
+/* ============================================================
+   Interactions & gimmicks
+   Semuanya monokrom: inversi Paper↔Ink, tanda registrasi cetak,
+   dan rule 1px. Tidak ada warna, shadow, glow, atau gradient baru.
+   ============================================================ */
+
+/* ---------- Scroll rule — garis ink di paling atas ---------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 9998;
+  pointer-events: none;
+  /* Blend ditaruh di container, bukan di isinya: container ini membentuk
+     stacking context (fixed + z-index), jadi blend pada anaknya akan
+     terisolasi dan garisnya hilang di atas Paper. */
+  mix-blend-mode: difference;
+}
+
+.scroll-progress__fill {
+  display: block;
+  height: 100%;
+  background: var(--color-paper);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+/* ---------- Kursor ink — tanda registrasi ✛ + bingkai 12px ---------- */
+/* Elemen ini hanya dibuat JS saat pointer presisi & gerak diizinkan. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .cursor-mark,
+  .cursor-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    translate: -50% -50%;
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: transform;
+  }
+
+  .cursor-mark.is-visible,
+  .cursor-frame.is-visible {
+    opacity: 1;
+  }
+
+  /* Salib tajam, tanpa radius — meniru tanda registrasi cetak */
+  .cursor-mark {
+    width: 15px;
+    height: 15px;
+  }
+
+  .cursor-mark::before,
+  .cursor-mark::after {
+    content: "";
+    position: absolute;
+    background: var(--color-paper);
+  }
+
+  .cursor-mark::before {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+  }
+
+  .cursor-mark::after {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .cursor-frame {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Kotak dalam yang membesar — posisi tetap dipegang elemen luar */
+  .cursor-frame__box {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--color-paper);
+    border-radius: var(--radius-card);
+    transition: scale 0.25s ease;
+  }
+
+  .cursor-frame.is-grow .cursor-frame__box {
+    scale: 1.45;
+  }
+}
+
+/* ---------- Inversi Paper↔Ink saat hover ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .card-item:hover,
+  .education-item:hover {
+    background: var(--surface-ink);
+    border-color: var(--surface-ink);
+  }
+
+  .card-item:hover .card-title-company,
+  .card-item:hover .project-body p,
+  .card-item:hover .skills,
+  .education-item:hover h3,
+  .education-item:hover .education-program,
+  .education-item:hover .education-tag {
+    color: var(--color-paper);
+  }
+
+  /* Hierarki sekunder tetap diredupkan, kini terhadap Ink */
+  .card-item:hover .card-period,
+  .education-item:hover .education-period {
+    color: rgba(250, 250, 250, 0.6);
+  }
+
+  .card-item:hover .skills,
+  .education-item:hover .education-tag {
+    border-color: var(--color-midstone);
+  }
+
+  /* Imagery jadi white-on-black, sesuai aturan halftone */
+  .card-item:hover .card-logo,
+  .card-item:hover .project-thumb,
+  .education-item:hover .education-image {
+    filter: grayscale(1) invert(1) contrast(1.05);
+  }
+
+  .rail-btn:hover:not(:disabled),
+  .rail-btn:focus-visible:not(:disabled) {
+    background: var(--surface-ink);
+    border-color: var(--surface-ink);
+    color: var(--color-paper);
+  }
+
+  /* Jangan flip kartu selagi rail sedang digeser */
+  .card-container--rail.is-dragging .card-item {
+    pointer-events: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+  .card-item,
+  .education-item {
+    transition: background-color 0.22s ease, border-color 0.22s ease;
+  }
+
+  .card-item .card-title-company,
+  .card-item .card-period,
+  .card-item .skills,
+  .card-item .project-body p,
+  .card-item .card-logo,
+  .card-item .project-thumb,
+  .education-item h3,
+  .education-item .education-program,
+  .education-item .education-period,
+  .education-item .education-tag,
+  .education-item .education-image {
+    transition: color 0.22s ease, border-color 0.22s ease, filter 0.22s ease;
+  }
+
+  .rail-btn {
+    transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease, opacity 0.15s ease;
+  }
+}
+
+/* ---------- Gimik hero ---------- */
+@media (hover: hover) and (pointer: fine) {
+  /* Aksen bermigrasi: italic pindah dari "Hidayat" ke "Bagas Arisandi".
+     Kedua paruh bertukar serentak, jadi seluruh nama berubah state.
+     letter-spacing menambal selisih lebar antara roman dan italic supaya
+     barisnya tidak terlihat melompat saat bertukar. */
+  .hero-name:hover .hero-name-lead {
+    font-style: italic;
+    letter-spacing: 0.006em;
+  }
+
+  .hero-name:hover em {
+    font-style: normal;
+    letter-spacing: 0.012em;
+  }
+
+  /* Press pass — plate meleset satu pass. Latarnya sengaja KERTAS, bukan
+     Ink: fotonya gelap, jadi tinta di bawah tinta tidak akan terlihat.
+     Dengan kertas, pergeseran 3px menyembulkan tepi terang yang jelas
+     terbaca sebagai cetakan meleset. */
+  .hero-plate:hover .hero-plate-inner {
+    background: var(--surface-paper);
+  }
+
+  /* Ganti plate: foto memudar, halftone masuk. Keduanya meleset 3px
+     serentak, jadi yang terbaca bukan dua gambar bertumpuk melainkan satu
+     plate yang tercetak ulang lalu salah register. */
+  .hero-plate:hover .hero-plate-photo,
+  .hero-plate:hover .hero-plate-halftone {
+    transform: translate(3px, 3px);
+  }
+
+  .hero-plate:hover .hero-plate-photo {
+    opacity: 0;
+  }
+
+  .hero-plate:hover .hero-plate-halftone {
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-name em,
+  .hero-name-lead {
+    transition: letter-spacing 0.4s ease;
+  }
+
+  .hero-plate-inner {
+    transition: background-color 0.45s ease;
+  }
+
+  /* Opacity yang menyilang (foto turun, halftone naik) plus geseran register.
+     Transform-nya sama untuk kedua lapisan supaya tidak ada satu pun yang
+     tertinggal dan terlihat sebagai gambar hantu. */
+  .hero-plate-inner img {
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* ---------- Reveal saat scroll ---------- */
+/* Hanya aktif kalau JS berhasil menyiapkan observer (html.js-reveal),
+   jadi tanpa JS / gerak dimatikan konten tetap tampil penuh. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-reveal .reveal {
+    opacity: 0;
+  }
+
+  /* `opacity: 1` ditulis eksplisit karena fill-mode di bawah `backwards`,
+     bukan `both`. Dengan `both`, nilai akhir keyframe ditahan selamanya dan
+     Chrome menormalkan `transform: none` jadi matriks identitas — transform
+     itu membentuk stacking context permanen, sehingga elemen yang sudah
+     tampil ikut naik ke lapisan positioned dan menimpa panel menu mobile.
+     `backwards` menahan status `from` selama delay, lalu melepas semuanya
+     setelah animasi selesai, jadi tidak ada transform yang tertinggal. */
+  html.js-reveal .reveal.is-visible {
+    opacity: 1;
+    animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
+  }
+
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- Hormati preferensi gerak ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .tech-ticker-track {
+    animation: none;
+  }
+
+  /* Panel mobile tetap terbuka/tutup, hanya gerakannya yang dimatikan */
+  .nav-links,
+  .nav-links.show-menu,
+  .nav-links li,
+  .nav-links.show-menu li,
+  .hero-plate-inner,
+  .hero-plate-inner img {
+    transition: none;
   }
 }

@@ -15,6 +15,18 @@ async function loadData() {
     const responseJson = await response.json();
     const jsonData = responseJson[0];
 
+    // PROFILE — identitas, judul halaman, dan masthead
+    profileSection(jsonData);
+
+    // NAVIGASI — tautan menu dan tombol CTA
+    navSection(jsonData);
+
+    // SECTION TITLES
+    sectionsSection(jsonData);
+
+    // LABELS — teks UI yang berdiri sendiri
+    labelsSection(jsonData);
+
     // HOME SECTION
     homeSection(jsonData);
 
@@ -73,6 +85,109 @@ function homeSection(data) {
   }
 }
 
+// Setel teks sebuah elemen lewat id. Elemen atau nilai yang kosong dilewati
+// diam-diam supaya satu field yang belum ada di data.json tidak mematikan
+// seluruh halaman.
+function setText(id, text) {
+  const element = document.getElementById(id);
+  if (element && text != null) element.textContent = text;
+}
+
+function profileSection(data) {
+  try {
+    const profile = data?.PROFILE;
+    if (!profile) throw new Error("Data PROFILE tidak ditemukan");
+
+    // Judul tab dan meta description ikut data, bukan ditulis di index.html
+    document.title = `${profile.NAME} — ${profile.ROLE}`;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.setAttribute("content", profile.META_DESCRIPTION || "");
+
+    // Banner pengumuman paling atas
+    const banner = document.getElementById("ticker_banner");
+    if (banner) {
+      banner.innerHTML = `<span>${profile.ROLE}</span><span>${profile.AVAILABILITY}</span>`;
+    }
+
+    setText("nav_title", profile.NAME);
+    setText("hero_eyebrow", profile.ROLE);
+
+    // Nama hero dipecah dua bagian: lead (roman) dan accent (italic) yang
+    // saling bertukar gaya saat di-hover. Pecahannya ditentukan di data.json
+    // supaya bukan hasil tebakan "kata terakhir".
+    const heroName = document.getElementById("hero_name");
+    if (heroName) {
+      heroName.innerHTML =
+        `<span class="hero-name-lead">${profile.NAME_LEAD}</span><br><em>${profile.NAME_ACCENT}</em>`;
+    }
+
+    // Foto hero: HOME.IMAGE untuk keadaan diam (foto asli, tanpa filter) dan
+    // HOME.IMAGE_HALFTONE untuk keadaan hover. Alt hanya di lapisan foto —
+    // lapisan halftone hiasan belaka, jadi aria-hidden di index.html.
+    const heroPhoto = document.querySelector(".hero-plate-photo");
+    if (heroPhoto) {
+      if (data?.HOME?.IMAGE) heroPhoto.src = data.HOME.IMAGE;
+      heroPhoto.alt = `Foto ${profile.NAME}`;
+    }
+
+    const heroHalftone = document.querySelector(".hero-plate-halftone");
+    if (heroHalftone && data?.HOME?.IMAGE_HALFTONE) {
+      heroHalftone.src = data.HOME.IMAGE_HALFTONE;
+    }
+  } catch (error) {
+    console.error("Gagal mengambil data PROFILE:", error);
+  }
+}
+
+function navSection(data) {
+  try {
+    const nav = data?.NAV;
+    if (!nav) throw new Error("Data NAV tidak ditemukan");
+
+    const list = document.getElementById("nav_links");
+    if (list) {
+      list.innerHTML = (nav.LINKS || [])
+        .map((link) => `<li><a href="#" onclick="scrollElement('${link.TARGET}')">${link.LABEL}</a></li>`)
+        .join("");
+    }
+
+    setText("nav_cta", nav.CTA);
+  } catch (error) {
+    console.error("Gagal mengambil data NAV:", error);
+  }
+}
+
+function sectionsSection(data) {
+  try {
+    const sections = data?.SECTIONS || {};
+    setText("section_title_experience", sections.EXPERIENCE);
+    setText("section_title_education", sections.EDUCATION);
+    setText("section_title_skills", sections.SKILLS);
+    setText("section_title_project", sections.PROJECT);
+  } catch (error) {
+    console.error("Gagal mengambil data SECTIONS:", error);
+  }
+}
+
+function labelsSection(data) {
+  try {
+    const labels = data?.LABELS || {};
+    setText("label_skill_hard", labels.SKILL_HARD);
+    setText("label_skill_other", labels.SKILL_OTHER);
+    setText("label_skill_soft", labels.SKILL_SOFT);
+    // Tombol resume memakai id "download-btn" karena listener-nya dipasang
+    // homeSection(); teksnya tetap datang dari LABELS.
+    setText("download-btn", labels.HERO_CTA_PRIMARY);
+    setText("hero_cta_secondary", labels.HERO_CTA_SECONDARY);
+    setText("contact_get_in_touch", labels.CONTACT_GET_IN_TOUCH);
+    setText("contact_note", labels.CONTACT_NOTE);
+    setText("footer_back_to_top", labels.FOOTER_BACK_TO_TOP);
+    setText("footer_copyright", `© ${new Date().getFullYear()} ${data?.PROFILE?.NAME || ""}`);
+  } catch (error) {
+    console.error("Gagal mengambil data LABELS:", error);
+  }
+}
+
 function tickerSection(data) {
   try {
     const track = document.getElementById("tech_ticker_track");
@@ -128,7 +243,7 @@ function experienceSection(data) {
           .join("");
 
         return `
-        <div class="experience-group" data-group="${slugify(group.TITLE)}">
+        <div class="experience-group reveal" data-group="${slugify(group.TITLE)}">
           <div class="experience-group-head">
             <h3 class="experience-group-title">${group.TITLE}</h3>
             <div class="rail-nav" data-rail-nav-for="${trackId}">
@@ -160,7 +275,7 @@ function educationSection(data) {
         : "";
 
       eduElement.innerHTML += `
-           <div class="education-item">
+           <div class="education-item reveal">
             ${educationImage}
             <h3>${education.COMPANY}</h3>
             <p class="education-program">${education.TITLE}</p>
