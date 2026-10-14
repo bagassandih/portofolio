@@ -1,5 +1,5 @@
-// Ubah judul menjadi slug agar tiap logo bisa ditarget dari CSS
-// contoh: "Claude Code (Vibe Code)" -> "claude-code-vibe-code"
+// Ubah judul menjadi slug, dipakai untuk id rail pengalaman supaya tiap grup
+// punya nama yang stabil. contoh: "Contract / Professional" -> "contract-professional"
 function slugify(text) {
   return String(text)
     .toLowerCase()
@@ -130,9 +130,15 @@ function profileSection(data) {
       heroPhoto.alt = `Foto ${profile.NAME}`;
     }
 
+    // Dua versi halftone, satu per tema: titik Ink di atas Paper untuk tema
+    // terang, dan versi terbaliknya untuk tema gelap. Keduanya hanya dititipkan
+    // di data-src-* di sini; yang memilih dan memasangnya ke src adalah
+    // js/theme.js, karena hanya ia yang tahu tema mana yang sedang berlaku.
     const heroHalftone = document.querySelector(".hero-plate-halftone");
-    if (heroHalftone && data?.HOME?.IMAGE_HALFTONE) {
-      heroHalftone.src = data.HOME.IMAGE_HALFTONE;
+    if (heroHalftone) {
+      heroHalftone.dataset.srcLight = data?.HOME?.IMAGE_HALFTONE || "";
+      heroHalftone.dataset.srcDark = data?.HOME?.IMAGE_HALFTONE_INK || "";
+      document.dispatchEvent(new Event("theme:assets"));
     }
   } catch (error) {
     console.error("Gagal mengambil data PROFILE:", error);
@@ -182,6 +188,15 @@ function labelsSection(data) {
     setText("contact_get_in_touch", labels.CONTACT_GET_IN_TOUCH);
     setText("contact_note", labels.CONTACT_NOTE);
     setText("footer_back_to_top", labels.FOOTER_BACK_TO_TOP);
+
+    // Sakelar tema — dua kata yang terlihat, satu label untuk pembaca layar
+    // (keadaan aktifnya diumumkan lewat aria-pressed di js/theme.js).
+    setText("nav_theme_paper", labels.THEME_PAPER);
+    setText("nav_theme_ink", labels.THEME_INK);
+    const themeButton = document.getElementById("nav_theme");
+    if (themeButton && labels.THEME_SWITCH) {
+      themeButton.setAttribute("aria-label", labels.THEME_SWITCH);
+    }
     setText("footer_copyright", `© ${new Date().getFullYear()} ${data?.PROFILE?.NAME || ""}`);
   } catch (error) {
     console.error("Gagal mengambil data LABELS:", error);
@@ -227,7 +242,7 @@ function experienceSection(data) {
             return `
           <div class="card-item">
             <div class="card-title">
-              <img class="card-logo logo-${slugify(experience.COMPANY)}" src="${experience.IMAGE}" alt="Logo ${experience.COMPANY}">
+              <img class="card-logo${experience.SOLID_BG ? " logo--tile" : ""}" src="${experience.IMAGE}" alt="Logo ${experience.COMPANY}">
               <div class="card-heading">
                 <h3 class="card-title-company">${experience.COMPANY}</h3>
                 <span class="card-period">${experience.PERIOD}</span>
@@ -243,7 +258,7 @@ function experienceSection(data) {
           .join("");
 
         return `
-        <div class="experience-group reveal" data-group="${slugify(group.TITLE)}">
+        <div class="experience-group reveal">
           <div class="experience-group-head">
             <h3 class="experience-group-title">${group.TITLE}</h3>
             <div class="rail-nav" data-rail-nav-for="${trackId}">
@@ -271,7 +286,7 @@ function educationSection(data) {
     const eduElement = document.getElementById("education_list");
     data.EDUCATIONS.forEach((education) => {
       const educationImage = education.IMAGE
-        ? `<img class="education-image logo-${slugify(education.COMPANY)}" src="${education.IMAGE}" alt="Logo ${education.COMPANY}">`
+        ? `<img class="education-image" src="${education.IMAGE}" alt="Logo ${education.COMPANY}">`
         : "";
 
       eduElement.innerHTML += `
@@ -299,7 +314,9 @@ function hardSkillSection(data) {
     data.HARDSKILLS.forEach((hardSkill) => {
       hardSkillElement.innerHTML += `
            <div>
-            <img class="logo logo-${slugify(hardSkill.TITLE)}" src="${hardSkill.IMAGE}" alt="${hardSkill.TITLE}">
+            <span class="logo-chip">
+              <img class="logo${hardSkill.SILHOUETTE ? " logo--silhouette" : ""}" src="${hardSkill.IMAGE}" alt="${hardSkill.TITLE}">
+            </span>
             <p>${hardSkill.TITLE}</p>
           </div>
           `;
@@ -334,7 +351,9 @@ function otherSkillSection(data) {
     data.OTHERSKILLS.forEach((otherSkill) => {
       otherElement.innerHTML += `
            <div>
-            <img class="logo logo-${slugify(otherSkill.TITLE)}" src="${otherSkill.IMAGE}" alt="${otherSkill.TITLE}">
+            <span class="logo-chip">
+              <img class="logo${otherSkill.SILHOUETTE ? " logo--silhouette" : ""}" src="${otherSkill.IMAGE}" alt="${otherSkill.TITLE}">
+            </span>
             <p>${otherSkill.TITLE}</p>
           </div>
           `;
@@ -378,7 +397,7 @@ function contactSection(data) {
 
     const contactElement = document.getElementById("contact_list");
     data.CONTACTS.forEach((contact) => {
-      const logo = `<img class="contact-logo contact-${slugify(contact.TITLE)}" src="${contact.IMAGE}" alt="${contact.TITLE}">`;
+      const logo = `<img class="contact-logo${contact.SILHOUETTE ? " logo--silhouette" : ""}" src="${contact.IMAGE}" alt="${contact.TITLE}">`;
 
       if (contact.TITLE === "Gmail") {
         contactElement.innerHTML += `

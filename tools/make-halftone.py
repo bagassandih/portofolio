@@ -23,6 +23,14 @@ CARA PAKAI
     --tone    auto|gentle|raw   (default: auto)
     --pitch   ukuran titik      (default: 16)
     --size    resolusi keluaran (default: 1632)
+    --invert  balik tintanya    (default: tidak)
+
+  KAPAN PAKAI --invert
+    Situs punya dua tema, jadi tiap foto butuh DUA berkas halftone:
+      tanpa --invert → titik Ink di atas Paper, untuk tema terang (Paper)
+      dengan --invert → titik Paper di atas Ink, untuk tema gelap (Ink)
+    Keduanya memakai matriks ambang yang sama, jadi titiknya tumbuh di
+    tempat yang persis sama — yang bertukar hanya tintanya.
 
   Arti pilihan --tone:
     auto   — bayangan dibuka penuh; wajah paling terbaca (default)
@@ -102,8 +110,17 @@ def tone_map(gray, kind):
     raise ValueError(f"--tone tidak dikenal: {kind}")
 
 
-def halftone(gray_arr, pitch):
-    """Ubah array keabuan menjadi gambar dua tinta bertitik."""
+def halftone(gray_arr, pitch, invert=False):
+    """Ubah array keabuan menjadi gambar dua tinta bertitik.
+
+    invert=False → titik Ink di atas Paper (dipakai tema terang)
+    invert=True  → titik Paper di atas plat Ink (dipakai tema gelap)
+
+    Keduanya memakai matriks ambang yang sama, jadi hasilnya bukan sekadar
+    negatif foto: titiknya tumbuh di tempat yang persis sama, hanya tintanya
+    yang bertukar. Plat gelap karena itu terbaca sebagai pasangan cetak dari
+    plat terang, bukan gambar lain.
+    """
     ambang = clustered_matrix(pitch) * (256.0 / (pitch * pitch))
     tinggi, lebar = gray_arr.shape
     peta = np.tile(
@@ -112,9 +129,10 @@ def halftone(gray_arr, pitch):
     )
     bertinta = gray_arr <= peta
 
+    latar, tinta = (INK, PAPER) if invert else (PAPER, INK)
     rgb = np.empty((tinggi, lebar, 3), dtype=np.uint8)
-    rgb[:] = PAPER
-    rgb[bertinta] = INK
+    rgb[:] = latar
+    rgb[bertinta] = tinta
     return Image.fromarray(rgb, "RGB")
 
 
@@ -128,6 +146,11 @@ def main():
     p.add_argument("--tone", default="auto", choices=["auto", "gentle", "raw"])
     p.add_argument("--pitch", type=int, default=16)
     p.add_argument("--size", type=int, default=1632)
+    p.add_argument(
+        "--invert",
+        action="store_true",
+        help="titik Paper di atas plat Ink — berkas untuk tema gelap",
+    )
     args = p.parse_args()
 
     if args.size % args.pitch != 0:
@@ -157,11 +180,13 @@ def main():
         ImageFilter.GaussianBlur(args.pitch * 0.45)
     )
 
-    hasil = halftone(np.asarray(halus, dtype=np.float64), args.pitch)
+    hasil = halftone(np.asarray(halus, dtype=np.float64), args.pitch, args.invert)
     tujuan.parent.mkdir(parents=True, exist_ok=True)
     hasil.save(tujuan, optimize=True)
 
-    tinta = (np.asarray(hasil.convert("L")) < 128).mean() * 100
+    # Bagian gelap diukur dari hasil jadinya, bukan dari mode tinta: pada
+    # --invert yang gelap adalah latarnya, jadi angkanya wajar berbeda jauh.
+    gelap = (np.asarray(hasil.convert("L")) < 128).mean() * 100
     # Ditampilkan relatif terhadap root repo bila memungkinkan; kalau
     # hasilnya disimpan di luar repo, tampilkan path lengkapnya saja.
     try:
@@ -171,11 +196,12 @@ def main():
     print(f"Selesai: {label}")
     print(
         f"  {args.size}x{args.size}px · titik {args.pitch}px · "
-        f"tone '{args.tone}' · cakupan tinta {tinta:.1f}% "
-        f"({tujuan.stat().st_size // 1024} KB)"
+        f"tone '{args.tone}' · {'terbalik' if args.invert else 'normal'} · "
+        f"bidang gelap {gelap:.1f}% ({tujuan.stat().st_size // 1024} KB)"
     )
     print("\nJangan lupa: kalau nama berkasnya berubah, perbarui juga")
-    print("HOME.IMAGE_HALFTONE di data/data.json.")
+    print("HOME.IMAGE_HALFTONE (dan HOME.IMAGE_HALFTONE_INK untuk versi")
+    print("--invert) di data/data.json.")
 
 
 if __name__ == "__main__":

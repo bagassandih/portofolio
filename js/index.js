@@ -101,14 +101,22 @@ function initRails() {
       moved = false;
       startX = event.clientX;
       startScroll = track.scrollLeft;
-      track.classList.add('is-dragging');
-      track.setPointerCapture(event.pointerId);
     });
 
     track.addEventListener('pointermove', (event) => {
       if (!dragging) return;
       const delta = event.clientX - startX;
-      if (Math.abs(delta) > 4) moved = true;
+      if (Math.abs(delta) > 4) {
+        // Baru anggap sebagai drag setelah benar-benar bergeser. Kelas
+        // is-dragging (memadamkan pointer-events kartu) dan penangkapan
+        // pointer dipasang di sini — kalau dipasang di pointerdown, klik
+        // biasa pada kartu ikut "dibajak" ke rail dan tautannya batal.
+        if (!moved) {
+          moved = true;
+          track.classList.add('is-dragging');
+          track.setPointerCapture(event.pointerId);
+        }
+      }
       track.scrollLeft = startScroll - delta;
     });
 

@@ -4,6 +4,7 @@
             "DESCRIPTION": "I build scalable, high-performance systems with a focus on extreme optimization. My highlight: refactoring database queries to slash execution time from 5 minutes to 5 seconds (a 98% performance boost). Currently engineering robust backend solutions at Badan Sistem Informasi UII. I thrive on solving complex architectural puzzles and ensuring data integrity across distributed systems.",
             "IMAGE": "./assets/images/home/asset-1.jpeg",
             "IMAGE_HALFTONE": "./assets/images/home/asset-1-halftone.png",
+            "IMAGE_HALFTONE_INK": "./assets/images/home/asset-1-halftone-ink.png",
             "RESUME": "./assets/docs/Bagas Arisandi - Backend Developer.pdf"
         },
         "PROFILE": {
@@ -89,6 +90,7 @@
                         "COMPANY": "Kuitansiku.id",
                         "PERIOD": "January 2024 - February 2024",
                         "IMAGE": "./assets/images/experiences/asset-17.jpg",
+                        "SOLID_BG": true,
                         "SKILL": [
                             "Node.js",
                             "Express.js",
@@ -134,7 +136,8 @@
             },
             {
                 "IMAGE": "./assets/images/hardskills/asset-2.png",
-                "TITLE": "Express.js"
+                "TITLE": "Express.js",
+                "SILHOUETTE": true
             },
             {
                 "IMAGE": "./assets/images/hardskills/asset-3.png",
@@ -158,7 +161,8 @@
             },
             {
                 "IMAGE": "./assets/images/contacts/asset-5.png",
-                "TITLE": "GitHub"
+                "TITLE": "GitHub",
+                "SILHOUETTE": true
             },
             {
                 "IMAGE": "./assets/images/hardskills/asset-8.png",
@@ -170,7 +174,8 @@
             },
             {
                 "IMAGE": "./assets/images/hardskills/asset-10.png",
-                "TITLE": "Kafka"
+                "TITLE": "Kafka",
+                "SILHOUETTE": true
             }
         ],
         "OTHERSKILLS": [
@@ -355,7 +360,8 @@
             {
                 "LINK": "github.com/bagassandih",
                 "IMAGE": "./assets/images/contacts/asset-5.png",
-                "TITLE": "GitHub"
+                "TITLE": "GitHub",
+                "SILHOUETTE": true
             }
         ],
         "CONTACT_DESCRIPTION": "Please feel free to reach out with any questions or inquiries. Whether providing feedback, discussing a potential collaboration, or simply connecting, all communications are welcome. Contact can be made via email, social media, or through the contact form on this website. Looking forward to connecting.",
@@ -402,7 +408,10 @@
             "HERO_CTA_SECONDARY": "Contact Me",
             "CONTACT_GET_IN_TOUCH": "Get In Touch",
             "CONTACT_NOTE": "A Brief Note",
-            "FOOTER_BACK_TO_TOP": "Back to top"
+            "FOOTER_BACK_TO_TOP": "Back to top",
+            "THEME_PAPER": "Paper",
+            "THEME_INK": "Ink",
+            "THEME_SWITCH": "Switch between Paper and Ink theme"
         }
     }
 ]

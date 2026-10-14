@@ -17,9 +17,20 @@
   <link rel="manifest" href="./site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 
-  <link rel="stylesheet" href="./css/style.css">
+  <!-- Sambungan ke Google Fonts dihangatkan paling awal, supaya handshake-nya
+       berjalan bersamaan dengan unduhan stylesheet lokal, bukan setelahnya. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="./css/style.css">
+  <!-- Tanpa `defer`, dan sengaja SETELAH stylesheet lokal tapi SEBELUM
+       stylesheet Google Fonts: skrip ini menyetel data-theme sebelum cat
+       pertama, jadi tema Ink yang tersimpan tidak berkedip Paper lebih dulu.
+       Ditaruh setelah fonts.googleapis.com ia justru ikut menunggu font
+       (script menunggu stylesheet yang mendahuluinya) — kedipannya kembali.
+       Lihat js/theme.js. -->
+  <script src="./js/theme.js"></script>
+
   <!-- Inter = Neue Montreal (UI) · Fraunces = Louize Display/Louize (serif)
        Antonio = Manuka (ultra-condensed masthead) -->
   <link
@@ -37,6 +48,13 @@
       <!-- Daftar tautan dirender navSection() dari NAV.LINKS -->
       <ul class="nav-links" id="nav_links"></ul>
       <button class="nav-cta" id="nav_cta" onclick="scrollElement('contact')"></button>
+      <!-- Sakelar tema. Kedua katanya diisi labelsSection() dari LABELS;
+           mana yang bergaris bawah ditentukan CSS dari data-theme di <html>,
+           jadi tidak ada keadaan aktif yang perlu ditulis JS. -->
+      <button type="button" class="nav-theme" id="nav_theme" aria-pressed="false">
+        <span class="nav-theme__opt" data-theme-opt="light" id="nav_theme_paper"></span>
+        <span class="nav-theme__opt" data-theme-opt="dark" id="nav_theme_ink"></span>
+      </button>
       <button type="button" class="hamburger" aria-label="Buka menu" aria-expanded="false"
         aria-controls="nav_links">
         <span class="line"></span>

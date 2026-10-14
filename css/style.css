@@ -6,6 +6,8 @@
    ============================================================ */
 
 :root {
+  color-scheme: light;
+
   /* Colors */
   --color-paper: #fafafa;
   --color-hairline: #eeeeee;
@@ -18,6 +20,18 @@
   /* Surfaces */
   --surface-paper: #fafafa;
   --surface-ink: #2a2722;
+
+  /* Kertas mentah — satu-satunya warna yang TIDAK ikut terbalik saat tema
+     berganti. Dipakai dua hal yang sama-sama butuh "warna yang selalu jauh
+     dari latar", bukan "warna yang ikut berganti":
+       1. sumber blend `difference` (salib kursor, bingkai kursor, garis gulir)
+       2. alas yang menyembul saat plat hero meleset 3px
+     Di tema terang ia menjadi hitam di atas kertas; di tema gelap menjadi
+     terang di atas kanvas — keduanya kontras tinggi, jadi tetap terbaca. */
+  --color-stock: #fafafa;
+
+  /* Teks sekunder di atas panel Ink (dan panel Ink saat di-hover) */
+  --color-paper-dim: rgba(250, 250, 250, 0.6);
 
   /* Fonts (substitutions) */
   --font-neue-montreal: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -55,6 +69,40 @@
   --radius-card: 12px;
   --radius-tag: 12px;
   --radius-button: 12px;
+}
+
+/* ============================================================
+   Tema gelap — cetakan negatif
+   ============================================================
+   Paper dan Ink BERTUKAR PERAN, bukan sekadar digelapkan. Karena seluruh
+   stylesheet memakai token ini sesuai arti harfiahnya — panel selalu
+   `--surface-ink` + `--color-paper`, teks di atas kertas selalu
+   `--color-headline-ink` — membalik nilainya di sini menginversi seluruh
+   halaman sekaligus, tanpa satu pun aturan komponen perlu disentuh.
+
+   Konsekuensinya disengaja: di tema gelap, `--color-paper` berisi warna
+   tinta dan `--color-headline-ink` berisi warna kertas. Namanya jadi
+   terbaca terbalik — itu harga dari diff yang kecil, dan metaforanya
+   memang begitu: yang berubah adalah tinta dan kertasnya, bukan perannya.
+
+   Nada tengah (hairline…sepia) disetel agar rasio kontrasnya terhadap
+   latar SAMA dengan versi terangnya, lalu diberi sedikit kehangatan
+   supaya tidak terbaca kebiruan di atas kanvas hangat. */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-paper: #2a2722;
+  --color-hairline: #2f2e2d;
+  --color-midstone: #656360;
+  --color-ash: #9d9a96;
+  --color-pebble: #555351;
+  --color-sepia: #dad6cf;
+  --color-headline-ink: #fafafa;
+
+  --surface-paper: #2a2722;
+  --surface-ink: #fafafa;
+
+  --color-paper-dim: rgba(42, 39, 34, 0.6);
 }
 
 /* ---------- Reset & base ---------- */
@@ -185,6 +233,60 @@ nav {
 .nav-cta:hover {
   background: var(--color-headline-ink);
   color: var(--color-paper);
+}
+
+/* Sakelar tema — tipografis, tanpa ikon (Henry tidak punya ikonografi).
+   Dua kata, yang aktif bergaris bawah; yang tidak aktif diredupkan.
+   Pola hover-nya sengaja dibalik: yang tersorot justru kata TUJUAN, jadi
+   sebelum menekan pun sudah terbaca akan berpindah ke mana. */
+.nav-theme {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 0;
+  background: transparent;
+  border: none;
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-ash);
+  transition: color 0.15s ease;
+}
+
+/* Garis miring pemisah digambar CSS, bukan ditulis di index.html.
+   Ditempel di akhir kata pertama — bukan di awal kata kedua — supaya
+   garis bawah penanda-aktif tidak pernah ikut mencoret pemisahnya. */
+.nav-theme__opt:not(:last-child)::after {
+  content: "/";
+  margin-left: 6px;
+  font-weight: 400;
+  color: var(--color-pebble);
+}
+
+/* Kata yang mewakili tema aktif: tinta penuh + garis bawah. Ditentukan CSS
+   langsung dari atribut data-theme di <html> — bukan disetel JS — supaya
+   penandanya sudah benar pada cat pertama, tanpa berkedip. */
+:root:not([data-theme="dark"]) .nav-theme__opt[data-theme-opt="light"],
+:root[data-theme="dark"] .nav-theme__opt[data-theme-opt="dark"] {
+  color: var(--color-headline-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+/* Hover justru menyalakan kata TUJUAN, jadi arah perpindahannya sudah
+   terbaca sebelum tombolnya ditekan. */
+:root:not([data-theme="dark"]) .nav-theme:hover .nav-theme__opt[data-theme-opt="dark"],
+:root[data-theme="dark"] .nav-theme:hover .nav-theme__opt[data-theme-opt="light"] {
+  color: var(--color-headline-ink);
+}
+
+.nav-theme:focus-visible {
+  outline: 2px solid var(--color-headline-ink);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 /* Hamburger */
@@ -467,8 +569,9 @@ nav {
   filter: grayscale(0.25) contrast(1.05);
 }
 
-/* Kuitansiku.id = JPEG latar hitam solid → rounded dark tile */
-.logo-kuitansiku-id {
+/* Logo berupa JPEG berlatar solid (tidak transparan) → sudutnya dibulatkan
+   agar menyatu dengan kartu. Ditandai lewat `"SOLID_BG": true` di data.json. */
+.logo--tile {
   border-radius: var(--radius-card);
 }
 
@@ -660,20 +763,38 @@ nav {
   width: 88px;
 }
 
-.skills-content .logo {
+/* Chip logo (wadah) terpisah dari gambar mark-nya, supaya `filter: invert(1)`
+   pada tema Ink hanya membalik mark, bukan chip-nya. Sebelumnya background
+   menempel di <img> sendiri, sehingga `invert` ikut membalik chip jadi blok
+   hitam penuh. */
+.skills-content .logo-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 56px;
   height: 56px;
-  object-fit: contain;
-  filter: grayscale(0.25) contrast(1.05);
+  box-sizing: border-box;
   background: var(--surface-paper);
   border: 1px solid var(--color-midstone);
   border-radius: var(--radius-card);
   padding: 11px;
 }
 
-/* Aset GitHub kini siluet gelap di atas latar transparan. Override `invert` dihapus:
-   `filter` juga membalik `background` milik elemen ini sendiri, sehingga latar Paper-nya
-   ikut menjadi hitam pekat dan chip-nya tampak blok hitam penuh. */
+.skills-content .logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(0.25) contrast(1.05);
+}
+
+/* Mark monokrom GELAP (siluet) yang dirancang sebagai Ink-di-atas-Paper.
+   Ditandai lewat `"SILHOUETTE": true` di data.json (jadi class-nya tetap
+   `.logo--silhouette`, tidak bergantung judul). Saat tema Ink, chip jadi gelap
+   sehingga mark gelap ikut lenyap — dibalik jadi Paper-di-atas-Ink, logika
+   yang sama dengan pasangan halftone hero. */
+[data-theme="dark"] .logo--silhouette {
+  filter: invert(1);
+}
 
 .skills-content p {
   font-size: var(--text-caption);
@@ -723,7 +844,7 @@ nav {
   font-weight: 400;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: rgba(250, 250, 250, 0.6);
+  color: var(--color-paper-dim);
 }
 
 .letter-eyebrow:first-child {
@@ -783,8 +904,9 @@ nav {
   filter: grayscale(0.25) contrast(1.05);
 }
 
-/* Aset GitHub kini berupa siluet octocat gelap di atas latar transparan, jadi
-   cukup ikut perlakuan `.contact-logo` — tidak perlu invert lagi. */
+/* Aset GitHub berupa siluet octocat gelap di atas latar transparan. Di tema
+   terang ia terbaca di atas chip Paper; di tema Ink ia ikut lenyap — karenanya
+   dibalik lewat aturan [data-theme="dark"] .logo--silhouette di atas. */
 
 /* ============================================================
    Footer — coordinate footer on Ink
@@ -863,12 +985,33 @@ nav {
    Responsive
    ============================================================ */
 @media (max-width: 1024px) {
+  /* Tombol CTA menyingkir duluan; sakelar tema tetap tinggal — ia satu-satunya
+     jalan masuk ke tema gelap, jadi tidak boleh ikut disembunyikan. */
   .nav-cta {
     display: none;
   }
 
+  /* Dirapatkan dari 24px ke 12px: sakelar tema memakan ruang yang dulu
+     dipakai tautan, dan 12px masih lega untuk huruf 12px kapital.
+     (Panel menu mobile menimpanya lagi di bawah.) */
   .nav-links {
-    gap: var(--spacing-16);
+    gap: var(--spacing-12);
+  }
+
+  /* Sakelar tema menambah satu butir lagi di baris ini. Supaya barisnya tidak
+     meluber ke gutter kanan, judulnya dibuat lentur: ia yang mengalah lebih
+     dulu dan memotong dengan elipsis kalau perlu. Ini juga yang menjaga
+     barisnya tetap utuh kalau namanya suatu saat diganti jadi lebih panjang
+     di data.json — bukan bergantung pada lebar nama yang sekarang. */
+  nav {
+    gap: var(--spacing-12);
+  }
+
+  .nav-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -900,6 +1043,19 @@ nav {
     display: flex;
     background: transparent;
     border: none;
+  }
+
+  /* Di baris tersempit ini daftar tautannya sudah keluar dari aliran (panel
+     absolut), jadi yang tersisa tinggal judul + sakelar + hamburger. Yang
+     mengalah adalah sakelarnya: hurufnya mengecil, bukan disembunyikan. */
+  .nav-theme {
+    font-size: 11px;
+    letter-spacing: 0;
+    gap: 4px;
+  }
+
+  .nav-theme__opt:not(:last-child)::after {
+    margin-left: 4px;
   }
 
   header {
@@ -1152,7 +1308,10 @@ nav {
 .scroll-progress__fill {
   display: block;
   height: 100%;
-  background: var(--color-paper);
+  /* --color-stock, bukan --color-paper: dengan `difference`, sumber yang
+     ikut terbalik akan menghasilkan |gelap − gelap| ≈ 0 dan garisnya
+     hilang di tema gelap. */
+  background: var(--color-stock);
   transform: scaleX(0);
   transform-origin: 0 50%;
   will-change: transform;
@@ -1190,7 +1349,7 @@ nav {
   .cursor-mark::after {
     content: "";
     position: absolute;
-    background: var(--color-paper);
+    background: var(--color-stock);
   }
 
   .cursor-mark::before {
@@ -1219,7 +1378,7 @@ nav {
     display: block;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--color-paper);
+    border: 1px solid var(--color-stock);
     border-radius: var(--radius-card);
     transition: scale 0.25s ease;
   }
@@ -1249,7 +1408,7 @@ nav {
   /* Hierarki sekunder tetap diredupkan, kini terhadap Ink */
   .card-item:hover .card-period,
   .education-item:hover .education-period {
-    color: rgba(250, 250, 250, 0.6);
+    color: var(--color-paper-dim);
   }
 
   .card-item:hover .skills,
@@ -1319,12 +1478,15 @@ nav {
     letter-spacing: 0.012em;
   }
 
-  /* Press pass — plate meleset satu pass. Latarnya sengaja KERTAS, bukan
-     Ink: fotonya gelap, jadi tinta di bawah tinta tidak akan terlihat.
-     Dengan kertas, pergeseran 3px menyembulkan tepi terang yang jelas
-     terbaca sebagai cetakan meleset. */
+  /* Press pass — plate meleset satu pass. Latarnya sengaja KERTAS MENTAH,
+     bukan Ink: fotonya gelap, jadi tinta di bawah tinta tidak akan
+     terlihat. Dengan kertas, pergeseran 3px menyembulkan tepi terang yang
+     jelas terbaca sebagai cetakan meleset — di kedua tema, karena
+     --color-stock tidak ikut terbalik. (Di tema gelap, lapisan halftone-nya
+     justru titik Paper di atas plat Ink; tepi terang ini yang memisahkan
+     plat dari kanvas yang kini sama-sama gelap.) */
   .hero-plate:hover .hero-plate-inner {
-    background: var(--surface-paper);
+    background: var(--color-stock);
   }
 
   /* Ganti plate: foto memudar, halftone masuk. Keduanya meleset 3px
@@ -1395,10 +1557,35 @@ nav {
   }
 }
 
+/* ---------- Silang-lebur pergantian tema ---------- */
+/* Transisinya dipasang hanya selama tombol tema ditekan (html.is-theming,
+   dilepas 400ms kemudian oleh js/theme.js). Kalau dipasang permanen pada
+   `*`, setiap hover dan reveal ikut membawa transisi warna sendiri dan
+   halaman terasa lamban. */
+@media (prefers-reduced-motion: no-preference) {
+  /* `img` dikecualikan: transition itu properti tunggal, jadi aturan ini akan
+     MENGGANTI transisi opacity+transform milik plat hero selama 400ms —
+     dan pertukaran foto-ke-halftone akan berkedip kalau kebetulan di-hover
+     tepat saat tema berganti. */
+  html.is-theming,
+  html.is-theming *:not(img),
+  html.is-theming *::before,
+  html.is-theming *::after {
+    transition: background-color 0.25s ease, color 0.25s ease,
+      border-color 0.25s ease, fill 0.25s ease !important;
+  }
+}
+
 /* ---------- Hormati preferensi gerak ---------- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* Ganti tema langsung, tanpa silang-lebur */
+  html.is-theming,
+  html.is-theming * {
+    transition: none !important;
   }
 
   .tech-ticker-track {

@@ -28,6 +28,7 @@ Ada satu pengecualian kecil: **foto hero** memakai dua berkas — foto asli dan 
 - 🎨 **"Henry"** — 100% monokrom hangat: kanvas Paper `#fafafa` & panel Ink `#2a2722`, tanpa aksen kromatik, radius 12px saja, flat tanpa shadow, layout full-bleed editorial. Satu-satunya elemen berwarna di halaman adalah **foto hero saat diam** — itu keputusan sadar; begitu di-hover, platnya kembali sepenuhnya dua tinta.
 - ✒️ **Tiga register tipografi** — Inter 400/700 (substitusi Neue Montreal) untuk UI/body, Fraunces (substitusi Louize Display/Louize) untuk headline serif editorial, dan Antonio (substitusi Manuka) untuk masthead ultra-condensed "Selected Works".
 - 🖨️ **Gimik plat cetak** — saat plat hero di-hover, foto memudar dan berganti jadi halftone dua tinta (Ink di atas Paper) sambil meleset 3px, sehingga kertas menyembul di tepinya seperti cetakan yang salah register. Titik halftone-nya membesar-mengecil mengikuti terang-gelap foto, bukan pola seragam. Hanya aktif di perangkat berpenunjuk presisi; di layar sentuh tetap foto saja.
+- 🌗 **Dua tema — Paper & Ink** — sakelar `PAPER / INK` di navigasi membalik seluruh halaman: kertas jadi tinta, tinta jadi kertas. Ini bukan sekadar "mode gelap" — panel Ink yang tadinya gelap berubah jadi terang, dan sebaliknya, persis seperti mencetak negatifnya. Halaman selalu mulai dari Paper; pilihanmu diingat di peramban dan dipasang sebelum halaman tergambar, jadi tidak ada kedipan terang saat dibuka ulang.
 - 🎨 **Transisi halus** — hover effects yang tenang dan smooth-scroll navigation. Semua gerak tunduk pada `prefers-reduced-motion`.
 - 🖼️ **Favicon lengkap** — SVG, PNG, ICO, dan `apple-touch-icon` dengan identitas brand.
 - ♿ **Aksesibel & SEO-friendly** — meta description, `theme-color`, dan semantic HTML.
@@ -63,6 +64,7 @@ portofolio/
 │   └── style.css       # Seluruh styling & responsive design
 ├── js/
 │   ├── loadData.js     # Fetch data.json & render tiap section
+│   ├── theme.js        # Sakelar tema Paper ⇄ Ink + penukar aset halftone
 │   ├── interactions.js # Gimik: kursor ink, reveal, rail proyek, ticker
 │   ├── utilities.js    # Helper: openLink, scroll, toast email
 │   └── index.js        # Init + hamburger menu
@@ -72,10 +74,11 @@ portofolio/
 │   ├── docs/           # Resume (PDF)
 │   └── images/
 │       └── home/
-│           ├── asset-1.jpeg           # Foto hero — keadaan diam
-│           └── asset-1-halftone.png   # Halftone hero — keadaan hover (hasil tools/)
+│           ├── asset-1.jpeg              # Foto hero — keadaan diam
+│           ├── asset-1-halftone.png      # Halftone hover, tema Paper (hasil tools/)
+│           └── asset-1-halftone-ink.png  # Halftone hover, tema Ink (hasil tools/)
 ├── tools/
-│   └── make-halftone.py # Pembuat berkas halftone dari foto hero
+│   └── make-halftone.py # Pembuat kedua berkas halftone dari foto hero
 ├── reference/          # Dokumen acuan desain "Henry" (bukan bagian situs)
 ├── favicon.svg         # Favicon vector (primary)
 ├── favicon.ico         # Favicon multi-size (legacy)
@@ -114,29 +117,44 @@ Alternatif lain: gunakan extension **Live Server** di VS Code.
    - Paper (kanvas/kartu): `#fafafa` · Ink (panel gelap/footer): `#2a2722` · Sepia (teks sekunder): `#3e3b36` · Ash (teks muted): `#666666`
    - Hairline (border kartu): `#eeeeee` · Midstone (border muted): `#9f9f9f`
    - Monokrom penuh — tanpa aksen warna. Radius 12px saja, tanpa shadow. Untuk mengubah warna dasar, cukup ubah variabel di `:root`.
+   - Tema gelap **tidak** ditulis ulang per komponen. Ada satu blok `[data-theme="dark"]` yang membalik nilai tokennya; karena seluruh stylesheet memakai token sesuai arti harfiahnya, halaman ikut terbalik sendiri. Kalau kamu mengubah `:root`, ubah pasangannya di blok itu juga — kalau tidak, tema gelap akan memakai warna lama.
+   - Satu pengecualian kecil: logo **monokrom gelap** (siluet — saat ini GitHub, Express.js, dan Kafka) dibalik dengan `filter: invert(1)` pada tema Ink, supaya tidak lenyap di atas chip yang ikut jadi gelap. Ini **dikendalikan dari data**: beri `"SILHOUETTE": true` pada entri skill/kontak yang logonya siluet gelap, dan `js/loadData.js` otomatis menandainya dengan class `.logo--silhouette`. Jadi kamu tidak perlu menyentuh CSS — cukup atur flag di `data/data.json`.
+   - Logo pengalaman yang berupa **JPEG berlatar solid** (tidak transparan — saat ini Kuitansiku.id) sudutnya dibulatkan lewat class `.logo--tile` supaya menyatu dengan radius kartu. Dikendalikan dari data juga: beri `"SOLID_BG": true` pada entri pengalaman yang logonya berlatar solid.
 4. **Favicon** — ganti `favicon.svg` (vector) lalu regenerate PNG/ICO dari file tersebut bila perlu.
 
 ### Mengganti foto hero
 
-Plat hero memakai **dua** berkas: foto asli untuk keadaan diam, dan versi halftone untuk keadaan hover. Yang kedua bukan salinan — ia harus **dibangkitkan** dari yang pertama.
+Plat hero memakai **tiga** berkas: foto asli untuk keadaan diam, dan **dua** versi halftone untuk keadaan hover — satu per tema. Ketiganya harus berasal dari foto yang sama. Versi halftone bukan salinan — ia harus **dibangkitkan** dari foto aslinya.
 
 1. Taruh foto baru di `assets/images/home/` (misalnya `foto-baru.jpeg`).
-2. Bangkitkan versi halftone-nya:
+2. Bangkitkan **kedua** versi halftone-nya:
    ```bash
    pip install pillow numpy
+
+   # tema Paper — titik Ink di atas kertas
    python3 tools/make-halftone.py \
      --input  assets/images/home/foto-baru.jpeg \
      --output assets/images/home/foto-baru-halftone.png
+
+   # tema Ink — titik Paper di atas plat tinta (foto yang sama, tinta dibalik)
+   python3 tools/make-halftone.py --invert \
+     --input  assets/images/home/foto-baru.jpeg \
+     --output assets/images/home/foto-baru-halftone-ink.png
    ```
-3. Perbarui **kedua** path di `data/data.json`:
+3. Perbarui **ketiga** path di `data/data.json`:
    ```json
    "IMAGE": "./assets/images/home/foto-baru.jpeg",
-   "IMAGE_HALFTONE": "./assets/images/home/foto-baru-halftone.png"
+   "IMAGE_HALFTONE": "./assets/images/home/foto-baru-halftone.png",
+   "IMAGE_HALFTONE_INK": "./assets/images/home/foto-baru-halftone-ink.png"
    ```
 
-> ⚠️ **Kalau langkah 2 dilewati**, keadaan hover akan tetap menampilkan halftone dari foto **lama** — dan itu terjadi tanpa pesan error apa pun. Ini kesalahan yang paling mudah terlewat.
+> ⚠️ **Kalau langkah 2 dilewati**, keadaan hover akan tetap menampilkan halftone dari foto **lama** — dan itu terjadi tanpa pesan error apa pun. Ini kesalahan yang paling mudah terlewat. Lupa salah satu dari dua perintah `--invert` di atas membuat satu tema menampilkan halftone lama, sementara tema lainnya sudah benar.
 
 Ingin mengubah karakter titiknya? `--tone auto|gentle|raw` mengatur seberapa terbuka bayangannya (`auto` paling aman untuk foto gelap), sementara `--pitch` mengatur ukuran titiknya. Skripnya akan menolak kombinasi `--size`/`--pitch` yang tidak pas dan menjelaskan cara memperbaikinya. Jalankan `python3 tools/make-halftone.py --help` untuk daftar lengkap.
+
+### Menambah atau mengubah tema
+
+Kedua kata di sakelar tema (`Paper`, `Ink`) diambil dari `LABELS.THEME_PAPER` dan `LABELS.THEME_INK` di `data/data.json`, jadi teksnya bisa diganti tanpa menyentuh kode. Menambah tema **ketiga** bukan sekadar menambah satu blok CSS — posisi aktif, penyimpanan pilihan, dan penukaran aset halftone semuanya mengasumsikan tepat dua tema. Kalau itu yang kamu butuhkan, `js/theme.js` adalah tempat memulainya.
 
 ## Deployment
 
