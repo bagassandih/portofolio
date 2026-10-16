@@ -166,6 +166,72 @@
       <span class="letter-eyebrow" id="contact_note"></span>
       <p class="letter-body" id="contact_description"></p>
     </div>
+    <!-- Form kirim pesan — selembar "form cetak" di atas band Ink.
+         Kerangka ber-id saja; label, placeholder, dan salinan suksesnya
+         diisi contactFormSection() dari data.json (FORM). -->
+    <div class="contact-block contact-form-block reveal">
+      <span class="letter-eyebrow" id="contact_form_eyebrow"></span>
+      <form class="contact-form" id="contact_form" novalidate>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="contact_name" id="contact_name_label"></label>
+          <div class="contact-form__control">
+            <input class="contact-form__input" type="text" id="contact_name" name="name"
+              autocomplete="name" aria-describedby="contact_name_error">
+            <span class="contact-form__rule" aria-hidden="true"></span>
+          </div>
+          <span class="contact-form__error" id="contact_name_error" role="alert"></span>
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="contact_email" id="contact_email_label"></label>
+          <div class="contact-form__control">
+            <input class="contact-form__input" type="email" id="contact_email" name="email"
+              inputmode="email" autocomplete="email" spellcheck="false"
+              aria-describedby="contact_email_error">
+            <span class="contact-form__rule" aria-hidden="true"></span>
+          </div>
+          <span class="contact-form__error" id="contact_email_error" role="alert"></span>
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="contact_message" id="contact_message_label"></label>
+          <div class="contact-form__control">
+            <textarea class="contact-form__input" id="contact_message" name="message" rows="4"
+              aria-describedby="contact_message_error"></textarea>
+            <span class="contact-form__rule" aria-hidden="true"></span>
+          </div>
+          <span class="contact-form__error" id="contact_message_error" role="alert"></span>
+        </div>
+
+        <input type="text" name="botcheck" class="contact-form__honeypot" tabindex="-1"
+          autocomplete="off" aria-hidden="true">
+
+        <!-- Verifikasi hCaptcha. Kotaknya digambar hcaptcha.com di dalam iframe
+             sendiri — kita hanya menyediakan wadahnya. Label dan pesan
+             salahnya diisi contactFormSection() dari data.json; atribut
+             data-theme dititipkan js/interactions.js supaya kotaknya ikut
+             tema yang sedang berlaku. -->
+        <div class="contact-form__field contact-form__captcha">
+          <span class="contact-form__label" id="contact_captcha_label"></span>
+          <div class="contact-form__control">
+            <div class="h-captcha" id="contact_hcaptcha" data-captcha="true"></div>
+          </div>
+          <span class="contact-form__error" id="contact_captcha_error" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn contact-form__submit" id="contact_submit"></button>
+
+        <span class="contact-form__error" id="contact_form_error" role="alert"></span>
+      </form>
+
+      <div class="contact-form__proof" id="contact_form_proof" hidden>
+        <span class="contact-form__proof-mark" aria-hidden="true"></span>
+        <p class="contact-form__proof-title" id="contact_form_success_title" tabindex="-1"></p>
+        <p class="contact-form__proof-note" id="contact_form_success_note"></p>
+        <button type="button" class="btn contact-form__again" id="contact_form_again"></button>
+      </div>
+    </div>
+
     <span class="letter-eyebrow letter-eyebrow--closing reveal" id="contact_availability"></span>
   </section>
 
@@ -181,6 +247,14 @@
   <script src="./js/utilities.js"></script>
   <script src="./js/interactions.js"></script>
   <script src="./js/index.js"></script>
+  <!-- Pemuat hCaptcha milik Web3Forms: ia menyuntik js.hcaptcha.com, mengisi
+       sitekey bersama milik Web3Forms (paket gratis tidak perlu sitekey
+       sendiri), lalu merender tiap [data-captcha="true"]. Skripnya mencari
+       elemen itu saat ia jalan, jadi letaknya harus setelah wadahnya di atas.
+       `async defer` sesuai anjuran Web3Forms — konsekuensinya ia boleh jalan
+       kapan saja, karena itu js/interactions.js hanya menitipkan data-theme
+       secara best-effort (lihat catatan di sana). -->
+  <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 
 </html>

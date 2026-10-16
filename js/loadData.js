@@ -53,6 +53,9 @@ async function loadData() {
 
     // CONTACT SECTION
     contactSection(jsonData);
+
+    // CONTACT FORM
+    contactFormSection(jsonData);
   } catch (error) {
     console.error("Gagal memuat data JSON:", error);
   }
@@ -439,5 +442,67 @@ function contactSection(data) {
     contactDescription.textContent = data.CONTACT_DESCRIPTION;
   } catch (error) {
     console.error("Gagal mengambil data CONTACTS:", error);
+  }
+}
+
+function contactFormSection(data) {
+  try {
+    const form = data?.FORM;
+    if (!form) return; // FORM belum ada di data.json — jangan mematikan halaman
+
+    setText("contact_form_eyebrow", form.EYEBROW);
+    setText("contact_name_label", form.NAME_LABEL);
+    setText("contact_email_label", form.EMAIL_LABEL);
+    setText("contact_message_label", form.MESSAGE_LABEL);
+    setText("contact_submit", form.SUBMIT);
+    setText("contact_captcha_label", form.CAPTCHA_LABEL);
+    setText("contact_form_success_title", form.SUCCESS_TITLE);
+    setText("contact_form_success_note", form.SUCCESS_NOTE);
+    setText("contact_form_again", form.SUCCESS_AGAIN);
+
+    // Placeholder ikut data.json — pola yang sama dengan teks lain.
+    const setPlaceholder = (id, text) => {
+      const element = document.getElementById(id);
+      if (element) element.placeholder = text || "";
+    };
+    setPlaceholder("contact_name", form.NAME_PLACEHOLDER);
+    setPlaceholder("contact_email", form.EMAIL_PLACEHOLDER);
+    setPlaceholder("contact_message", form.MESSAGE_PLACEHOLDER);
+
+    // Label tombol saat "mencetak" dan label awalnya dititipkan sebagai
+    // data-* supaya interactions.js tidak menulis teks sendiri.
+    const submit = document.getElementById("contact_submit");
+    if (submit) {
+      submit.dataset.label = form.SUBMIT || "";
+      submit.dataset.submitting = form.SUBMITTING || "";
+    }
+
+    // Kunci Web3Forms, subject, dan pesan kegagalan dititipkan ke form.
+    // Kunci Web3Forms publik by design (hanya merutekan pesan ke email yang
+    // terdaftar), jadi aman berada di frontend — beda dari API key Resend
+    // yang wajib server-side.
+    const formElement = document.getElementById("contact_form");
+    if (formElement) {
+      formElement.dataset.accessKey = form.WEB3FORMS_ACCESS_KEY || "";
+      formElement.dataset.subject = form.SUBJECT || "";
+      formElement.dataset.errorSend = form.ERROR_SEND || "";
+      formElement.dataset.errorCaptcha = form.ERROR_CAPTCHA || "";
+    }
+
+    // Pesan validasi dititipkan per field; interactions.js memakainya saat
+    // submit. Semuanya data-driven, bukan teks yang ditulis di skrip.
+    const name = document.getElementById("contact_name");
+    if (name) name.dataset.errorRequired = form.ERROR_REQUIRED || "";
+
+    const email = document.getElementById("contact_email");
+    if (email) {
+      email.dataset.errorRequired = form.ERROR_REQUIRED || "";
+      email.dataset.errorEmail = form.ERROR_EMAIL || "";
+    }
+
+    const message = document.getElementById("contact_message");
+    if (message) message.dataset.errorRequired = form.ERROR_REQUIRED || "";
+  } catch (error) {
+    console.error("Gagal mengambil data FORM:", error);
   }
 }

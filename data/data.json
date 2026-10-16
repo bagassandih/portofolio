@@ -365,6 +365,27 @@
             }
         ],
         "CONTACT_DESCRIPTION": "Please feel free to reach out with any questions or inquiries. Whether providing feedback, discussing a potential collaboration, or simply connecting, all communications are welcome. Contact can be made via email, social media, or through the contact form on this website. Looking forward to connecting.",
+        "FORM": {
+            "EYEBROW": "Send a Message",
+            "NAME_LABEL": "Name",
+            "NAME_PLACEHOLDER": "Your name…",
+            "EMAIL_LABEL": "Email",
+            "EMAIL_PLACEHOLDER": "you@example.com…",
+            "MESSAGE_LABEL": "Message",
+            "MESSAGE_PLACEHOLDER": "Tell me about the project…",
+            "SUBMIT": "Send",
+            "SUBMITTING": "Printing…",
+            "SUCCESS_TITLE": "Received.",
+            "SUCCESS_NOTE": "Thanks for reaching out — I'll get back to you shortly.",
+            "SUCCESS_AGAIN": "Send another",
+            "CAPTCHA_LABEL": "Verification",
+            "WEB3FORMS_ACCESS_KEY": "6a4168f0-19a4-43e9-a501-6f65b76903d0",
+            "SUBJECT": "Pesan baru dari situs portofolio",
+            "ERROR_REQUIRED": "Please fill in this field.",
+            "ERROR_EMAIL": "That doesn't look like an email address.",
+            "ERROR_CAPTCHA": "Please tick the verification box above first.",
+            "ERROR_SEND": "Pesan gagal terkirim. Coba lagi, atau hubungi lewat email."
+        },
         "NAV": {
             "CTA": "Hire Me",
             "LINKS": [

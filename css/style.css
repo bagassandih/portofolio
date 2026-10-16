@@ -1058,6 +1058,347 @@ html.is-theming[data-theme="dark"] .nav-theme__opt[data-theme-opt="dark"] {
    dibalik lewat aturan [data-theme="dark"] .logo--silhouette di atas. */
 
 /* ============================================================
+   Contact form — selembar "form cetak" di atas band Ink
+   ============================================================
+   Di atas surat yang terbalik (Ink), form-nya adalah slip kertas:
+   satu-satunya bidang Paper penuh di band penutup — logika yang sama
+   dengan chip kontak di atasnya. Metaforanya: kamu menulis di kertas,
+   lalu "mencetak"; kirim = pass kedua. Field-nya memakai rule 1px yang
+   terisi tinta saat diisi, dan isian yang salah "salah register" —
+   meleset bolak-balik 3px persis plat hero yang meleset.
+   ============================================================ */
+.contact-form-block {
+  width: 100%;
+  max-width: 40em;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.contact-form-block .letter-eyebrow {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* Form dan proof berbagi satu sel grid supaya keduanya saling menimpa
+   tanpa celah kosong saat bertukar — tinggi sel mengikuti yang lebih
+   tinggi di antara keduanya. */
+.contact-form,
+.contact-form__proof {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.contact-form {
+  position: relative;
+  background: var(--color-paper);
+  color: var(--color-headline-ink);
+  border: 1px solid var(--color-midstone);
+  border-radius: var(--radius-card);
+  padding: clamp(var(--spacing-24), 4vw, var(--spacing-32));
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  text-align: left;
+}
+
+/* Honeypot anti-bot — tak terlihat dan keluar dari urutan tab. */
+.contact-form__honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.contact-form__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form__label {
+  display: block;
+  margin-bottom: var(--spacing-8);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-ash);
+  transition: color 0.15s ease;
+}
+
+.contact-form__field:focus-within .contact-form__label {
+  color: var(--color-headline-ink);
+}
+
+.contact-form__control {
+  position: relative;
+}
+
+.contact-form__input {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: var(--spacing-12) 0;
+  font-family: var(--font-neue-montreal);
+  font-size: var(--text-body);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-headline-ink);
+  resize: vertical;
+}
+
+.contact-form__input::placeholder {
+  color: var(--color-ash);
+}
+
+.contact-form__input:focus-visible {
+  outline: 2px solid var(--color-headline-ink);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Rule 1px di dasar field; ::before-nya adalah tinta yang terisi penuh
+   saat field difokus atau sudah berisi — bahasa yang sama dengan scroll
+   rule di paling atas halaman. */
+.contact-form__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-midstone);
+  pointer-events: none;
+}
+
+.contact-form__rule::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-headline-ink);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.contact-form__field:focus-within .contact-form__rule::before,
+.contact-form__field.is-filled .contact-form__rule::before,
+.contact-form__field.is-invalid .contact-form__rule::before {
+  transform: scaleX(1);
+}
+
+/* Isian salah = salah register: rule sudah penuh tinta, yang membedakan
+   adalah geseran bolak-balik 3px pada field dan pesannya di bawah. */
+.contact-form__error {
+  display: block;
+  margin-top: var(--spacing-8);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-headline-ink);
+}
+
+.contact-form__error:empty {
+  display: none;
+}
+
+.contact-form__submit {
+  align-self: flex-start;
+}
+
+.contact-form__submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---------- Verifikasi hCaptcha ---------- */
+/* Satu-satunya bagian form yang tidak bisa ikut monokrom: kotaknya adalah
+   iframe milik hcaptcha.com, dan isinya tidak menerima CSS dari berkas ini.
+   Yang bisa diatur hanya ruangnya — termasuk tinggi slotnya, supaya form
+   tidak melompat saat widget menyusul beberapa saat setelah halaman tampil.
+   Bloknya tetap .contact-form__field, jadi label, pesan salah, dan geseran
+   "salah register" 3px-nya memakai aturan yang sama dengan field lain. */
+.contact-form__captcha .contact-form__control {
+  display: flex;
+  align-items: flex-start;
+  /* Tinggi slot disesuaikan --captcha-height (78px normal, 144px compact)
+     dari js/interactions.js supaya form tidak melompat saat widget menyusul. */
+  min-height: var(--captcha-height, 78px);
+}
+
+.contact-form__captcha .h-captcha {
+  max-width: 100%;
+}
+
+/* ---------- Proof — lembar hasil cetak setelah kirim ---------- */
+/* Bukti bahwa pesan "tercetak": kertas dengan tanda potong di keempat
+   sudut dan salib registrasi di tengah. Crop mark-nya digambar ulang dari
+   teknik .hero-plate::before; warnanya mengikuti latar proof (--color-paper)
+   supaya selalu terbaca di atas band Ink. */
+.contact-form__proof {
+  position: relative;
+  background: var(--color-paper);
+  color: var(--color-headline-ink);
+  border: 1px solid var(--color-midstone);
+  border-radius: var(--radius-card);
+  padding: clamp(var(--spacing-32), 5vw, var(--spacing-64)) var(--spacing-32);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-16);
+  text-align: center;
+}
+
+.contact-form__proof[hidden] {
+  display: none;
+}
+
+.contact-form__proof::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--color-paper), var(--color-paper)),
+    linear-gradient(var(--color-paper), var(--color-paper)),
+    linear-gradient(var(--color-paper), var(--color-paper)),
+    linear-gradient(var(--color-paper), var(--color-paper)),
+    linear-gradient(var(--color-paper), var(--color-paper)),
+    linear-gradient(var(--color-paper), var(--color-paper)),
+    linear-gradient(var(--color-paper), var(--color-paper)),
+    linear-gradient(var(--color-paper), var(--color-paper));
+  background-size:
+    10px 1px, 1px 10px,
+    10px 1px, 1px 10px,
+    10px 1px, 1px 10px,
+    10px 1px, 1px 10px;
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom;
+}
+
+.contact-form__proof-mark {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-bottom: var(--spacing-8);
+}
+
+.contact-form__proof-mark::before,
+.contact-form__proof-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--color-headline-ink);
+}
+
+.contact-form__proof-mark::before {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.contact-form__proof-mark::after {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.contact-form__proof-title {
+  font-family: var(--font-louize-display);
+  font-weight: 400;
+  font-size: clamp(var(--text-heading), 4vw, 40px);
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--color-headline-ink);
+}
+
+.contact-form__proof-note {
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--color-sepia);
+  max-width: 30em;
+}
+
+/* ---------- Gerak: kirim = pass kedua ---------- */
+/* Keadaan (opacity/pointer-events/display) di luar gerbang supaya form
+   tetap bertukar walau gerak dimatikan; yang digerbangi hanya geraknya. */
+.contact-form.is-sent {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-form__rule::before {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .contact-form {
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Slip meleset 3px lalu duduk di register-nya — sama seperti kata tema
+     saat sakelar dibalik. */
+  .contact-form.is-printing {
+    animation: form-register 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes form-register {
+    from {
+      transform: translateX(3px);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .contact-form.is-sent {
+    transform: translateY(-8px);
+  }
+
+  .contact-form__field.is-invalid .contact-form__control {
+    animation: form-register-shake 0.3s ease;
+  }
+
+  @keyframes form-register-shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+
+    30% {
+      transform: translateX(3px);
+    }
+
+    60% {
+      transform: translateX(-3px);
+    }
+  }
+
+  .contact-form__proof.is-visible {
+    animation: proof-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes proof-in {
+    from {
+      opacity: 0;
+      transform: translateX(3px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/* ============================================================
    Footer — coordinate footer on Ink
    ============================================================ */
 .site-footer {

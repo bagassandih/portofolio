@@ -350,6 +350,240 @@
     }
   }
 
+  /* ----------------------------------------------------------
+     Form kirim pesan — "kirim = pass kedua"
+     Menekan kirim bukan memunculkan spinner, melainkan mencetak:
+     slip form meleset 3px lalu duduk di register-nya (bahasa cetak
+     yang sama dengan sakelar tema), kemudian hasilnya datang sebagai
+     lembar proof bertanda potong. Isian yang salah = salah register:
+     field-nya meleset bolak-balik 3px dan pesannya muncul di bawah.
+
+     Pengiriman lewat Web3Forms: kunci publik yang hanya merutekan pesan
+     ke email terdaftar, jadi aman berada di frontend (beda dari API key
+     Resend yang wajib server-side). Sebelum dicetak, lembarannya harus
+     disahkan dulu: kotak hCaptcha di ujung form — satu-satunya bagian
+     yang bukan milik kita, karena isinya iframe hcaptcha.com.
+     ---------------------------------------------------------- */
+  function initContactForm() {
+    const form = document.getElementById("contact_form");
+    if (!form) return;
+
+    const submit = document.getElementById("contact_submit");
+    const submitError = document.getElementById("contact_form_error");
+    const proof = document.getElementById("contact_form_proof");
+    const proofTitle = document.getElementById("contact_form_success_title");
+    const again = document.getElementById("contact_form_again");
+    const fields = Array.from(form.querySelectorAll(".contact-form__field"));
+
+    const getInput = (field) => field.querySelector(".contact-form__input");
+    const getError = (field) => field.querySelector(".contact-form__error");
+
+    // --- Verifikasi hCaptcha -------------------------------------------
+    // Tokennya disuntik hCaptcha ke dalam form saat widgetnya dirender, di
+    // medan tersembunyi bernama h-captcha-response. Token itu sekali pakai:
+    // tiap percobaan kirim — berhasil maupun gagal — menghabiskannya di
+    // server, jadi kotaknya harus dicentang ulang. Karena itu resetCaptcha()
+    // dipanggil di kedua ujung, bukan hanya saat "kirim lagi".
+    const captchaWidget = form.querySelector(".h-captcha");
+    const captchaField = form.querySelector(".contact-form__captcha");
+    const captchaError = document.getElementById("contact_captcha_error");
+
+    // Tema kotaknya dititipkan sekarang, selagi widgetnya belum lahir: skrip
+    // pemuat Web3Forms di index.html berjalan kapan saja (`async`), tetapi
+    // hCaptcha baru merender setelah dua unduhan berantai — jadi praktis
+    // selalu kalah cepat dari DOMContentLoaded. hCaptcha memanggang tema saat
+    // render dan tidak punya API untuk menggantinya sesudahnya; kalau toh
+    // widgetnya telanjur lahir duluan, ia hanya tampil dengan tema bawaannya
+    // dan tidak ada yang rusak.
+    if (captchaWidget) {
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      captchaWidget.dataset.theme = dark ? "dark" : "light";
+
+      // Di layar sempit kotak bawaannya selebar 303px dan tidak muat di
+      // dalam kartu — di 320px ia malah ikut melebarkan seluruh halaman.
+      // Ukuran compact (164px) muat, dan sama seperti tema di atas ia harus
+      // dititipkan sekarang, sebelum hCaptcha merender. Tinggi slotnya juga
+      // disesuaikan lewat --captcha-height supaya form tidak melompat saat
+      // widget menyusul.
+      const room = captchaWidget.parentElement ? captchaWidget.parentElement.clientWidth : 0;
+      if (room && room < 303) {
+        captchaWidget.dataset.size = "compact";
+        captchaWidget.parentElement.style.setProperty("--captcha-height", "144px");
+      }
+    }
+
+    const captchaToken = () => {
+      const field = form.querySelector('[name="h-captcha-response"]');
+      return field && field.value ? field.value : "";
+    };
+
+    const resetCaptcha = () => {
+      if (captchaField) captchaField.classList.remove("is-invalid");
+      if (captchaError) captchaError.textContent = "";
+      try {
+        // Tanpa argumen: hCaptcha mereset widget pertama — di halaman ini
+        // memang cuma ada satu. Kalau skripnya diblokir (pemblokir iklan,
+        // misalnya) atau belum selesai dimuat, tidak ada yang perlu direset.
+        if (window.hcaptcha) window.hcaptcha.reset();
+      } catch (error) {
+        /* Widget belum siap; kotaknya masih kosong dengan sendirinya. */
+      }
+    };
+
+    // Garis tinta terisi saat field berisi; pesan error hilang saat mengetik.
+    fields.forEach((field) => {
+      const input = getInput(field);
+      if (!input) return;
+      input.addEventListener("input", () => {
+        field.classList.toggle("is-filled", input.value.trim().length > 0);
+        if (field.classList.contains("is-invalid")) {
+          field.classList.remove("is-invalid");
+          const error = getError(field);
+          if (error) error.textContent = "";
+        }
+      });
+    });
+
+    const showError = (field, message) => {
+      // Remove + reflow + add supaya animasi "salah register" bisa diputar ulang.
+      field.classList.remove("is-invalid");
+      void field.offsetWidth;
+      field.classList.add("is-invalid");
+      const error = getError(field);
+      if (error) error.textContent = message || "";
+    };
+
+    const clearErrors = () => {
+      fields.forEach((field) => {
+        field.classList.remove("is-invalid");
+        const error = getError(field);
+        if (error) error.textContent = "";
+      });
+    };
+
+    const validate = () => {
+      clearErrors();
+      let firstInvalid = null;
+      for (const field of fields) {
+        const input = getInput(field);
+        if (!input || input.disabled) continue;
+        const value = input.value.trim();
+        let message = "";
+        if (!value) {
+          message = input.dataset.errorRequired || "";
+        } else if (input.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          message = input.dataset.errorEmail || "";
+        }
+        if (message) {
+          showError(field, message);
+          firstInvalid = firstInvalid || input;
+        }
+      }
+      if (firstInvalid) firstInvalid.focus();
+      return !firstInvalid;
+    };
+
+    const submitMessage = (payload) => {
+      // Web3Forms menerima kunci publik di badan request; kunci itu hanya
+      // merutekan ke email terdaftar, jadi aman di frontend. Kuncinya
+      // dititipkan loadData.js ke form.dataset.accessKey.
+      return fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          access_key: form.dataset.accessKey || "",
+          name: payload.name,
+          email: payload.email,
+          message: payload.message,
+          subject: form.dataset.subject || "",
+          from_name: payload.name,
+          botcheck: payload.botcheck || "",
+          // Nama medannya milik hCaptcha, jadi ditulis apa adanya di sini —
+          // di satu tempat yang memang mengurus bentuk permintaan ke Web3Forms.
+          "h-captcha-response": payload.captcha || "",
+        }),
+      }).then((response) => response.json().then((data) => {
+        if (!response.ok || data.success !== true) {
+          throw new Error(data.message || `Kirim gagal: ${response.status}`);
+        }
+      }));
+    };
+
+    const setSubmitting = (busy) => {
+      if (!submit) return;
+      submit.disabled = busy;
+      if (busy) submit.textContent = submit.dataset.submitting || submit.textContent;
+    };
+
+    const reset = () => {
+      form.classList.remove("is-sent");
+      proof.hidden = true;
+      proof.classList.remove("is-visible");
+      setSubmitting(false);
+      if (submit) submit.textContent = submit.dataset.label || "";
+      if (submitError) submitError.textContent = "";
+      form.reset();
+      fields.forEach((field) => field.classList.remove("is-filled"));
+      resetCaptcha(); // form.reset() tidak menyentuh kotak verifikasi
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      // Bersihkan pesan kegagalan dari percobaan sebelumnya.
+      if (submitError) submitError.textContent = "";
+
+      // Honeypot terisi = bot; diam saja, seolah berhasil.
+      const honeypot = form.querySelector(".contact-form__honeypot");
+      if (honeypot && honeypot.value) return;
+
+      if (!validate()) return;
+
+      // Lembarannya belum disahkan: kotak verifikasi belum dicentang, jadi
+      // tokennya kosong. Ini pun salah register — blok verifikasinya ikut
+      // meleset 3px seperti field yang salah isi.
+      const captcha = captchaToken();
+      if (captchaWidget && !captcha) {
+        showError(captchaField, form.dataset.errorCaptcha || "");
+        return;
+      }
+
+      const payload = {
+        name: form.querySelector("#contact_name").value.trim(),
+        email: form.querySelector("#contact_email").value.trim(),
+        message: form.querySelector("#contact_message").value.trim(),
+        botcheck: honeypot ? honeypot.value : "",
+        captcha: captcha,
+      };
+
+      setSubmitting(true);
+      form.classList.add("is-printing");
+
+      submitMessage(payload)
+        .then(() => {
+          form.classList.remove("is-printing");
+          form.classList.add("is-sent");
+          proof.hidden = false;
+          // Reflow dulu supaya animasi proof-in diputar dari awal.
+          void proof.offsetWidth;
+          proof.classList.add("is-visible");
+          if (proofTitle) proofTitle.focus();
+        })
+        .catch((error) => {
+          console.error("Gagal mengirim pesan:", error);
+          form.classList.remove("is-printing");
+          setSubmitting(false);
+          if (submit) submit.textContent = submit.dataset.label || "";
+          if (submitError) submitError.textContent = form.dataset.errorSend || "";
+          // Token tadi sudah dihabiskan server walau pengirimannya gagal,
+          // jadi kotaknya harus dicentang ulang sebelum mencoba lagi.
+          resetCaptcha();
+        });
+    });
+
+    if (again) again.addEventListener("click", reset);
+  }
+
   function init() {
     const steps = [
       ['kursor', initCursor],
@@ -359,6 +593,7 @@
       // Setelah reveal: initPlatePass menunggu animationend reveal pada plat,
       // jadi observer-nya harus sudah terpasang lebih dulu.
       ['pass plat', initPlatePass],
+      ['form kontak', initContactForm],
     ];
 
     steps.forEach(([label, run]) => {
