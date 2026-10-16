@@ -26,6 +26,10 @@
   // kanvas di kedua tema.
   var CHROME_COLOR = { light: "#fafafa", dark: "#2a2722" };
 
+  // Favicon mengikuti tema seperti theme-color dan halftone: versi terang
+  // (Ink di atas Paper) untuk tema Paper, dan kebalikannya untuk tema Ink.
+  var ICON = { light: "./favicon.svg", dark: "./favicon-ink.svg" };
+
   // Lama silang-lebur di css/style.css (html.is-theming). Dilepas sedikit
   // lebih lambat dari durasi transisinya supaya tidak terpotong di tengah.
   var CROSSFADE_MS = 400;
@@ -53,6 +57,13 @@
   function paintChrome() {
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", CHROME_COLOR[theme]);
+  }
+
+  function paintFavicon() {
+    var link = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+    if (!link) return;
+    var next = ICON[theme];
+    if (next && link.getAttribute("href") !== next) link.setAttribute("href", next);
   }
 
   // Plat hero memakai dua berkas halftone: titik Ink di atas Paper untuk tema
@@ -109,6 +120,7 @@
     }
 
     paintChrome();
+    paintFavicon();
     paintAria();
     paintHalftone();
   }
@@ -123,6 +135,7 @@
     }
 
     paintChrome();
+    paintFavicon();
     paintAria();
     paintHalftone();
   });
