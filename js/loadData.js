@@ -273,7 +273,10 @@ function experienceSection(data) {
               <img class="card-logo${experience.SOLID_BG ? " logo--tile" : ""}" src="${experience.IMAGE}" alt="Logo ${experience.COMPANY}">
               <div class="card-heading">
                 <h3 class="card-title-company">${experience.COMPANY}</h3>
+                ${experience.ROLE ? `<span class="card-role">${experience.ROLE}</span>` : ""}
                 <span class="card-period">${experience.PERIOD}</span>
+                ${experience.DESCRIPTION ? `<span class="card-summary">${experience.DESCRIPTION}</span>` : ""}
+                ${experience.HIGHLIGHT ? `<span class="card-highlight">${experience.HIGHLIGHT}</span>` : ""}
               </div>
             </div>
 

@@ -724,6 +724,39 @@ html.is-theming[data-theme="dark"] .nav-theme__opt[data-theme-opt="dark"] {
   color: var(--color-ash);
 }
 
+/* Sorotan pencapaian — bukti di balik jabatan, bukan cuma daftar skill.
+   Miring serif bernada sepi, sejajar dengan period di atasnya. */
+.card-highlight {
+  display: block;
+  margin-top: var(--spacing-8);
+  font-family: var(--font-louize-display);
+  font-style: italic;
+  font-size: var(--text-body);
+  line-height: 1.4;
+  color: var(--color-sepia);
+}
+
+/* Jabatan — label kecil tegas di bawah nama perusahaan. Ini yang membuat
+   "Backend Engineer" terbaca langsung, bukan cuma tersirat dari chip skill. */
+.card-role {
+  display: block;
+  margin-top: var(--spacing-8);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-headline-ink);
+}
+
+/* Ringkasan peran — satu-dua kalimat dari CV, bukan daftar tag. */
+.card-summary {
+  display: block;
+  margin-top: var(--spacing-12);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--color-sepia);
+}
+
 /* Tag row */
 .card-description {
   display: flex;

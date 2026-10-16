@@ -21,7 +21,10 @@
                 "ITEMS": [
                     {
                         "COMPANY": "Badan Sistem Informasi UII",
+                        "ROLE": "Backend Engineer",
                         "PERIOD": "Oktober 2024 - Present",
+                        "DESCRIPTION": "RESTful APIs, MySQL schema and query optimization, and PHP (Lumen) / Go services for internal and integrated systems.",
+                        "HIGHLIGHT": "Optimized MySQL database queries to cut execution time from 5 minutes to 5 seconds — a 98% improvement.",
                         "IMAGE": "./assets/images/experiences/asset-27.webp",
                         "SKILL": [
                             "PHP",
@@ -37,7 +40,9 @@
                     },
                     {
                         "COMPANY": "ZettaByte Pte. Ltd",
+                        "ROLE": "Backend Developer",
                         "PERIOD": "December 2022 - December 2023",
+                        "DESCRIPTION": "Backend features and services, technical research and prototyping, and mentoring for Bootcamp Batch 4.",
                         "IMAGE": "./assets/images/experiences/asset-18.jpg",
                         "SKILL": [
                             "Node.js",
@@ -59,7 +64,9 @@
                 "ITEMS": [
                     {
                         "COMPANY": "Tembus.in",
+                        "ROLE": "Backend Engineer",
                         "PERIOD": "December 2025 - March 2026",
+                        "DESCRIPTION": "Golang + MySQL for an online tryout platform: question assets, tryout, purchases, forums, and S3-compatible object storage.",
                         "IMAGE": "./assets/images/experiences/asset-36.png",
                         "SKILL": [
                             "Golang",
@@ -72,7 +79,9 @@
                     },
                     {
                         "COMPANY": "ALIF Montessori School",
-                        "PERIOD": "March 2024 - May 2024",
+                        "ROLE": "Fullstack Developer",
+                        "PERIOD": "March 2025 - May 2025",
+                        "DESCRIPTION": "Rebuilt student, teacher, admission, and report modules; manual payment tracking; legacy refactor and query optimization.",
                         "IMAGE": "./assets/images/experiences/asset-35.png",
                         "SKILL": [
                             "PHP",
@@ -88,7 +97,9 @@
                     },
                     {
                         "COMPANY": "Kuitansiku.id",
+                        "ROLE": "Backend Developer",
                         "PERIOD": "January 2024 - February 2024",
+                        "DESCRIPTION": "Node.js REST modules and MySQL / MongoDB schemas; automated CSV data-migration scripts.",
                         "IMAGE": "./assets/images/experiences/asset-17.jpg",
                         "SOLID_BG": true,
                         "SKILL": [
@@ -135,6 +146,14 @@
                 "TITLE": "Node.js"
             },
             {
+                "IMAGE": "./assets/images/hardskills/asset-12.svg",
+                "TITLE": "Golang"
+            },
+            {
+                "IMAGE": "./assets/images/hardskills/asset-13.svg",
+                "TITLE": "PHP"
+            },
+            {
                 "IMAGE": "./assets/images/hardskills/asset-2.png",
                 "TITLE": "Express.js",
                 "SILHOUETTE": true
@@ -171,6 +190,10 @@
             {
                 "IMAGE": "./assets/images/hardskills/asset-9.png",
                 "TITLE": "MySQL"
+            },
+            {
+                "IMAGE": "./assets/images/hardskills/asset-11.webp",
+                "TITLE": "PostgreSQL"
             },
             {
                 "IMAGE": "./assets/images/hardskills/asset-10.png",
@@ -246,7 +269,7 @@
                 "LINK": "github.com/bagassandih/coin-scope",
                 "IMAGE": "./assets/images/projects/asset-35.png",
                 "TITLE": "Coin Scope - Top 5 coins with the highest Weighted Score",
-                "DESCRIPTION": "CoinScope is a data-driven crypto analysis platform that helps you spot coins with high potential based on market momentum, volume, weekly trends, and scoring analysis. It’s designed to filter out the market noise and keep you from making impulsive FOMO buys.",
+                "DESCRIPTION": "Node.js data service that ingests market data from the CoinMarketCap API, computes a weighted score from momentum, volume, and weekly trends, and persists it to PostgreSQL to surface the top-5 coins.",
                 "SKILLS": [
                     "Node.js",
                     "HTML",
@@ -263,7 +286,7 @@
                 "LINK": "github.com/bagassandih/datacraft",
                 "IMAGE": "./assets/images/projects/asset-34.png",
                 "TITLE": "DataCraft - Visual SQL Query Builder",
-                "DESCRIPTION": "This project came about from the daily frustrations developers face when dealing with the complexity of writing manual queries. DataCraft is designed to help developers view, compose, and generate complex queries visually.",
+                "DESCRIPTION": "Visual SQL composer: queries are built, validated, and executed server-side through Knex.js behind a Swagger-documented API, with a Vue.js editor on top.",
                 "SKILLS": [
                     "Node.js",
                     "Vue.js",
@@ -278,7 +301,7 @@
                 "LINK": "sanrize-shop-fe.vercel.app",
                 "IMAGE": "./assets/images/projects/asset-33.png",
                 "TITLE": "Sanrize Shop - Topup Game Online",
-                "DESCRIPTION": "The online game top-ups assisted by the AI-based IDE Firebase Studio, with payments made through the Doku Payment Gateway and resellers accessing Apigamehub.",
+                "DESCRIPTION": "Payment and order backend for a game top-up store: Doku gateway callbacks and order state are handled server-side, with Supabase as the data/auth layer and a Next.js storefront.",
                 "SKILLS": [
                     "Next.js",
                     "TypeScript",
@@ -295,7 +318,7 @@
                 "LINK": "github.com/bagassandih/bank-sampah-management-system",
                 "IMAGE": "./assets/images/projects/asset-19.png",
                 "TITLE": "Bank Sampah Management System",
-                "DESCRIPTION": "MVC-based project facilitates waste bank management, including transaction recording and member management, to help administrators, especially my mother, run operations efficiently and organized.",
+                "DESCRIPTION": "Express + MongoDB backend with JWT authentication for members and admins, recording transactions and member accounts; views are server-rendered with EJS.",
                 "SKILLS": [
                     "Node.js",
                     "Express.js",
@@ -312,7 +335,7 @@
                 "LINK": "github.com/bagassandih/mini-project-zettacamp-restaurant",
                 "IMAGE": "./assets/images/projects/asset-21.png",
                 "TITLE": "Praedulcis - Restaurant API",
-                "DESCRIPTION": "This project was created during an intensive bootcamp from Zettabyte Pte. Ltd. over 3 months as the final project and proof of learning from those 3 months. Created API with techstack based on the company.",
+                "DESCRIPTION": "REST + GraphQL API for a restaurant domain on MongoDB with JWT authentication — the capstone of the Zettabyte backend bootcamp.",
                 "SKILLS": [
                     "Node.js",
                     "Express.js",
@@ -325,7 +348,7 @@
                 "LINK": "github.com/bagassandih/another-chat-room",
                 "IMAGE": "./assets/images/projects/asset-22.png",
                 "TITLE": "Another Chatroom",
-                "DESCRIPTION": "This is a chat room prototype using HTML, CSS, and JavaScript, with a server powered by Node.js, Socket.io, and Express.js for real-time communication. I delved into understanding how sockets could facilitate real-time communication.",
+                "DESCRIPTION": "Realtime chat backend on Express + Socket.io: room membership, message broadcast, and connection lifecycle handled over WebSocket.",
                 "SKILLS": [
                     "Node.js",
                     "Express.js",
