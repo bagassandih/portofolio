@@ -1953,6 +1953,9 @@ html.is-theming[data-theme="dark"] .nav-theme__opt[data-theme-opt="dark"] {
   }
 
   .card-item:hover .card-title-company,
+  .card-item:hover .card-role,
+  .card-item:hover .card-summary,
+  .card-item:hover .card-highlight,
   .card-item:hover .project-body p,
   .card-item:hover .skills,
   .education-item:hover h3,
@@ -2000,6 +2003,9 @@ html.is-theming[data-theme="dark"] .nav-theme__opt[data-theme-opt="dark"] {
   }
 
   .card-item .card-title-company,
+  .card-item .card-role,
+  .card-item .card-summary,
+  .card-item .card-highlight,
   .card-item .card-period,
   .card-item .skills,
   .card-item .project-body p,
